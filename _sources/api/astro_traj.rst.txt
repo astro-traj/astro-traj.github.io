@@ -1,0 +1,19 @@
+astro\_traj package
+===================
+
+Submodules
+----------
+
+.. toctree::
+
+   astro_traj.galaxy
+   astro_traj.sample
+   astro_traj.system
+
+Module contents
+---------------
+
+.. automodule:: astro_traj
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.17.g21ceda9.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/astro_traj-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="astro_traj 0+untagged.17.g21ceda9.dirty documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> astro_traj
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.17.g21ceda9.dirty
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">astro_traj</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/astro_traj.system.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-astro_traj.system"></span><p><cite>system</cite></p>
+<dl class="class">
+<dt id="astro_traj.system.System">
+<em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>Mhe</em>, <em>M2</em>, <em>Mns</em>, <em>Apre</em>, <em>epre</em>, <em>Vkick</em>, <em>gal</em>, <em>R</em>, <em>galphi=-2</em>, <em>galcosth=-2</em>, <em>omega=-2</em>, <em>phi=-2</em>, <em>costh=-2</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.SN" title="astro_traj.system.System.SN"><code class="xref py py-obj docutils literal"><span class="pre">SN</span></code></a>()</td>
+<td>System class</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.check_success" title="astro_traj.system.System.check_success"><code class="xref py py-obj docutils literal"><span class="pre">check_success</span></code></a>(offset[,&nbsp;uncer])</td>
+<td># uncertainty in offset is 0.5 kpc by default</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.doMotion" title="astro_traj.system.System.doMotion"><code class="xref py py-obj docutils literal"><span class="pre">doMotion</span></code></a>([backend,&nbsp;NSTEPS,&nbsp;MAX_STEP,&nbsp;RTOL])</td>
+<td>System class</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.energy_check" title="astro_traj.system.System.energy_check"><code class="xref py py-obj docutils literal"><span class="pre">energy_check</span></code></a>([E_thresh])</td>
+<td>System class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.getVcirc" title="astro_traj.system.System.getVcirc"><code class="xref py py-obj docutils literal"><span class="pre">getVcirc</span></code></a>(X,&nbsp;Y,&nbsp;Z)</td>
+<td>System class</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-obj docutils literal"><span class="pre">setTmerge</span></code></a>()</td>
+<td>System class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-obj docutils literal"><span class="pre">setVxyz_0</span></code></a>([circflag])</td>
+<td>System class</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-obj docutils literal"><span class="pre">setXYZ_0</span></code></a>()</td>
+<td>System class</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.write_data" title="astro_traj.system.System.write_data"><code class="xref py py-obj docutils literal"><span class="pre">write_data</span></code></a>()</td>
+<td># [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="astro_traj.system.System.SN">
+<code class="descname">SN</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.SN" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.check_success">
+<code class="descname">check_success</code><span class="sig-paren">(</span><em>offset</em>, <em>uncer=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.check_success" title="Permalink to this definition">¶</a></dt>
+<dd><p># uncertainty in offset is 0.5 kpc by default
+# assume that the observer is looking down the z-axis (so the offset will be the projection of the binary on the x-y plane)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.doMotion">
+<code class="descname">doMotion</code><span class="sig-paren">(</span><em>backend='dopri5'</em>, <em>NSTEPS=10000000000000.0</em>, <em>MAX_STEP=31557600000000.0</em>, <em>RTOL=1e-11</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.doMotion" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.energy_check">
+<code class="descname">energy_check</code><span class="sig-paren">(</span><em>E_thresh=0.001</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.energy_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.getVcirc">
+<code class="descname">getVcirc</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>Z</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.getVcirc" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.setTmerge">
+<code class="descname">setTmerge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.setTmerge" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.setVxyz_0">
+<code class="descname">setVxyz_0</code><span class="sig-paren">(</span><em>circflag=0</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.setVxyz_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.setXYZ_0">
+<code class="descname">setXYZ_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.setXYZ_0" title="Permalink to this definition">¶</a></dt>
+<dd><p>System class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.write_data">
+<code class="descname">write_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.system.System.write_data" title="Permalink to this definition">¶</a></dt>
+<dd><p># [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]
+# write things in reasonable units (e.g., Msun, kpc, km/s …)</p>
+</dd></dl>
+
+</dd></dl>
+
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0+untagged.17.g21ceda9.dirty',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

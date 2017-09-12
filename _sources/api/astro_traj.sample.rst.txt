@@ -1,0 +1,4 @@
+.. automodule:: astro_traj.sample
+    :members:
+    :undoc-members:
+    :show-inheritance:
