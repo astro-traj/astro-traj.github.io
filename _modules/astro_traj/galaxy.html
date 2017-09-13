@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>astro_traj.galaxy &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/astro_traj-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> astro_traj
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.37.gc425c91
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../command-line/index.html">Running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">astro_traj</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>astro_traj.galaxy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for astro_traj.galaxy</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of gwemlightcurves.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with gwemlightcurves.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;`Galaxy_Models` class which includes children `Miyamaoto_Nagai_Hernquist` and `NFW_Hernquist`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">ode</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">maxwell</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_continuous</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">quad</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Galaxy_Models&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Galaxy_Models"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models">[docs]</a><span class="k">class</span> <span class="nc">Galaxy_Models</span><span class="p">():</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mf">100.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Galaxy class. Masses in Msun, distances in kpc. Immediately converted to SI. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Mspiral</span> <span class="o">=</span> <span class="n">Mspiral</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span> <span class="o">=</span> <span class="n">Mbulge</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">=</span> <span class="n">Mhalo</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">=</span> <span class="n">R_eff</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>                 <span class="c1"># distance at which potential should go to 0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>             <span class="c1"># Use relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rcore</span> <span class="o">=</span> <span class="mf">100.0</span>                            <span class="c1"># Used in Belczynski+2006 halo potential, should be where DM density profile flattens FIXME</span>
+    
+
+
+
+<div class="viewcode-block" id="Galaxy_Models.Miyamaoto_Nagai_Hernquist"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models.Miyamaoto_Nagai_Hernquist">[docs]</a>    <span class="k">def</span> <span class="nf">Miyamaoto_Nagai_Hernquist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Galaxy with Hernquist potential for stellar component and dark matter potential from Miyamaoto &amp; Nagai 1975</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#FIXME: Need to make sure U(r&gt;rcut) is implemented properly. I think it&#39;s right, but I want someone else&#39;s eyes on it</span>
+        <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="n">rcut</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">rcut</span><span class="o">*</span><span class="n">Uhalo</span><span class="p">(</span><span class="n">rcut</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">term1</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="n">term2</span> <span class="o">=</span> <span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span>
+        <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">G</span><span class="o">=</span><span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+
+
+            <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">COORD</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">G</span><span class="o">=</span><span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+
+
+            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+
+            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#gradient of equation 6 in BELCZYNSKI, BULIK, &amp; RUDAK 2002 Apj 571, 394</span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Galaxy class</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">rcore</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="n">term2</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+                <span class="n">term3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">r_i</span><span class="o">*</span><span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="n">rcut</span><span class="p">:</span>
+                    <span class="c1">#print &#39;r&gt;rcut&#39;#gradient of halo potential past cutoff where it goes like 1/r</span>
+                    <span class="n">P</span> <span class="o">=</span> <span class="n">rcut</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span><span class="p">(</span><span class="n">rcut</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="o">-</span><span class="n">P</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mf">1.5</span><span class="p">)</span>
+
+
+                <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="o">+</span><span class="n">term3</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span>
+
+
+            <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#gradient of equation found in Section 2 of Belczynski et al. 2006 Apj 648,1110</span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Galaxy class</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+
+            <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">Vdot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ubulge</span> <span class="o">=</span> <span class="n">Ubulge</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span> <span class="o">=</span> <span class="n">Uhalo</span></div>
+
+
+
+<div class="viewcode-block" id="Galaxy_Models.NFW_Hernquist"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models.NFW_Hernquist">[docs]</a>    <span class="k">def</span> <span class="nf">NFW_Hernquist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Galaxy class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        
+        <span class="c1">#FIXME: Need to make sure U(r&gt;rcut) is implemented properly. I think it&#39;s right, but I want someone else&#39;s eyes on it</span>
+        <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+            <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+
+            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="n">r</span>
+
+            
+        <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">G</span><span class="o">=</span><span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+
+
+            <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">COORD</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Galaxy class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">G</span><span class="o">=</span><span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+
+
+            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+            <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+
+            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#gradient of equation 6 in BELCZYNSKI, BULIK, &amp; RUDAK 2002 Apj 571, 394</span>
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Galaxy class</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+                <span class="n">term2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">+</span><span class="n">r</span><span class="p">))</span>
+
+                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> <span class="c1">#gradient of equation found in Section 2 of Belczynski et al. 2006 Apj 648,1110</span>
+
+                <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                Galaxy class</span>
+<span class="sd">                &quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+
+            <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">Vdot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ubulge</span> <span class="o">=</span> <span class="n">Ubulge</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span> <span class="o">=</span> <span class="n">Uhalo</span></div></div>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0+untagged.37.gc425c91',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

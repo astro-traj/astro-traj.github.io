@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.17.g21ceda9.dirty documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.17.g21ceda9.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.17.g21ceda9.dirty
+                0+untagged.37.gc425c91
               </div>
             
           
@@ -158,51 +158,69 @@
   <span class="target" id="module-astro_traj.sample"></span><p><cite>sample</cite></p>
 <dl class="class">
 <dt id="astro_traj.sample.Sample">
-<em class="property">class </em><code class="descclassname">astro_traj.sample.</code><code class="descname">Sample</code><span class="sig-paren">(</span><em>Mbulge</em>, <em>abulge</em>, <em>Mns</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.sample.Sample" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sample class</p>
-<p class="rubric">Methods</p>
+<em class="property">class </em><code class="descclassname">astro_traj.sample.</code><code class="descname">Sample</code><span class="sig-paren">(</span><em>gal</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample" title="Permalink to this definition">¶</a></dt>
+<dd><p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-obj docutils literal"><span class="pre">sample_Apre</span></code></a>()</td>
-<td># sample SMA uniformly in log</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-obj docutils literal"><span class="pre">sample_Apre</span></code></a>(Amin,&nbsp;Amax[,&nbsp;size])</td>
+<td>samples semi-major axis uniformly</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">sample_Mhe</span></code></a>()</td>
-<td># sample Mhe</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">sample_Mhe</span></code></a>(Mmin[,&nbsp;Mmax,&nbsp;size])</td>
+<td>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-obj docutils literal"><span class="pre">sample_R</span></code></a>()</td>
-<td># sample R</td>
+<td>samples radial distance from galactic center according to specified potential function</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick</span></code></a>(size)</td>
-<td># sample kick velocity from Maxwellian (Hobbs 2005)</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick_maxwellian" title="astro_traj.sample.Sample.sample_Vkick_maxwellian"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick_maxwellian</span></code></a>([scale,&nbsp;size])</td>
+<td>sample kick velocity from Maxwellian (Hobbs 2005)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick_uniform" title="astro_traj.sample.Sample.sample_Vkick_uniform"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick_uniform</span></code></a>([Vmin,&nbsp;Vmax,&nbsp;size])</td>
+<td>sample kick uniformly (Wong 2010)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-obj docutils literal"><span class="pre">sample_masses</span></code></a>(m1,&nbsp;m2,&nbsp;m1_sigma,&nbsp;m2_sigma[,&nbsp;size])</td>
+<td>Samples m1 and m2 from Gaussian distributions.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Apre">
-<code class="descname">sample_Apre</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.sample.Sample.sample_Apre" title="Permalink to this definition">¶</a></dt>
-<dd><p># sample SMA uniformly in log</p>
+<code class="descname">sample_Apre</code><span class="sig-paren">(</span><em>Amin</em>, <em>Amax</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Apre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Apre" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples semi-major axis uniformly</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Mhe">
-<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
-<dd><p># sample Mhe</p>
+<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><em>Mmin</em>, <em>Mmax=8.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_R">
-<code class="descname">sample_R</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.sample.Sample.sample_R" title="Permalink to this definition">¶</a></dt>
-<dd><p># sample R</p>
+<code class="descname">sample_R</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_R"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_R" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples radial distance from galactic center according to specified potential function</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="astro_traj.sample.Sample.sample_Vkick">
-<code class="descname">sample_Vkick</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick" title="Permalink to this definition">¶</a></dt>
-<dd><p># sample kick velocity from Maxwellian (Hobbs 2005)</p>
+<dt id="astro_traj.sample.Sample.sample_Vkick_maxwellian">
+<code class="descname">sample_Vkick_maxwellian</code><span class="sig-paren">(</span><em>scale=265</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick_maxwellian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick_maxwellian" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample kick velocity from Maxwellian (Hobbs 2005)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.sample.Sample.sample_Vkick_uniform">
+<code class="descname">sample_Vkick_uniform</code><span class="sig-paren">(</span><em>Vmin=0.0</em>, <em>Vmax=2500.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick_uniform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick_uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample kick uniformly (Wong 2010)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.sample.Sample.sample_masses">
+<code class="descname">sample_masses</code><span class="sig-paren">(</span><em>m1</em>, <em>m2</em>, <em>m1_sigma</em>, <em>m2_sigma</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Samples m1 and m2 from Gaussian distributions.
+If only m1 and m2 are passed, passes back these values for M2 and Mns.</p>
 </dd></dl>
 
 </dd></dl>
@@ -243,7 +261,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.17.g21ceda9.dirty',
+            VERSION:'0+untagged.37.gc425c91',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

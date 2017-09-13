@@ -1,0 +1,614 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>astro_traj.system &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/astro_traj-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> astro_traj
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.37.gc425c91
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../command-line/index.html">Running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">astro_traj</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>astro_traj.system</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for astro_traj.system</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of gwemlightcurves.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with gwemlightcurves.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;`system`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">ode</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">maxwell</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_continuous</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">quad</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;System&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="System"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System">[docs]</a><span class="k">class</span> <span class="nc">System</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    System class</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">epre</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">gal</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">galphi</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">galcosth</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">omega</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">phi</span><span class="o">=-</span><span class="mi">2</span><span class="p">,</span> <span class="n">costh</span><span class="o">=-</span><span class="mi">2</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        #Masses in Msun, Apre in Rsun, Vkick in km/s, R in kpc</span>
+<span class="sd">        #galphi,galcosth,omega, phi, costh (position, initial velocity, and kick angles) sampled randomly, unless specified (&gt;-1)</span>
+<span class="sd">        #galphi, galcosth correspond to azimuthal and polar angles -- respectively --  in the galactic frame</span>
+<span class="sd">        #phi, costh are defined in comments of SN:</span>
+<span class="sd">        #   theta: angle between preSN He core velocity relative to M2 (i.e. the positive y axis) and the kick velocity</span>
+<span class="sd">        #   phi: angle between Z axis and projection of kick onto X-Z plane</span>
+<span class="sd">        #omega: angle between the galactic velocity corresponding to a circular orbit in the r-z plane and</span>
+<span class="sd">        #the actual galactic velocity preSN corresponding to a circular orbit</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1">#Convert inputs to SI</span>
+        <span class="n">Mhe</span> <span class="o">=</span> <span class="n">Mhe</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
+        <span class="n">M2</span> <span class="o">=</span> <span class="n">M2</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
+        <span class="n">Mns</span> <span class="o">=</span> <span class="n">Mns</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
+        <span class="n">Apre</span> <span class="o">=</span> <span class="n">Apre</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">R_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">Vkick</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">galphi</span><span class="o">&gt;=-</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span> <span class="o">=</span> <span class="n">galphi</span>
+        <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">galcosth</span><span class="o">&gt;=-</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span> <span class="o">=</span> <span class="n">galcosth</span>
+        <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">phi</span><span class="o">&gt;=-</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span>
+        <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">costh</span><span class="o">&gt;=-</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">costh</span> <span class="o">=</span> <span class="n">costh</span>
+        <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">costh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">omega</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="n">omega</span>
+        <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span> <span class="o">=</span> <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">epre</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">gal</span><span class="p">,</span> <span class="n">R</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">gal</span><span class="o">.</span><span class="n">Vdot</span>
+
+<div class="viewcode-block" id="System.SN"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.SN">[docs]</a>    <span class="k">def</span> <span class="nf">SN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Paper reference:</span>
+
+<span class="sd">        Kalogera 1996: http://iopscience.iop.org/article/10.1086/177974/meta</span>
+<span class="sd">            We use Eq 1, 3, 4, and 34: giving Vr, Apost, epost, and (Vsx,Vsy,Vsz) respectively</span>
+<span class="sd">            Also see Fig 1 for coordinate system</span>
+
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">0</span>      <span class="c1"># set standard flag        </span>
+
+        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">costh</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span>
+
+
+        <span class="n">sinth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">costh</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="c1">#Mhe lies on origin moving in direction of positive y axis, M2 on negative X axis, Z completes right-handed coordinate system</span>
+        <span class="c1">#See Fig 1 in Kalogera 1996</span>
+
+        <span class="c1"># theta: angle between preSN He core velocity relative to M2 (i.e. the positive y axis) and the kick velocity</span>
+        <span class="c1"># phi: angle between Z axis and projection of kick onto X-Z plane</span>
+        <span class="n">Vkx</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">sinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+        <span class="n">Vky</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">costh</span>
+        <span class="n">Vkz</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">sinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+
+        <span class="c1">#Eq 1, Kalogera 1996</span>
+        <span class="n">Vr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="p">(</span><span class="n">Mhe</span><span class="o">+</span><span class="n">M2</span><span class="p">)</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span>
+        <span class="n">Mtot</span><span class="o">=</span><span class="n">Mns</span><span class="o">+</span><span class="n">M2</span>
+
+        <span class="c1">#Eqs 3 and 4, Kalogera 1996</span>
+        <span class="n">Apost</span> <span class="o">=</span> <span class="p">((</span><span class="mf">2.0</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span> <span class="o">-</span> <span class="p">(((</span><span class="n">Vkick</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Vr</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Vky</span><span class="o">*</span><span class="n">Vr</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">Mtot</span><span class="p">)))</span><span class="o">**-</span><span class="mi">1</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="n">Vkz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Vky</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Vr</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Vky</span><span class="o">*</span><span class="n">Vr</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Apre</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">Mtot</span><span class="o">*</span><span class="n">Apost</span><span class="p">)</span>
+        <span class="n">epost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1">#CHECK###CHECK###CHECK### Eq 34, Kalogera 1996</span>
+        <span class="n">VSx</span> <span class="o">=</span> <span class="n">Mns</span><span class="o">*</span><span class="n">Vkx</span><span class="o">/</span><span class="n">Mtot</span>
+        <span class="n">VSy</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">Mtot</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Mns</span><span class="o">*</span><span class="n">Vky</span><span class="p">)</span><span class="o">-</span><span class="p">((</span><span class="n">Mhe</span><span class="o">-</span><span class="n">Mns</span><span class="p">)</span><span class="o">*</span><span class="n">M2</span><span class="o">*</span><span class="n">Vr</span><span class="o">/</span><span class="p">(</span><span class="n">Mhe</span><span class="o">+</span><span class="n">M2</span><span class="p">)))</span>
+        <span class="n">VSz</span> <span class="o">=</span> <span class="n">Mns</span><span class="o">*</span><span class="n">Vkz</span><span class="o">/</span><span class="n">Mtot</span>
+        <span class="n">V_sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">VSx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">VSy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">VSz</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V_sys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vr</span> <span class="o">=</span> <span class="n">Apost</span><span class="p">,</span> <span class="n">epost</span><span class="p">,</span> <span class="n">VSx</span><span class="p">,</span> <span class="n">VSy</span><span class="p">,</span> <span class="n">VSz</span><span class="p">,</span> <span class="n">V_sys</span><span class="p">,</span> <span class="n">Vr</span>
+
+        <span class="k">def</span> <span class="nf">SNCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Paper References:</span>
+
+<span class="sd">            Willems et al 2002: http://iopscience.iop.org/article/10.1086/429557/meta</span>
+<span class="sd">                We use eq 21, 22, 23, 24, 25, 26 for checks of SN survival</span>
+
+<span class="sd">            Kalogera and Lorimer 2000: http://iopscience.iop.org/article/10.1086/308417/meta</span>
+
+<span class="sd">            </span>
+<span class="sd">            </span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">Apost</span><span class="p">,</span> <span class="n">epost</span><span class="p">,</span> <span class="n">Vr</span><span class="p">,</span> <span class="n">Vkick</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span>
+            <span class="c1">#Equation numbers and quotes in comments correspond to Willems et al. 2002 paper on J1655.</span>
+            <span class="n">Mtot_pre</span> <span class="o">=</span> <span class="n">Mhe</span> <span class="o">+</span> <span class="n">M2</span>
+            <span class="n">Mtot_post</span> <span class="o">=</span> <span class="n">Mns</span> <span class="o">+</span> <span class="n">M2</span>
+
+            <span class="c1"># SNflag1: eq 21 (with typo fixed). Continuity demands Post SN orbit must pass through preSN positions.</span>
+            <span class="c1">#from Flannery &amp; Van Heuvel 1975                                                             </span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">SNflag1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epost</span> <span class="o">&lt;=</span> <span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">+</span><span class="n">epost</span><span class="p">)</span>
+
+
+            <span class="c1"># SNflag2: Equations 22 &amp; 23. &quot;Lower and upper limits on amount of orbital contraction or expansion that can take place                                </span>
+            <span class="c1">#for a given amount of mass loss and a given magnitude of the kick velocity (see, e.g., Kalogera &amp; Lorimer 2000)&quot;                            </span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">SNflag2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">-</span><span class="p">((</span><span class="n">Mtot_pre</span><span class="o">/</span><span class="n">Mtot_post</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">-</span><span class="p">((</span><span class="n">Mtot_pre</span><span class="o">/</span><span class="n">Mtot_post</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="c1">#SNflag3: Equations 24 and 25.&quot;The magnitude of the kick velocity imparted to the BH at birth is restricted to the</span>
+            <span class="c1">#range determined by (Brandt &amp; Podsiadlowski 1995; Kalogera &amp; Lorimer 2000)</span>
+            <span class="c1">#the first inequality expresses the requirement that the binary must remain bound after the SN explosion,</span>
+            <span class="c1">#while the second inequality yields the minimum kick velocity required to keep the system bound if more than</span>
+            <span class="c1">#half of the total system mass is lost in the explosion.</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">SNflag3</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Mtot_post</span><span class="o">/</span><span class="n">Mtot_pre</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="n">Mtot_post</span><span class="o">/</span><span class="n">Mtot_pre</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span><span class="o">&gt;</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">Mtot_post</span><span class="o">/</span><span class="n">Mtot_pre</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+            <span class="c1">#SNflag4: Eq 26 &quot;An upper limit on the mass of the BH progenitor can be derived from the condition that the</span>
+            <span class="c1">#azimuthal direction of the kick is real (Fryer &amp; Kalogera 1997&quot;</span>
+            <span class="k">if</span> <span class="n">epost</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNflag4</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kvar</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">Apost</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span><span class="o">-</span><span class="p">(((</span><span class="n">Vkick</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Apost</span><span class="o">/</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="n">Mtot_post</span><span class="p">))</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">prgmax</span> <span class="o">=</span> <span class="o">-</span><span class="n">M2</span><span class="o">+</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">kvar</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="n">Mtot_post</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">Apost</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epost</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">kvar</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">Apost</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epost</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Apost</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epost</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">kvar</span><span class="p">)))</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">SNflag4</span> <span class="o">=</span> <span class="n">Mhe</span> <span class="o">&lt;=</span> <span class="n">prgmax</span>
+            <span class="c1"># FIX ME: additionally, Kalogera 1996 mentions requirement that NS stars don&#39;t collide</span>
+            <span class="c1"># Apost*(1-epost)&gt; Rns1+Rns2    (eq 16 in that paper)</span>
+            <span class="c1"># Is there analytic expression for NS radius?</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">SNflags</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SNflag1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNflag2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNflag3</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">SNflag4</span><span class="p">]</span>
+
+            <span class="c1"># check if the supernova is valid and doesn&#39;t disrupt the system</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SNflags</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">flag</span> <span class="o">=</span> <span class="mi">3</span>
+
+        <span class="n">SNCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+
+
+<div class="viewcode-block" id="System.getVcirc"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.getVcirc">[docs]</a>    <span class="k">def</span> <span class="nf">getVcirc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">):</span> <span class="c1">#velocity of circular orbit in galactic potential at R</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Vdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span>
+
+        <span class="n">COORD</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">]</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">gradUx</span><span class="p">,</span><span class="n">gradUy</span><span class="p">,</span><span class="n">gradUz</span> <span class="o">=</span> <span class="n">Vdot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">COORD</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">gradU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">gradUx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">gradUy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">gradUz</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">vcirc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">gradU</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vcirc</span></div>
+
+<div class="viewcode-block" id="System.setXYZ_0"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setXYZ_0">[docs]</a>    <span class="k">def</span> <span class="nf">setXYZ_0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
+        <span class="n">galcosth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span>
+        <span class="n">galphi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span>
+        <span class="n">galsinth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">galcosth</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">X0</span> <span class="o">=</span> <span class="n">R</span><span class="o">*</span><span class="n">galsinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">galphi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y0</span> <span class="o">=</span> <span class="n">R</span><span class="o">*</span><span class="n">galsinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">galphi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Z0</span> <span class="o">=</span> <span class="n">R</span><span class="o">*</span><span class="n">galcosth</span></div>
+
+<div class="viewcode-block" id="System.setVxyz_0"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setVxyz_0">[docs]</a>    <span class="k">def</span> <span class="nf">setVxyz_0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">circflag</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z0</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
+
+        <span class="n">galphi</span><span class="p">,</span> <span class="n">galcosth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span>
+        <span class="n">galsinth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">galcosth</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">galth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">galcosth</span><span class="p">)</span>
+
+        <span class="n">omega</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega</span> <span class="c1">#orientation of orbit on R-sphere (angle between Vorb and R-Z plane)</span>
+
+        <span class="k">if</span> <span class="n">circflag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="n">V_sys</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#For checking that initial conditions correspond to circular galactic orbits</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">V_sys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">V_sys</span> <span class="c1">#Velocity imparted by SN</span>
+        <span class="n">vphi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="c1">#</span>
+        <span class="n">vcosth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># Choose random direction for system velocity</span>
+        <span class="n">vsinth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">vcosth</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>    <span class="c1"># equivalent to choosing random orientation preSN</span>
+        <span class="n">vsys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">V_sys</span><span class="o">*</span><span class="n">vsinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">vphi</span><span class="p">),</span><span class="n">V_sys</span><span class="o">*</span><span class="n">vsinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">vphi</span><span class="p">),</span><span class="n">V_sys</span><span class="o">*</span><span class="n">vcosth</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vsys</span><span class="o">=</span><span class="n">vsys</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vphi</span><span class="o">=</span><span class="n">vphi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vcosth</span><span class="o">=</span><span class="n">vcosth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vsinth</span><span class="o">=</span><span class="n">vsinth</span>
+        <span class="n">Vtot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVcirc</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span><span class="p">)</span>
+
+        <span class="n">vpx</span> <span class="o">=</span> <span class="n">Vtot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">galth</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">galphi</span><span class="p">)</span>
+        <span class="n">vpy</span> <span class="o">=</span> <span class="n">Vtot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">galth</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">galphi</span><span class="p">)</span>
+        <span class="n">vpz</span> <span class="o">=</span> <span class="n">Vtot</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">galth</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">Vp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">vpx</span><span class="p">,</span><span class="n">vpy</span><span class="p">,</span><span class="n">vpz</span><span class="p">])</span> <span class="c1">#velocity of circular orbit in R-Z plane</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span><span class="p">])</span><span class="o">/</span><span class="n">R</span> <span class="c1">#unit vector in direction of R</span>
+
+        <span class="c1">#Rotate by omega while keeping perpendicular to R</span>
+        <span class="n">Vp_rot</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">Vp</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vxcirc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vycirc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vzcirc0</span> <span class="o">=</span> <span class="n">Vp_rot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vtot</span> <span class="o">=</span> <span class="n">Vtot</span>
+
+        <span class="c1">#Add velocity imparted by SN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vx0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vy0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vz0</span> <span class="o">=</span> <span class="n">Vp_rot</span> <span class="o">+</span> <span class="n">vsys</span></div>
+
+<div class="viewcode-block" id="System.setTmerge"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setTmerge">[docs]</a>    <span class="k">def</span> <span class="nf">setTmerge</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="c1">#FIXME we should check that this matches up with Maggiori equations</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">m1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">;</span> <span class="n">m2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">M2</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="c1"># useful definition for following equations:</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="p">(</span><span class="mf">64.</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">G</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="o">*</span><span class="p">(</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">c</span><span class="o">**</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># function for defining scale factor based on initial conditions</span>
+        <span class="k">def</span> <span class="nf">c_0</span><span class="p">(</span><span class="n">a0</span><span class="p">,</span><span class="n">e0</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">a0</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e0</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">e0</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">12.</span><span class="o">/</span><span class="mi">19</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mf">121.</span><span class="o">/</span><span class="mi">304</span><span class="p">)</span><span class="o">*</span><span class="n">e0</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">870.</span><span class="o">/</span><span class="mi">2299</span><span class="p">)</span>
+        <span class="n">c0</span> <span class="o">=</span> <span class="n">c_0</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">)</span>
+
+        <span class="c1"># now we integrate Eq. 5.14 for Peters 1964</span>
+        <span class="k">def</span> <span class="nf">integrand</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="mf">29.</span><span class="o">/</span><span class="mi">19</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="mf">121.</span><span class="o">/</span><span class="mi">304</span><span class="p">)</span><span class="o">*</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1181.</span><span class="o">/</span><span class="mi">2299</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">ef</span> <span class="o">=</span> <span class="mf">0.0</span>   <span class="c1"># assume binary circularizes by the time it merges</span>
+        <span class="n">Tmerge</span> <span class="o">=</span> <span class="p">(</span><span class="mf">12.</span><span class="o">/</span><span class="mi">19</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">c0</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">/</span><span class="n">beta</span><span class="p">)</span><span class="o">*</span><span class="n">quad</span><span class="p">(</span><span class="n">integrand</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span> <span class="o">=</span> <span class="n">Tmerge</span>
+
+        <span class="c1"># see if binary inspiral time is longer than threshold (10 Gyr) or shorter than minimum time (0 for now)</span>
+        <span class="n">Tmax</span> <span class="o">=</span> <span class="mf">10e9</span>         <span class="c1"># years</span>
+        <span class="n">Tmin</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># years</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Tmerge</span> <span class="o">&gt;</span> <span class="n">Tmax</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span> <span class="ow">or</span> <span class="n">Tmerge</span> <span class="o">&lt;</span> <span class="n">Tmin</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">2</span>   <span class="c1"># binary does not meet inspiral time requirements</span></div>
+
+
+<div class="viewcode-block" id="System.doMotion"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.doMotion">[docs]</a>    <span class="k">def</span> <span class="nf">doMotion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;dopri5&#39;</span><span class="p">,</span> <span class="n">NSTEPS</span><span class="o">=</span><span class="mf">1e13</span><span class="p">,</span> <span class="n">MAX_STEP</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">RTOL</span><span class="o">=</span><span class="mf">1e-11</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z0</span>
+        <span class="n">Vx0</span><span class="p">,</span><span class="n">Vy0</span><span class="p">,</span><span class="n">Vz0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vx0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vy0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vz0</span>
+        <span class="n">RR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">Vx0</span><span class="p">,</span><span class="n">Vy0</span><span class="p">,</span><span class="n">Vz0</span><span class="p">,</span><span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span><span class="p">])</span>
+        <span class="n">Tmerge</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span>
+        <span class="n">Vdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">RR</span><span class="o">=</span><span class="n">RR</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">solver</span><span class="o">=</span><span class="n">ode</span><span class="p">(</span><span class="n">Vdot</span><span class="p">)</span><span class="o">.</span><span class="n">set_integrator</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span><span class="n">nsteps</span><span class="o">=</span><span class="n">NSTEPS</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="n">MAX_STEP</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">solout</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">            System class</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">temp</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">sol</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_solout</span><span class="p">(</span><span class="n">solout</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">set_initial_value</span><span class="p">(</span><span class="n">RR</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">Tmerge</span><span class="p">)</span>
+        <span class="n">sol</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vx</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vy</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vz</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Z</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">sol</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="System.check_success"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.check_success">[docs]</a>    <span class="k">def</span> <span class="nf">check_success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">uncer</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        # uncertainty in offset is 0.5 kpc by default</span>
+<span class="sd">        # assume that the observer is looking down the z-axis (so the offset will be the projection of the binary on the x-y plane)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">uncer</span> <span class="o">=</span> <span class="n">uncer</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">Rmerge_proj</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">offset</span><span class="o">-</span><span class="n">uncer</span> <span class="o">&lt;</span> <span class="n">Rmerge_proj</span> <span class="o">&lt;</span> <span class="n">offset</span><span class="o">+</span><span class="n">uncer</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">1</span>      <span class="c1"># successful binary!</span>
+            <span class="nb">print</span> <span class="s1">&#39;GW analog produced! R_SN:</span><span class="si">%f</span><span class="s1"> R_Merge:</span><span class="si">%f</span><span class="s1"> R_Merge_proj:</span><span class="si">%f</span><span class="s1">, Vkick:</span><span class="si">%f</span><span class="s1"> Mhe:</span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> \
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">/</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span><span class="o">/</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span><span class="o">/</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="o">/</span><span class="mi">1000</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="o">/</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="System.energy_check"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.energy_check">[docs]</a>    <span class="k">def</span> <span class="nf">energy_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">E_thresh</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        System class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Mhalo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="o">.</span><span class="n">Mhalo</span>
+        <span class="n">Mbulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="o">.</span><span class="n">Mbulge</span>
+        <span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="o">.</span><span class="n">abulge</span>
+        <span class="n">Mns</span><span class="p">,</span> <span class="n">M2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span>
+        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">Ubulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="o">.</span><span class="n">Ubulge</span>
+        <span class="n">Uhalo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gal</span><span class="o">.</span><span class="n">Uhalo</span>
+
+        <span class="n">ri</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">rf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+
+        <span class="n">Eki</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">Mns</span> <span class="o">+</span> <span class="n">M2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">Epi</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mns</span><span class="o">+</span><span class="n">M2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Uhalo</span><span class="p">(</span><span class="n">ri</span><span class="p">)</span><span class="o">+</span><span class="n">Ubulge</span><span class="p">(</span><span class="n">ri</span><span class="p">))</span>  <span class="c1">#Uhalo and Ubulge are really Uhalo/Msys and Ubulge/Msys</span>
+
+        <span class="n">Ei</span> <span class="o">=</span> <span class="n">Eki</span><span class="o">+</span><span class="n">Epi</span>
+
+        <span class="n">Ekf</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">Mns</span> <span class="o">+</span> <span class="n">M2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Vx</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vy</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vz</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">Epf</span> <span class="o">=</span> <span class="p">(</span><span class="n">Mns</span><span class="o">+</span><span class="n">M2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Uhalo</span><span class="p">(</span><span class="n">rf</span><span class="p">)</span><span class="o">+</span><span class="n">Ubulge</span><span class="p">(</span><span class="n">rf</span><span class="p">))</span>  <span class="c1">#Uhalo and Ubulge are really Uhalo/Msys and Ubulge/Msys</span>
+
+        <span class="n">Ef</span> <span class="o">=</span> <span class="n">Ekf</span><span class="o">+</span><span class="n">Epf</span>
+
+
+
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ei</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Ef</span> <span class="o">=</span> <span class="n">Ei</span><span class="p">,</span> <span class="n">Ef</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dEfrac</span> <span class="o">=</span> <span class="p">(</span><span class="n">Ei</span><span class="o">-</span><span class="n">Ef</span><span class="p">)</span><span class="o">/</span><span class="n">Ei</span>
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Ei</span><span class="o">-</span><span class="n">Ef</span><span class="p">)</span><span class="o">/</span><span class="n">Ei</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">E_thresh</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">4</span> <span class="c1"># Energy not conserved!!!</span></div>
+        
+
+<div class="viewcode-block" id="System.write_data"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.write_data">[docs]</a>    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]</span>
+<span class="sd">        # write things in reasonable units (e.g., Msun, kpc, km/s ...)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flag</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="p">),</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">R_sun</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">R_sun</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">epre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">,</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span><span class="p">,</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0+untagged.37.gc425c91',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

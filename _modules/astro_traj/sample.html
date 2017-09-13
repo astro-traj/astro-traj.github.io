@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>astro_traj.sample &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/astro_traj-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> astro_traj
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.37.gc425c91
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../command-line/index.html">Running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">astro_traj</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>astro_traj.sample</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for astro_traj.sample</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of gwemlightcurves.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with gwemlightcurves.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;`sample`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+<span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">maxwell</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_continuous</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Sample"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample">[docs]</a><span class="k">class</span> <span class="nc">Sample</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gal</span><span class="p">):</span>   <span class="c1"># default rcut=0 does not truncate the distributions (i.e., they extend to infinity)</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        initialize with values passed to gal</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="n">gal</span><span class="o">.</span><span class="n">abulge</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">=</span> <span class="n">gal</span><span class="o">.</span><span class="n">rcut</span> <span class="o">/</span> <span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
+
+
+    <span class="c1"># sample compact binary masses from PE</span>
+<div class="viewcode-block" id="Sample.sample_masses"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_masses">[docs]</a>    <span class="k">def</span> <span class="nf">sample_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span><span class="p">,</span> <span class="n">m1_sigma</span><span class="p">,</span> <span class="n">m2_sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Samples m1 and m2 from Gaussian distributions.</span>
+<span class="sd">        If only m1 and m2 are passed, passes back these values for M2 and Mns.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">m1_sigma</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">m1_sigma</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+            <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span> <span class="n">m2_sigma</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span> <span class="o">=</span> <span class="n">m2</span>       <span class="c1"># By convention, lighter object has the second supernova</span></div>
+
+
+
+
+    <span class="c1"># sample semi-major axis</span>
+<div class="viewcode-block" id="Sample.sample_Apre"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Apre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        samples semi-major axis uniformly</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">A_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">A_samp</span></div>
+
+
+
+    <span class="c1"># sample helium star mass</span>
+<div class="viewcode-block" id="Sample.sample_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        samples He-star mass uniformly between Mns and 8 Msun (BH limit)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Mhe_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Mhe_samp</span></div>
+
+
+
+    <span class="c1"># sample kick velocities</span>
+<div class="viewcode-block" id="Sample.sample_Vkick_maxwellian"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick_maxwellian">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick_maxwellian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">265</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        sample kick velocity from Maxwellian (Hobbs 2005)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">maxwell</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Vkick_samp</span></div>
+
+
+
+<div class="viewcode-block" id="Sample.sample_Vkick_uniform"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick_uniform">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick_uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Vmax</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        sample kick uniformly (Wong 2010)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Vmin</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Vkick_samp</span></div>
+
+
+
+    <span class="c1"># sample radial distance from galactic center according to Hernquist potential</span>
+<div class="viewcode-block" id="Sample.sample_R"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R">[docs]</a>    <span class="k">def</span> <span class="nf">sample_R</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        samples radial distance from galactic center according to specified potential function</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span>
+        <span class="n">rcut</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span>
+
+        <span class="k">class</span> <span class="nc">Hernquist_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            density pdf from Hernquist potential</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="k">def</span> <span class="nf">normFac</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                
+                <span class="k">if</span> <span class="n">n</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="mf">1.0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
+                <span class="c1"># Divided by Mbulge. Turns mass density function to probability density function.</span>
+                <span class="c1"># rvs() requires _pdf normalized to 1 on domain, which in this case is [0,inf]</span>
+                <span class="c1"># Leaving Mbulge in there normalizes to Mbulge. Check normalization by printing Hernquist_pdf.cdf(big number)</span>
+                <span class="c1"># WARNING: Hernquist_pdf.cdf(np.inf) will always return 1 because it assumes we normalized correctly</span>
+                <span class="k">def</span> <span class="nf">normFac</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="mf">1.0</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="n">Cnorm</span> <span class="o">=</span> <span class="n">normFac</span><span class="p">(</span><span class="n">rcut</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Cnorm</span><span class="o">*</span><span class="n">r</span> <span class="o">*</span> <span class="n">abulge</span> <span class="o">*</span> <span class="p">(</span><span class="n">abulge</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rcut</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(),</span><span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="o">*</span><span class="n">abulge</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(),</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="o">*</span><span class="n">abulge</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span></div></div>
+
+
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0+untagged.37.gc425c91',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
