@@ -1,0 +1,4 @@
+.. automodule:: astro_traj.plot
+    :members:
+    :undoc-members:
+    :show-inheritance:

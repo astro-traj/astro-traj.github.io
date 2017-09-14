@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.53.g9052fe7.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.53.g9052fe7.dirty documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.37.gc425c91
+                0+untagged.53.g9052fe7.dirty
               </div>
             
           
@@ -158,7 +158,7 @@
   <span class="target" id="module-astro_traj.galaxy"></span><p><cite>Galaxy_Models</cite> class which includes children <cite>Miyamaoto_Nagai_Hernquist</cite> and <cite>NFW_Hernquist</cite></p>
 <dl class="class">
 <dt id="astro_traj.galaxy.Galaxy_Models">
-<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Galaxy_Models</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>rcut=100.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Galaxy_Models</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut=100.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -166,24 +166,67 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Miyamaoto_Nagai_Hernquist" title="astro_traj.galaxy.Galaxy_Models.Miyamaoto_Nagai_Hernquist"><code class="xref py py-obj docutils literal"><span class="pre">Miyamaoto_Nagai_Hernquist</span></code></a>()</td>
-<td>Galaxy with Hernquist potential for stellar component and dark matter potential from Miyamaoto &amp; Nagai 1975</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Belczynski_2002" title="astro_traj.galaxy.Galaxy_Models.Belczynski_2002"><code class="xref py py-obj docutils literal"><span class="pre">Belczynski_2002</span></code></a>()</td>
+<td>Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.NFW_Hernquist" title="astro_traj.galaxy.Galaxy_Models.NFW_Hernquist"><code class="xref py py-obj docutils literal"><span class="pre">NFW_Hernquist</span></code></a>()</td>
-<td>Galaxy class</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Hernquist_NFW" title="astro_traj.galaxy.Galaxy_Models.Hernquist_NFW"><code class="xref py py-obj docutils literal"><span class="pre">Hernquist_NFW</span></code></a>()</td>
+<td>CURRENTLY PREFERRED POTENTIAL</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW" title="astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW"><code class="xref py py-obj docutils literal"><span class="pre">Miyamoto_Nagai_NFW</span></code></a>()</td>
+<td>Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter NOTE: This potential model is not working yet.</td>
 </tr>
 </tbody>
 </table>
 <dl class="method">
-<dt id="astro_traj.galaxy.Galaxy_Models.Miyamaoto_Nagai_Hernquist">
-<code class="descname">Miyamaoto_Nagai_Hernquist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Miyamaoto_Nagai_Hernquist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Miyamaoto_Nagai_Hernquist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Galaxy with Hernquist potential for stellar component and dark matter potential from Miyamaoto &amp; Nagai 1975</p>
+<dt id="astro_traj.galaxy.Galaxy_Models.Belczynski_2002">
+<code class="descname">Belczynski_2002</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Belczynski_2002"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Belczynski_2002" title="Permalink to this definition">¶</a></dt>
+<dd><p>Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</p>
+<dl class="docutils">
+<dt>Paper References:</dt>
+<dd><dl class="first last docutils">
+<dt>Hernquist 1990: <a class="reference external" href="http://adsabs.harvard.edu/abs/1990ApJ...356..359H">http://adsabs.harvard.edu/abs/1990ApJ…356..359H</a></dt>
+<dd>Ubulge is as in equation 5 in that paper</dd>
+<dt>Belzcynski et al 2002: <a class="reference external" href="http://iopscience.iop.org/article/10.1086/339860/meta">http://iopscience.iop.org/article/10.1086/339860/meta</a></dt>
+<dd>Uhalo is as in equation 6 in that paper with cutoff at rcut such that
+Uhalo goes like 1/r for r&gt;rcut</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="astro_traj.galaxy.Galaxy_Models.NFW_Hernquist">
-<code class="descname">NFW_Hernquist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.NFW_Hernquist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.NFW_Hernquist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Galaxy class</p>
+<dt id="astro_traj.galaxy.Galaxy_Models.Hernquist_NFW">
+<code class="descname">Hernquist_NFW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Hernquist_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Hernquist_NFW" title="Permalink to this definition">¶</a></dt>
+<dd><p>CURRENTLY PREFERRED POTENTIAL
+Galaxy with Hernquist potential for stellar component and dark matter potential and NFW profile for dark matter</p>
+<dl class="docutils">
+<dt>Paper References:</dt>
+<dd><dl class="first last docutils">
+<dt>Hernquist 1990: <a class="reference external" href="http://adsabs.harvard.edu/abs/1990ApJ...356..359H">http://adsabs.harvard.edu/abs/1990ApJ…356..359H</a></dt>
+<dd>Ubulge is as in equation 5 in that paper</dd>
+<dt>Navarro, Frenk, White 1996: <a class="reference external" href="http://adsabs.harvard.edu/abs/1996ApJ...462..563N">http://adsabs.harvard.edu/abs/1996ApJ…462..563N</a></dt>
+<dd>Uhalo corresponds to density profile in equation 3 in that paper.
+For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (<a class="reference external" href="http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta">http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta</a>)</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW">
+<code class="descname">Miyamoto_Nagai_NFW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Miyamoto_Nagai_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter
+NOTE: This potential model is not working yet. We only have 1 measurement for the stellar mass component, not a separate bulge and disk mass
+Paper References:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>Miyamoto and Nagai 1975: <a class="reference external" href="http://adsabs.harvard.edu/abs/1975PASJ...27..533M">http://adsabs.harvard.edu/abs/1975PASJ…27..533M</a></dt>
+<dd>Udisk, Ubulge are as in Equation 4 in that paper</dd>
+<dt>Navarro, Frenk, White 1996: <a class="reference external" href="http://adsabs.harvard.edu/abs/1996ApJ...462..563N">http://adsabs.harvard.edu/abs/1996ApJ…462..563N</a></dt>
+<dd>Uhalo corresponds to density profile in equation 3 in that paper.
+For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (<a class="reference external" href="http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta">http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta</a>)</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 </dd></dl>
@@ -224,7 +267,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.37.gc425c91',
+            VERSION:'0+untagged.53.g9052fe7.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.53.g9052fe7.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.53.g9052fe7.dirty documentation" href="../index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.37.gc425c91
+                0+untagged.53.g9052fe7.dirty
               </div>
             
           
@@ -167,7 +167,7 @@
 <h2>Basic instructions<a class="headerlink" href="#basic-instructions" title="Permalink to this headline">¶</a></h2>
 <p>Basic instructions on running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> can be gained by looking at the <code class="docutils literal"><span class="pre">--help</span></code> menu:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>$ LIGOTraj --help
-usage: LIGOTraj [-h] [-V]
+usage: LIGOTraj [-h] [-V] [-T TRIALS]
 
 Main function. Samples parameters, implements kicks, and sees whether the
 systems is a &#39;successful&#39; merger by merging at the proper projected distance.
@@ -179,8 +179,10 @@ greater than 10 Gyr, does not evolve 3: Binary is disrupted by SN kick 4:
 Energy conservation requirement not met!!!
 
 optional arguments:
-  -h, --help     show this help message and exit
-  -V, --version  show program&#39;s version number and exit
+  -h, --help            show this help message and exit
+  -V, --version         show program&#39;s version number and exit
+  -T TRIALS, --trials TRIALS
+                        Specify the number of trials. Default=1
 </pre></div>
 </div>
 </div>
@@ -232,7 +234,7 @@ optional arguments:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.37.gc425c91',
+            VERSION:'0+untagged.53.g9052fe7.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

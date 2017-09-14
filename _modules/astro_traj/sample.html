@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.sample &mdash; astro_traj 0+untagged.37.gc425c91 documentation</title>
+  <title>astro_traj.sample &mdash; astro_traj 0+untagged.53.g9052fe7.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.37.gc425c91 documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.53.g9052fe7.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.37.gc425c91
+                0+untagged.53.g9052fe7.dirty
               </div>
             
           
@@ -267,12 +267,6 @@
             <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">            density pdf from Hernquist potential</span>
 <span class="sd">            &#39;&#39;&#39;</span>
-            <span class="k">def</span> <span class="nf">normFac</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                
-                <span class="k">if</span> <span class="n">n</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="mf">1.0</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
             <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
                 <span class="c1"># Divided by Mbulge. Turns mass density function to probability density function.</span>
                 <span class="c1"># rvs() requires _pdf normalized to 1 on domain, which in this case is [0,inf]</span>
@@ -283,13 +277,13 @@
                         <span class="k">return</span> <span class="mf">1.0</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">return</span> <span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-                <span class="n">Cnorm</span> <span class="o">=</span> <span class="n">normFac</span><span class="p">(</span><span class="n">rcut</span><span class="p">)</span>
+                <span class="n">Cnorm</span> <span class="o">=</span> <span class="n">normFac</span><span class="p">(</span><span class="n">rcut</span><span class="o">/</span><span class="n">abulge</span><span class="p">)</span>            <span class="c1"># NOTE: rcut needs to be in terms of abulge for normalization</span>
                 <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Cnorm</span><span class="o">*</span><span class="n">r</span> <span class="o">*</span> <span class="n">abulge</span> <span class="o">*</span> <span class="p">(</span><span class="n">abulge</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">rcut</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(),</span><span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="o">*</span><span class="n">abulge</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(),</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="o">*</span><span class="n">abulge</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span></div></div>
+            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(),</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="n">rcut</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span></div></div>
 
 
 
@@ -329,7 +323,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.37.gc425c91',
+            VERSION:'0+untagged.53.g9052fe7.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

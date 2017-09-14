@@ -7,6 +7,7 @@ Submodules
 .. toctree::
 
    astro_traj.galaxy
+   astro_traj.plot
    astro_traj.sample
    astro_traj.system
 
