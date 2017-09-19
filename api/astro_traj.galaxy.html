@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.53.g9052fe7.dirty documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.53.g9052fe7.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.53.g9052fe7.dirty
+                0+untagged.4.ge913c80
               </div>
             
           
@@ -158,46 +158,15 @@
   <span class="target" id="module-astro_traj.galaxy"></span><p><cite>Galaxy_Models</cite> class which includes children <cite>Miyamaoto_Nagai_Hernquist</cite> and <cite>NFW_Hernquist</cite></p>
 <dl class="class">
 <dt id="astro_traj.galaxy.Galaxy_Models">
-<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Galaxy_Models</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut=100.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Belczynski_2002" title="astro_traj.galaxy.Galaxy_Models.Belczynski_2002"><code class="xref py py-obj docutils literal"><span class="pre">Belczynski_2002</span></code></a>()</td>
-<td>Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Hernquist_NFW" title="astro_traj.galaxy.Galaxy_Models.Hernquist_NFW"><code class="xref py py-obj docutils literal"><span class="pre">Hernquist_NFW</span></code></a>()</td>
-<td>CURRENTLY PREFERRED POTENTIAL</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW" title="astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW"><code class="xref py py-obj docutils literal"><span class="pre">Miyamoto_Nagai_NFW</span></code></a>()</td>
-<td>Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter NOTE: This potential model is not working yet.</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="astro_traj.galaxy.Galaxy_Models.Belczynski_2002">
-<code class="descname">Belczynski_2002</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Belczynski_2002"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Belczynski_2002" title="Permalink to this definition">¶</a></dt>
-<dd><p>Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</p>
-<dl class="docutils">
-<dt>Paper References:</dt>
-<dd><dl class="first last docutils">
-<dt>Hernquist 1990: <a class="reference external" href="http://adsabs.harvard.edu/abs/1990ApJ...356..359H">http://adsabs.harvard.edu/abs/1990ApJ…356..359H</a></dt>
-<dd>Ubulge is as in equation 5 in that paper</dd>
-<dt>Belzcynski et al 2002: <a class="reference external" href="http://iopscience.iop.org/article/10.1086/339860/meta">http://iopscience.iop.org/article/10.1086/339860/meta</a></dt>
-<dd>Uhalo is as in equation 6 in that paper with cutoff at rcut such that
-Uhalo goes like 1/r for r&gt;rcut</dd>
-</dl>
-</dd>
-</dl>
+<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Galaxy_Models</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
-<dl class="method">
-<dt id="astro_traj.galaxy.Galaxy_Models.Hernquist_NFW">
-<code class="descname">Hernquist_NFW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Hernquist_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Hernquist_NFW" title="Permalink to this definition">¶</a></dt>
-<dd><p>CURRENTLY PREFERRED POTENTIAL
+<dl class="class">
+<dt id="astro_traj.galaxy.Hernquist_NFW">
+<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Hernquist_NFW</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models" title="astro_traj.galaxy.Galaxy_Models"><code class="xref py py-class docutils literal"><span class="pre">astro_traj.galaxy.Galaxy_Models</span></code></a></p>
+<p>CURRENTLY PREFERRED POTENTIAL
 Galaxy with Hernquist potential for stellar component and dark matter potential and NFW profile for dark matter</p>
 <dl class="docutils">
 <dt>Paper References:</dt>
@@ -210,12 +179,67 @@ For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 
 </dl>
 </dd>
 </dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Hernquist_NFW.Ubulge" title="astro_traj.galaxy.Hernquist_NFW.Ubulge"><code class="xref py py-obj docutils literal"><span class="pre">Ubulge</span></code></a>(r)</td>
+<td>Bulge contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Hernquist_NFW.Uhalo" title="astro_traj.galaxy.Hernquist_NFW.Uhalo"><code class="xref py py-obj docutils literal"><span class="pre">Uhalo</span></code></a>(r)</td>
+<td>Halo contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Hernquist_NFW.Vdot" title="astro_traj.galaxy.Hernquist_NFW.Vdot"><code class="xref py py-obj docutils literal"><span class="pre">Vdot</span></code></a>(time,&nbsp;COORD)</td>
+<td>Vdot calculation using gradients of Uhalo and Ubulge</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Hernquist_NFW.bulge" title="astro_traj.galaxy.Hernquist_NFW.bulge"><code class="xref py py-obj docutils literal"><span class="pre">bulge</span></code></a>(r_i,&nbsp;r)</td>
+<td>gradient of Ubulge</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Hernquist_NFW.halo" title="astro_traj.galaxy.Hernquist_NFW.halo"><code class="xref py py-obj docutils literal"><span class="pre">halo</span></code></a>(r_i,&nbsp;r)</td>
+<td>gradient of Uhalo</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="astro_traj.galaxy.Hernquist_NFW.Ubulge">
+<code class="descname">Ubulge</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW.Ubulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW.Ubulge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bulge contribution to potential divided by system mass</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW">
-<code class="descname">Miyamoto_Nagai_NFW</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Galaxy_Models.Miyamoto_Nagai_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW" title="Permalink to this definition">¶</a></dt>
-<dd><p>Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter
+<dt id="astro_traj.galaxy.Hernquist_NFW.Uhalo">
+<code class="descname">Uhalo</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW.Uhalo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW.Uhalo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Halo contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Hernquist_NFW.Vdot">
+<code class="descname">Vdot</code><span class="sig-paren">(</span><em>time</em>, <em>COORD</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW.Vdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW.Vdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vdot calculation using gradients of Uhalo and Ubulge</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Hernquist_NFW.bulge">
+<code class="descname">bulge</code><span class="sig-paren">(</span><em>r_i</em>, <em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW.bulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW.bulge" title="Permalink to this definition">¶</a></dt>
+<dd><p>gradient of Ubulge</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Hernquist_NFW.halo">
+<code class="descname">halo</code><span class="sig-paren">(</span><em>r_i</em>, <em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Hernquist_NFW.halo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Hernquist_NFW.halo" title="Permalink to this definition">¶</a></dt>
+<dd><p>gradient of Uhalo</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="astro_traj.galaxy.Miyamoto_Nagai_NFW">
+<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Miyamoto_Nagai_NFW</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Miyamoto_Nagai_NFW"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models" title="astro_traj.galaxy.Galaxy_Models"><code class="xref py py-class docutils literal"><span class="pre">astro_traj.galaxy.Galaxy_Models</span></code></a></p>
+<p>Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter
 NOTE: This potential model is not working yet. We only have 1 measurement for the stellar mass component, not a separate bulge and disk mass
 Paper References:</p>
 <blockquote>
@@ -227,6 +251,121 @@ Paper References:</p>
 For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (<a class="reference external" href="http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta">http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta</a>)</dd>
 </dl>
 </div></blockquote>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Ubulge" title="astro_traj.galaxy.Miyamoto_Nagai_NFW.Ubulge"><code class="xref py py-obj docutils literal"><span class="pre">Ubulge</span></code></a>(r)</td>
+<td>Bulge contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Udisk" title="astro_traj.galaxy.Miyamoto_Nagai_NFW.Udisk"><code class="xref py py-obj docutils literal"><span class="pre">Udisk</span></code></a>(r,&nbsp;z)</td>
+<td>Disk contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Uhalo" title="astro_traj.galaxy.Miyamoto_Nagai_NFW.Uhalo"><code class="xref py py-obj docutils literal"><span class="pre">Uhalo</span></code></a>(r)</td>
+<td>Halo contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Vdot" title="astro_traj.galaxy.Miyamoto_Nagai_NFW.Vdot"><code class="xref py py-obj docutils literal"><span class="pre">Vdot</span></code></a>(time,&nbsp;COORD)</td>
+<td>Vdot calculation using gradients of Ubulge, Udisk, and Uhalo</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="astro_traj.galaxy.Miyamoto_Nagai_NFW.Ubulge">
+<code class="descname">Ubulge</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Miyamoto_Nagai_NFW.Ubulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Ubulge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bulge contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Miyamoto_Nagai_NFW.Udisk">
+<code class="descname">Udisk</code><span class="sig-paren">(</span><em>r</em>, <em>z</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Miyamoto_Nagai_NFW.Udisk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Udisk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disk contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Miyamoto_Nagai_NFW.Uhalo">
+<code class="descname">Uhalo</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Miyamoto_Nagai_NFW.Uhalo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Uhalo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Halo contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Miyamoto_Nagai_NFW.Vdot">
+<code class="descname">Vdot</code><span class="sig-paren">(</span><em>time</em>, <em>COORD</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Miyamoto_Nagai_NFW.Vdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Miyamoto_Nagai_NFW.Vdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vdot calculation using gradients of Ubulge, Udisk, and Uhalo</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="astro_traj.galaxy.Belczynski_2002">
+<em class="property">class </em><code class="descclassname">astro_traj.galaxy.</code><code class="descname">Belczynski_2002</code><span class="sig-paren">(</span><em>Mspiral</em>, <em>Mbulge</em>, <em>Mhalo</em>, <em>R_eff</em>, <em>h</em>, <em>rcut</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#astro_traj.galaxy.Galaxy_Models" title="astro_traj.galaxy.Galaxy_Models"><code class="xref py py-class docutils literal"><span class="pre">astro_traj.galaxy.Galaxy_Models</span></code></a></p>
+<p>Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</p>
+<dl class="docutils">
+<dt>Paper References:</dt>
+<dd><dl class="first last docutils">
+<dt>Hernquist 1990: <a class="reference external" href="http://adsabs.harvard.edu/abs/1990ApJ...356..359H">http://adsabs.harvard.edu/abs/1990ApJ…356..359H</a></dt>
+<dd>Ubulge is as in equation 5 in that paper</dd>
+<dt>Belzcynski et al 2002: <a class="reference external" href="http://iopscience.iop.org/article/10.1086/339860/meta">http://iopscience.iop.org/article/10.1086/339860/meta</a></dt>
+<dd>Uhalo is as in equation 6 in that paper with cutoff at rcut such that
+Uhalo goes like 1/r for r&gt;rcut</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Belczynski_2002.Ubulge" title="astro_traj.galaxy.Belczynski_2002.Ubulge"><code class="xref py py-obj docutils literal"><span class="pre">Ubulge</span></code></a>(r)</td>
+<td>Bulge contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Belczynski_2002.Uhalo" title="astro_traj.galaxy.Belczynski_2002.Uhalo"><code class="xref py py-obj docutils literal"><span class="pre">Uhalo</span></code></a>(r)</td>
+<td>Halo contribution to potential divided by system mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Belczynski_2002.Vdot" title="astro_traj.galaxy.Belczynski_2002.Vdot"><code class="xref py py-obj docutils literal"><span class="pre">Vdot</span></code></a>(time,&nbsp;COORD)</td>
+<td>Vdot calculation using gradients of Uhalo and Ubulge</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.galaxy.Belczynski_2002.bulge" title="astro_traj.galaxy.Belczynski_2002.bulge"><code class="xref py py-obj docutils literal"><span class="pre">bulge</span></code></a>(r_i,&nbsp;r)</td>
+<td>gradient of Ubulge</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.galaxy.Belczynski_2002.halo" title="astro_traj.galaxy.Belczynski_2002.halo"><code class="xref py py-obj docutils literal"><span class="pre">halo</span></code></a>(r_i,&nbsp;r)</td>
+<td>gradient of Uhalo</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="astro_traj.galaxy.Belczynski_2002.Ubulge">
+<code class="descname">Ubulge</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002.Ubulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002.Ubulge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bulge contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Belczynski_2002.Uhalo">
+<code class="descname">Uhalo</code><span class="sig-paren">(</span><em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002.Uhalo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002.Uhalo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Halo contribution to potential divided by system mass</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Belczynski_2002.Vdot">
+<code class="descname">Vdot</code><span class="sig-paren">(</span><em>time</em>, <em>COORD</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002.Vdot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002.Vdot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vdot calculation using gradients of Uhalo and Ubulge</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Belczynski_2002.bulge">
+<code class="descname">bulge</code><span class="sig-paren">(</span><em>r_i</em>, <em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002.bulge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002.bulge" title="Permalink to this definition">¶</a></dt>
+<dd><p>gradient of Ubulge</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.galaxy.Belczynski_2002.halo">
+<code class="descname">halo</code><span class="sig-paren">(</span><em>r_i</em>, <em>r</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/galaxy.html#Belczynski_2002.halo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.galaxy.Belczynski_2002.halo" title="Permalink to this definition">¶</a></dt>
+<dd><p>gradient of Uhalo</p>
 </dd></dl>
 
 </dd></dl>
@@ -267,7 +406,7 @@ For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.53.g9052fe7.dirty',
+            VERSION:'0+untagged.4.ge913c80',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

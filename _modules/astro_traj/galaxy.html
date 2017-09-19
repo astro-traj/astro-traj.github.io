@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.galaxy &mdash; astro_traj 0+untagged.53.g9052fe7.dirty documentation</title>
+  <title>astro_traj.galaxy &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.53.g9052fe7.dirty documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.53.g9052fe7.dirty
+                0+untagged.4.ge913c80
               </div>
             
           
@@ -188,11 +188,11 @@
 <span class="kn">import</span> <span class="nn">pdb</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Galaxy_Models&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Galaxy_Models&#39;</span><span class="p">,</span> <span class="s1">&#39;Hernquist_NFW&#39;</span><span class="p">,</span> <span class="s1">&#39;Miyamoto_Nagai_NFW&#39;</span><span class="p">,</span> <span class="s1">&#39;Belczynski_2002&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Galaxy_Models"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models">[docs]</a><span class="k">class</span> <span class="nc">Galaxy_Models</span><span class="p">():</span>
+<div class="viewcode-block" id="Galaxy_Models"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models">[docs]</a><span class="k">class</span> <span class="nc">Galaxy_Models</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mf">100.0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Galaxy class. Masses in Msun, distances in kpc. Immediately converted to SI. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -201,269 +201,269 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">=</span> <span class="n">Mhalo</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">=</span> <span class="n">R_eff</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="n">h</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>                 <span class="c1"># distance at which we set the potential to drop to 0</span>
+        <span class="c1"># distance at which we set the potential to drop to 0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">=</span> <span class="n">rcut</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span></div>
 
 
+<div class="viewcode-block" id="Belczynski_2002"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002">[docs]</a><span class="k">class</span> <span class="nc">Belczynski_2002</span><span class="p">(</span><span class="n">Galaxy_Models</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</span>
 
-<div class="viewcode-block" id="Galaxy_Models.Belczynski_2002"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models.Belczynski_2002">[docs]</a>    <span class="k">def</span> <span class="nf">Belczynski_2002</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Galaxy with Hernquist potential for stellar component and dark matter potential from Belczynski 2002</span>
-
-<span class="sd">        Paper References:</span>
-<span class="sd">             Hernquist 1990: http://adsabs.harvard.edu/abs/1990ApJ...356..359H</span>
-<span class="sd">                 Ubulge is as in equation 5 in that paper</span>
-<span class="sd">             Belzcynski et al 2002: http://iopscience.iop.org/article/10.1086/339860/meta</span>
-<span class="sd">                 Uhalo is as in equation 6 in that paper with cutoff at rcut such that</span>
-<span class="sd">                 Uhalo goes like 1/r for r&gt;rcut</span>
+<span class="sd">    Paper References:</span>
+<span class="sd">         Hernquist 1990: http://adsabs.harvard.edu/abs/1990ApJ...356..359H</span>
+<span class="sd">             Ubulge is as in equation 5 in that paper</span>
+<span class="sd">         Belzcynski et al 2002: http://iopscience.iop.org/article/10.1086/339860/meta</span>
+<span class="sd">             Uhalo is as in equation 6 in that paper with cutoff at rcut such that</span>
+<span class="sd">             Uhalo goes like 1/r for r&gt;rcut</span>
 
 
-<span class="sd">            </span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
+        <span class="c1"># Shared galaxy params</span>
+        <span class="n">Galaxy_Models</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">)</span>
         <span class="c1"># define parameters that are used in this model</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">rcore</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>               <span class="c1"># Used in Belczynski+2002 halo potential, should be where DM density profile flattens FIXME</span>
-        <span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>            <span class="c1"># Use relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="n">abulge</span>
+        <span class="c1"># Used in Belczynski+2002 halo potential, should be where DM density profile flattens FIXME</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rcore</span> <span class="o">=</span> <span class="mf">100.0</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">kpc</span><span class="o">.</span><span class="n">value</span>
+        <span class="c1"># Use relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>
         <span class="c1">#FIXME: Need to make sure U(r&gt;rcut) is implemented properly. I think it&#39;s right, but I want someone else&#39;s eyes on it</span>
-        <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Halo contribution to potential divided by system mass</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="o">*</span><span class="n">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">term1</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-                <span class="n">term2</span> <span class="o">=</span> <span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
-                <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span>
-
-        <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Bulge contribution to potential divided by system mass</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">COORD</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Vdot calculation using gradients of Uhalo and Ubulge</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
-            <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-            <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                gradient of Uhalo</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">rcore</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-                <span class="n">term2</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-                <span class="n">term3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">r_i</span><span class="o">*</span><span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">:</span>
-                    <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="o">*</span><span class="n">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="o">-</span><span class="n">P</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mf">1.5</span><span class="p">)</span>
-
-                <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="o">+</span><span class="n">term3</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span>
-
-
-            <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span> 
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                gradient of Ubulge</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-            <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span>
-
-        <span class="c1"># Saves Vdot, Ubulge, and Uhalo calculator to class</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">Vdot</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Ubulge</span> <span class="o">=</span> <span class="n">Ubulge</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span> <span class="o">=</span> <span class="n">Uhalo</span></div>
-
-
-
-
-
-<div class="viewcode-block" id="Galaxy_Models.Hernquist_NFW"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models.Hernquist_NFW">[docs]</a>    <span class="k">def</span> <span class="nf">Hernquist_NFW</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Belczynski_2002.Uhalo"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.Uhalo">[docs]</a>    <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        CURRENTLY PREFERRED POTENTIAL</span>
-<span class="sd">        Galaxy with Hernquist potential for stellar component and dark matter potential and NFW profile for dark matter</span>
-
-<span class="sd">        Paper References:</span>
-<span class="sd">            Hernquist 1990: http://adsabs.harvard.edu/abs/1990ApJ...356..359H</span>
-<span class="sd">                 Ubulge is as in equation 5 in that paper</span>
-<span class="sd">            Navarro, Frenk, White 1996: http://adsabs.harvard.edu/abs/1996ApJ...462..563N</span>
-<span class="sd">                Uhalo corresponds to density profile in equation 3 in that paper.</span>
-<span class="sd">                For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta)</span>
-
-
+<span class="sd">        Halo contribution to potential divided by system mass</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="o">*</span><span class="n">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">term1</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">term2</span> <span class="o">=</span> <span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">rcore</span></div>
+
+<div class="viewcode-block" id="Belczynski_2002.Ubulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.Ubulge">[docs]</a>    <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bulge contribution to potential divided by system mass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Belczynski_2002.Vdot"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.Vdot">[docs]</a>    <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">COORD</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vdot calculation using gradients of Uhalo and Ubulge</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">gradUx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">gradUy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">gradUz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Belczynski_2002.halo"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.halo">[docs]</a>    <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gradient of Uhalo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">rcore</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">term2</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="p">((</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="n">term3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">r_i</span><span class="o">*</span><span class="n">rcore</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">rcore</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">r</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">:</span>
+            <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="o">*</span><span class="n">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="n">P</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mf">1.5</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="o">+</span><span class="n">term3</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span></div>
+
+
+<div class="viewcode-block" id="Belczynski_2002.bulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.bulge">[docs]</a>    <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gradient of Ubulge</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Hernquist_NFW"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW">[docs]</a><span class="k">class</span> <span class="nc">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy_Models</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    CURRENTLY PREFERRED POTENTIAL</span>
+<span class="sd">    Galaxy with Hernquist potential for stellar component and dark matter potential and NFW profile for dark matter</span>
+
+<span class="sd">    Paper References:</span>
+<span class="sd">        Hernquist 1990: http://adsabs.harvard.edu/abs/1990ApJ...356..359H</span>
+<span class="sd">             Ubulge is as in equation 5 in that paper</span>
+<span class="sd">        Navarro, Frenk, White 1996: http://adsabs.harvard.edu/abs/1996ApJ...462..563N</span>
+<span class="sd">            Uhalo corresponds to density profile in equation 3 in that paper.</span>
+<span class="sd">            For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta)</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
+        <span class="c1"># Shared galaxy params</span>
+        <span class="n">Galaxy_Models</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">)</span>
         <span class="c1"># define parameters that are used in this model</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
+        <span class="c1"># relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>
 
-        <span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>                                            <span class="c1"># relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="n">abulge</span>
+        <span class="c1"># critical density of the universe (SI units)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho_crit</span> <span class="o">=</span> <span class="mf">1.879</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">)</span>
 
-        <span class="n">rho_crit</span> <span class="o">=</span> <span class="mf">1.879</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">)</span>                                <span class="c1"># critical density of the universe (SI units)</span>
-        <span class="k">def</span> <span class="nf">c_200</span><span class="p">(</span><span class="n">M_200</span><span class="p">):</span>                                                       <span class="c1"># empirical formula for c_200 from Duffy et al. 2008, using a redshift of 0</span>
+        <span class="c1"># empirical formula for c_200 from Duffy et al. 2008, using a redshift of 0</span>
+        <span class="k">def</span> <span class="nf">c_200</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">M_200</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.76</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">M_200</span> <span class="o">/</span> <span class="p">((</span><span class="mf">2e12</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">c_200</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="p">)</span>                                                   <span class="c1"># approximate M_200 = M_halo</span>
-        <span class="n">R_200</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho_crit</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>                   <span class="c1"># R_200 is defined where density falls to 200 times the critical density</span>
-        <span class="n">Rs</span> <span class="o">=</span> <span class="n">R_200</span> <span class="o">/</span> <span class="n">c</span>                                                          <span class="c1"># definition of scale radius</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Rs</span> <span class="o">=</span> <span class="n">Rs</span>
-        <span class="n">rho0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)))</span>           <span class="c1"># from integrating density distribution to R_200</span>
+        <span class="c1"># approximate M_200 = M_halo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c_200</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="p">)</span>
+        <span class="c1"># R_200 is defined where density falls to 200 times the critical density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_200</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rho_crit</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># definition of scale radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_200</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+        <span class="c1"># from integrating density distribution to R_200</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)))</span>
 
-        <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Halo contribution to potential divided by system mass</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="n">r</span>
-
-        <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Bulge contribution to potential divided by system mass</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">COORD</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Vdot calculation using gradients of Uhalo and Ubulge</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
-            <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-            <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                gradient of Uhalo</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
-                <span class="n">term2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">+</span><span class="n">r</span><span class="p">))</span>
-                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span>
-
-
-            <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                gradient of Ubulge</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-            <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-            <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span>
-
-        <span class="c1"># Saves Vdot, Ubulge, and Uhalo calculator to class</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">Vdot</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Ubulge</span> <span class="o">=</span> <span class="n">Ubulge</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span> <span class="o">=</span> <span class="n">Uhalo</span></div>
-    
-
-
-
-<div class="viewcode-block" id="Galaxy_Models.Miyamoto_Nagai_NFW"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models.Miyamoto_Nagai_NFW">[docs]</a>    <span class="k">def</span> <span class="nf">Miyamoto_Nagai_NFW</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Hernquist_NFW.Uhalo"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW.Uhalo">[docs]</a>    <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter</span>
-<span class="sd">        NOTE: This potential model is not working yet. We only have 1 measurement for the stellar mass component, not a separate bulge and disk mass</span>
-<span class="sd">        Paper References:</span>
-<span class="sd">            Miyamoto and Nagai 1975: http://adsabs.harvard.edu/abs/1975PASJ...27..533M</span>
-<span class="sd">                Udisk, Ubulge are as in Equation 4 in that paper</span>
-
-<span class="sd">            Navarro, Frenk, White 1996: http://adsabs.harvard.edu/abs/1996ApJ...462..563N</span>
-<span class="sd">                Uhalo corresponds to density profile in equation 3 in that paper.</span>
-<span class="sd">                For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta)</span>
-
-
+<span class="sd">        Halo contribution to potential divided by system mass</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="n">r</span></div>
+
+<div class="viewcode-block" id="Hernquist_NFW.Ubulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW.Ubulge">[docs]</a>    <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bulge contribution to potential divided by system mass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Hernquist_NFW.Vdot"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW.Vdot">[docs]</a>    <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">COORD</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vdot calculation using gradients of Uhalo and Ubulge</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="n">gradUx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">gradUy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">gradUz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">bulge</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Hernquist_NFW.halo"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW.halo">[docs]</a>    <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gradient of Uhalo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">term2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">+</span><span class="n">r</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Hernquist_NFW.bulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW.bulge">[docs]</a>    <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gradient of Ubulge</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">*</span><span class="n">r_i</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="o">+</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Miyamoto_Nagai_NFW"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Miyamoto_Nagai_NFW">[docs]</a><span class="k">class</span> <span class="nc">Miyamoto_Nagai_NFW</span><span class="p">(</span><span class="n">Galaxy_Models</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Spiral Galaxy with disk and bulge potential from Miyamoto &amp; Nagai 1975 and NFW profile for dark matter</span>
+<span class="sd">    NOTE: This potential model is not working yet. We only have 1 measurement for the stellar mass component, not a separate bulge and disk mass</span>
+<span class="sd">    Paper References:</span>
+<span class="sd">        Miyamoto and Nagai 1975: http://adsabs.harvard.edu/abs/1975PASJ...27..533M</span>
+<span class="sd">            Udisk, Ubulge are as in Equation 4 in that paper</span>
+
+<span class="sd">        Navarro, Frenk, White 1996: http://adsabs.harvard.edu/abs/1996ApJ...462..563N</span>
+<span class="sd">            Uhalo corresponds to density profile in equation 3 in that paper.</span>
+<span class="sd">            For explicit equation for this  potential see, say, Naray et al 2009 Equation 1 (http://iopscience.iop.org/article/10.1088/0004-637X/692/2/1321/meta)</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
+        <span class="c1"># Shared galaxy params</span>
+        <span class="n">Galaxy_Models</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">)</span>
         <span class="c1"># define parameters that are used in this model</span>
-        <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
-        <span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>                                            <span class="c1"># relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="n">abulge</span>
-        <span class="n">rho_crit</span> <span class="o">=</span> <span class="mf">1.879</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">)</span>                                <span class="c1"># critical density of the universe (SI units)</span>
-        <span class="k">def</span> <span class="nf">c_200</span><span class="p">(</span><span class="n">M_200</span><span class="p">):</span>                                                       <span class="c1"># empirical formula for c_200 from Duffy et al. 2008, using a redshift of 0</span>
+        <span class="c1"># relationship between R_effective and abulge from Hernquist 1990 (eq. 38)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_eff</span> <span class="o">/</span> <span class="mf">1.8153</span>
+        <span class="c1"># critical density of the universe (SI units)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho_crit</span> <span class="o">=</span> <span class="mf">1.879</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">26</span><span class="p">)</span>
+
+        <span class="c1"># empirical formula for c_200 from Duffy et al. 2008, using a redshift of 0</span>
+        <span class="k">def</span> <span class="nf">c_200</span><span class="p">(</span><span class="n">M_200</span><span class="p">):</span>
             <span class="k">return</span> <span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="mf">0.76</span> <span class="o">-</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">M_200</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.78</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">12</span> <span class="o">*</span> <span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span>
-        <span class="n">c</span> <span class="o">=</span> <span class="n">c_200</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="p">)</span>                                                   <span class="c1"># approximate M_200 = M_halo</span>
-        <span class="n">R_200</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho_crit</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>                   <span class="c1"># R_200 is defined where density falls to 200 times the critical density</span>
-        <span class="n">Rs</span> <span class="o">=</span> <span class="n">R_200</span> <span class="o">/</span> <span class="n">c</span>                                                          <span class="c1"># definition of scale radius</span>
-        <span class="n">rho0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">c</span><span class="p">)))</span>           <span class="c1"># from integrating density distribution to R_200</span>
+        <span class="c1"># approximate M_200 = M_halo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c_200</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="p">)</span>
+        <span class="c1"># R_200 is defined where density falls to 200 times the critical density</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">R_200</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">800</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rho_crit</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+        <span class="c1"># definition of scale radius</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R_200</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+        <span class="c1"># from integrating density distribution to R_200</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rho0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)))</span>
 
-        <span class="k">def</span> <span class="nf">Udisk</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+<div class="viewcode-block" id="Miyamoto_Nagai_NFW.Udisk"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Miyamoto_Nagai_NFW.Udisk">[docs]</a>    <span class="k">def</span> <span class="nf">Udisk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disk contribution to potential divided by system mass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span></div>
+<div class="viewcode-block" id="Miyamoto_Nagai_NFW.Uhalo"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Miyamoto_Nagai_NFW.Uhalo">[docs]</a>    <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Halo contribution to potential divided by system mass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="n">r</span></div>
+
+<div class="viewcode-block" id="Miyamoto_Nagai_NFW.Ubulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Miyamoto_Nagai_NFW.Ubulge">[docs]</a>    <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Bulge contribution to potential divided by system mass</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Miyamoto_Nagai_NFW.Vdot"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Miyamoto_Nagai_NFW.Vdot">[docs]</a>    <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">COORD</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Vdot calculation using gradients of Ubulge, Udisk, and Uhalo</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+        <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Disk contribution to potential divided by system mass</span>
+<span class="sd">            # gradient of Uhalo</span>
 <span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">term2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">+</span><span class="n">r</span><span class="p">))</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span>
 
+
+        <span class="k">def</span> <span class="nf">bulge_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r_j</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            X and Y components of gradient of Ubulge</span>
+
+<span class="sd">            i is component of interest, j is the other non-z component</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span> 
+
+        <span class="k">def</span> <span class="nf">bulge_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Z component of gradient of Ubulge</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">return</span>
-        <span class="k">def</span> <span class="nf">Uhalo</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        
+        <span class="k">def</span> <span class="nf">disk_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r_j</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Halo contribution to potential divided by system mass</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">G</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="n">r</span>
+<span class="sd">            X and Y components of gradient of Udisk</span>
 
-        <span class="k">def</span> <span class="nf">Ubulge</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+<span class="sd">            i is component of interest, j is the other non-z component</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="k">return</span>
+        <span class="k">def</span> <span class="nf">disk_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Bulge contribution to potential divided by system mass</span>
+<span class="sd">            Z component of gradient of Udisk</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> <span class="o">-</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="n">abulge</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">Vdot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">COORD</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Vdot calculation using gradients of Ubulge, Udisk, and Uhalo</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
-            <span class="n">xdot</span><span class="p">,</span><span class="n">ydot</span><span class="p">,</span><span class="n">zdot</span> <span class="o">=</span> <span class="n">COORD</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-            <span class="k">def</span> <span class="nf">halo</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                # gradient of Uhalo</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">term1</span> <span class="o">=</span> <span class="n">r_i</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="o">/</span><span class="n">Rs</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
-                <span class="n">term2</span> <span class="o">=</span> <span class="o">-</span><span class="n">r_i</span><span class="o">/</span><span class="p">((</span><span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">+</span><span class="n">r</span><span class="p">))</span>
-                <span class="k">return</span> <span class="n">G</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rho0</span><span class="o">*</span><span class="p">(</span><span class="n">Rs</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="p">)</span>
+            <span class="k">return</span>
 
 
-            <span class="k">def</span> <span class="nf">bulge_xy</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r_j</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                X and Y components of gradient of Ubulge</span>
+        <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_xy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_xy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
 
-<span class="sd">                i is component of interest, j is the other non-z component</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span> 
-
-            <span class="k">def</span> <span class="nf">bulge_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Z component of gradient of Ubulge</span>
-
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span>
-            
-            <span class="k">def</span> <span class="nf">disk_xy</span><span class="p">(</span><span class="n">r_i</span><span class="p">,</span><span class="n">r_j</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                X and Y components of gradient of Udisk</span>
-
-<span class="sd">                i is component of interest, j is the other non-z component</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="k">return</span>
-            <span class="k">def</span> <span class="nf">disk_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Z component of gradient of Udisk</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-
-
-            <span class="n">gradUx</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_xy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
-            <span class="n">gradUy</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_xy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_xy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
-            <span class="n">gradUz</span> <span class="o">=</span> <span class="n">halo</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">bulge_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="o">+</span><span class="n">disk_z</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
-
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span>
-
-        <span class="c1"># Saves Vdot, Ubulge, and Uhalo calculator to class</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span> <span class="o">=</span> <span class="n">Vdot</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Ubulge</span> <span class="o">=</span> <span class="n">Ubulge</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Uhalo</span> <span class="o">=</span> <span class="n">Uhalo</span></div></div>
-
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="n">gradUx</span><span class="p">,</span><span class="o">-</span><span class="n">gradUy</span><span class="p">,</span><span class="o">-</span><span class="n">gradUz</span><span class="p">,</span> <span class="n">xdot</span><span class="p">,</span> <span class="n">ydot</span><span class="p">,</span> <span class="n">zdot</span><span class="p">])</span></div></div>
 </pre></div>
 
            </div>
@@ -500,7 +500,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.53.g9052fe7.dirty',
+            VERSION:'0+untagged.4.ge913c80',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

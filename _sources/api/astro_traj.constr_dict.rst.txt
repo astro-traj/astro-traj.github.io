@@ -1,0 +1,4 @@
+.. automodule:: astro_traj.constr_dict
+    :members:
+    :undoc-members:
+    :show-inheritance:
