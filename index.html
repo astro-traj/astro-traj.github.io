@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to astro_traj’s documentation! &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
+  <title>Welcome to astro_traj’s documentation! &mdash; astro_traj 0+untagged.15.g79ceedd documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="#"/>
+    <link rel="top" title="astro_traj 0+untagged.15.g79ceedd documentation" href="#"/>
         <link rel="next" title="Running LIGOTraj on the command line" href="command-line/index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.4.ge913c80
+                0+untagged.15.g79ceedd
               </div>
             
           
@@ -168,8 +168,12 @@
 <div class="section" id="how-to-run-astro-traj">
 <h2>How to run astro_traj<a class="headerlink" href="#how-to-run-astro-traj" title="Permalink to this headline">¶</a></h2>
 <p>The main product of this package is the command-line executable <cite>LIGOtraj</cite></p>
-<p>To run an analysis:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ LIGOTraj
+<p>To run an analysis, you need to specify a file that holds the posterior samples from your favorite PE run, an effective radius of your galaxy (in kpc), and an offset for the event (in kpc):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ LIGOTraj --samples <span class="s1">&#39;path_to_samples&#39;</span> --effective-radius <span class="s1">&#39;float&#39;</span> --offset <span class="s1">&#39;float&#39;</span>
+</pre></div>
+</div>
+<p>You can specifty the number of trials and the name of your output file using flags. You can also alter the galaxy and telescope properties or add a new galaxy/telescope using dictionaries in the constr_dict.py file.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ LIGOTraj --samples <span class="s1">&#39;path_to_samples&#39;</span> --effective-radius <span class="s1">&#39;float&#39;</span> --offset <span class="s1">&#39;float&#39;</span> --galaxy <span class="s1">&#39;NGC&#39;</span> --telescope <span class="s1">&#39;ESO&#39;</span> --trails <span class="m">100</span> --outfile <span class="s1">&#39;path_to_output&#39;</span>
 </pre></div>
 </div>
 <p>For a full list of command-line argument and options, run</p>
@@ -239,7 +243,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0+untagged.4.ge913c80',
+            VERSION:'0+untagged.15.g79ceedd',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

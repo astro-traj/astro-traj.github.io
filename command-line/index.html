@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
+  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.15.g79ceedd documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.15.g79ceedd documentation" href="../index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.4.ge913c80
+                0+untagged.15.g79ceedd
               </div>
             
           
@@ -167,9 +167,8 @@
 <h2>Basic instructions<a class="headerlink" href="#basic-instructions" title="Permalink to this headline">¶</a></h2>
 <p>Basic instructions on running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> can be gained by looking at the <code class="docutils literal"><span class="pre">--help</span></code> menu:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>$ LIGOTraj --help
-usage: LIGOTraj [-h] [-V] --galaxy GALAXY --offset OFFSET --effective-radius
-                EFFECTIVE_RADIUS -s FILENAME_SAMPLES -t TELESCOPE [-T TRIALS]
-                [-f OUTFILE]
+usage: LIGOTraj [-h] [-V] -o OFFSET -r EFFECTIVE_RADIUS -s SAMPLES [-g GALAXY]
+                [-t TELESCOPE] [-T TRIALS] [-f OUTFILE]
 
 Main function. Samples parameters, implements kicks, and sees whether the
 systems is a &#39;successful&#39; merger by merging at the proper projected distance.
@@ -183,14 +182,18 @@ Energy conservation requirement not met!!!
 optional arguments:
   -h, --help            show this help message and exit
   -V, --version         show program&#39;s version number and exit
-  --galaxy GALAXY       name of galaxy
-  --offset OFFSET       offset from center of galaxy of event
-  --effective-radius EFFECTIVE_RADIUS
-                        effective radius
-  -s FILENAME_SAMPLES, --filename-samples FILENAME_SAMPLES
+  -o OFFSET, --offset OFFSET
+                        Offset from center of galaxy of event
+  -r EFFECTIVE_RADIUS, --effective-radius EFFECTIVE_RADIUS
+                        Effective radius
+  -s SAMPLES, --samples SAMPLES
                         Path to posterior samples
+  -g GALAXY, --galaxy GALAXY
+                        Name of galaxy that is pulled from the dictionaries in
+                        constr_dict.py. Default=NGC
   -t TELESCOPE, --telescope TELESCOPE
-                        Name of telescope
+                        Name of telescope that is pulled from the dictionaries
+                        in constr_dict.py. Default=ESO
   -T TRIALS, --trials TRIALS
                         Specify the number of trials. Default=1
   -f OUTFILE, --outfile OUTFILE
@@ -246,7 +249,7 @@ optional arguments:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.4.ge913c80',
+            VERSION:'0+untagged.15.g79ceedd',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.system &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
+  <title>astro_traj.system &mdash; astro_traj 0+untagged.15.g79ceedd documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.15.g79ceedd documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.4.ge913c80
+                0+untagged.15.g79ceedd
               </div>
             
           
@@ -160,25 +160,28 @@
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
 <span class="c1">#</span>
-<span class="c1"># This file is part of gwemlightcurves.</span>
+<span class="c1"># This file is part of astro-traj.</span>
 <span class="c1">#</span>
-<span class="c1"># gwemlightcurves is free software: you can redistribute it and/or modify</span>
+<span class="c1"># astro-traj is free software: you can redistribute it and/or modify</span>
 <span class="c1"># it under the terms of the GNU General Public License as published by</span>
 <span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
 <span class="c1"># (at your option) any later version.</span>
 <span class="c1">#</span>
-<span class="c1"># gwemlightcurves is distributed in the hope that it will be useful,</span>
+<span class="c1"># astro-traj is distributed in the hope that it will be useful,</span>
 <span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
 <span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
 <span class="c1"># GNU General Public License for more details.</span>
 <span class="c1">#</span>
 <span class="c1"># You should have received a copy of the GNU General Public License</span>
-<span class="c1"># along with gwemlightcurves.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<span class="c1"># along with astro-traj.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 
-<span class="sd">&quot;&quot;&quot;`system`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal</span>
+<span class="sd">Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V    </span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
 <span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">C</span>
 <span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">ode</span>
@@ -186,7 +189,8 @@
 <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">rv_continuous</span>
 <span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="k">import</span> <span class="n">quad</span>
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Chase Kimball &lt;charles.kimball@ligo.org&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;Michael Zevin &lt;michael.zevin@ligo.org&gt;&#39;</span><span class="p">]</span>
+<span class="n">__credits__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;System&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="System"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System">[docs]</a><span class="k">class</span> <span class="nc">System</span><span class="p">:</span>
@@ -578,7 +582,30 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span><span class="p">,</span> \
                 <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">yr</span><span class="p">)</span><span class="o">/</span><span class="mf">1e9</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kpc</span><span class="p">),</span> \
                 <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">km</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">data</span></div></div>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="System.save_evolution"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.save_evolution">[docs]</a>    <span class="k">def</span> <span class="nf">save_evolution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        If called, will save the evolution of a given system for plotting orbital trajectory through galaxy</span>
+<span class="sd">        Format: [t, X, Y, Z, Vx, Vy, Vz]</span>
+<span class="sd">        The initial values are saved as the first item of the file, with time set to a value of -1</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">initial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">],</span><span class="bp">self</span><span class="o">.</span><span class="n">RR</span><span class="p">[</span><span class="mi">3</span><span class="p">:],</span><span class="bp">self</span><span class="o">.</span><span class="n">RR</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]]))</span> 
+        <span class="n">evolution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vx</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vy</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vz</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">evolution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">initial</span><span class="p">,</span><span class="n">evolution</span><span class="p">])</span>
+        <span class="c1"># save evolution</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">evolution</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span><span class="s1">&#39;vy&#39;</span><span class="p">,</span><span class="s1">&#39;vz&#39;</span><span class="p">])</span>
+
+        <span class="c1"># save normal output to same file</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;M2&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mns&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Mhe&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Apre&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Apost&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;epre&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;epost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;R&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;galcosth&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;galphi&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Vkick&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Tmerge&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Tmerge</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rmerge&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rmerge_proj&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Vfinal&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">flag</span>
+
+        <span class="c1"># write to csv</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;.dat&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div></div>
+
+
 </pre></div>
 
            </div>
@@ -615,7 +642,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.4.ge913c80',
+            VERSION:'0+untagged.15.g79ceedd',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

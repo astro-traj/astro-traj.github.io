@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.15.g79ceedd documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.15.g79ceedd documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.4.ge913c80
+                0+untagged.15.g79ceedd
               </div>
             
           
@@ -184,8 +184,8 @@
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick_uniform" title="astro_traj.sample.Sample.sample_Vkick_uniform"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick_uniform</span></code></a>([Vmin,&nbsp;Vmax,&nbsp;size])</td>
 <td>sample kick uniformly (Wong 2010)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-obj docutils literal"><span class="pre">sample_masses</span></code></a>(m1,&nbsp;m2[,&nbsp;m1_sigma,&nbsp;m2_sigma,&nbsp;size])</td>
-<td>Samples m1 and m2 from Gaussian distributions.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-obj docutils literal"><span class="pre">sample_masses</span></code></a>([samples,&nbsp;method,&nbsp;size])</td>
+<td>Samples m1 and m2 from posterior distrbution of your favorite PE run.</td>
 </tr>
 </tbody>
 </table>
@@ -227,9 +227,10 @@
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_masses">
-<code class="descname">sample_masses</code><span class="sig-paren">(</span><em>m1</em>, <em>m2</em>, <em>m1_sigma=None</em>, <em>m2_sigma=None</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_masses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Samples m1 and m2 from Gaussian distributions.
-If only m1 and m2 are passed, passes back these values for M2 and Mns.</p>
+<code class="descname">sample_masses</code><span class="sig-paren">(</span><em>samples=None</em>, <em>method='posterior'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Samples m1 and m2 from posterior distrbution of your favorite PE run.
+Samples from the posterior samples by default. 
+Can specify methods ‘gaussian’ or ‘delta_function’ to sample using the mean and std of the posterior samples only</p>
 </dd></dl>
 
 </dd></dl>
@@ -367,7 +368,7 @@ If only m1 and m2 are passed, passes back these values for M2 and Mns.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.4.ge913c80',
+            VERSION:'0+untagged.15.g79ceedd',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

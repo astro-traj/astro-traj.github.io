@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.4.ge913c80 documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.15.g79ceedd documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.4.ge913c80 documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.15.g79ceedd documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.4.ge913c80
+                0+untagged.15.g79ceedd
               </div>
             
           
@@ -155,7 +155,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-astro_traj.system"></span><p><cite>system</cite></p>
+  <span class="target" id="module-astro_traj.system"></span><p>Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal
+Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</p>
 <dl class="class">
 <dt id="astro_traj.system.System">
 <em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>gal</em>, <em>R</em>, <em>Mns</em>, <em>M2</em>, <em>Mhe</em>, <em>Apre</em>, <em>epre</em>, <em>Vkick</em>, <em>galphi=None</em>, <em>galcosth=None</em>, <em>omega=None</em>, <em>phi=None</em>, <em>costh=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
@@ -183,16 +184,19 @@
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.getVcirc" title="astro_traj.system.System.getVcirc"><code class="xref py py-obj docutils literal"><span class="pre">getVcirc</span></code></a>(X,&nbsp;Y,&nbsp;Z)</td>
 <td>Calculate circular velocity at X,Y,Z given potential.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-obj docutils literal"><span class="pre">setTmerge</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.save_evolution" title="astro_traj.system.System.save_evolution"><code class="xref py py-obj docutils literal"><span class="pre">save_evolution</span></code></a>(filename)</td>
+<td>If called, will save the evolution of a given system for plotting orbital trajectory through galaxy</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-obj docutils literal"><span class="pre">setTmerge</span></code></a>()</td>
 <td>Calculate the inspiral time for the binary after the supernova using formulae from Peters 1964</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-obj docutils literal"><span class="pre">setVxyz_0</span></code></a>([circflag])</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-obj docutils literal"><span class="pre">setVxyz_0</span></code></a>([circflag])</td>
 <td>Here, vphi and vcosth are as galphi and galcosth, and give random direction for V_sys postSN</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-obj docutils literal"><span class="pre">setXYZ_0</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-obj docutils literal"><span class="pre">setXYZ_0</span></code></a>()</td>
 <td>Convert from spherical inputs to Cartesian coordinates</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.write_data" title="astro_traj.system.System.write_data"><code class="xref py py-obj docutils literal"><span class="pre">write_data</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.write_data" title="astro_traj.system.System.write_data"><code class="xref py py-obj docutils literal"><span class="pre">write_data</span></code></a>()</td>
 <td># [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]</td>
 </tr>
 </tbody>
@@ -245,6 +249,14 @@ Ek, Ep are kinetic and potential energy</p>
 <code class="descname">getVcirc</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>Z</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.getVcirc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.getVcirc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate circular velocity at X,Y,Z given potential. From mv2/r = -grad_r(U)
 FIXME: Will have to change for spiral potential, as circular velocity is assumed to be within the disk</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.system.System.save_evolution">
+<code class="descname">save_evolution</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.save_evolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.save_evolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>If called, will save the evolution of a given system for plotting orbital trajectory through galaxy
+Format: [t, X, Y, Z, Vx, Vy, Vz]
+The initial values are saved as the first item of the file, with time set to a value of -1</p>
 </dd></dl>
 
 <dl class="method">
@@ -316,7 +328,7 @@ where k is unit vector r/R where r=(x,y,z)</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.4.ge913c80',
+            VERSION:'0+untagged.15.g79ceedd',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
