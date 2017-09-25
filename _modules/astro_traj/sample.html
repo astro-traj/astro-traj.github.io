@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.sample &mdash; astro_traj 0+untagged.22.gb03fbce documentation</title>
+  <title>astro_traj.sample &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.22.gb03fbce documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.22.gb03fbce
+                0+untagged.31.ga4a55f7
               </div>
             
           
@@ -240,57 +240,111 @@
         <span class="n">samples</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;posterior&#39;</span><span class="p">:</span>
-            <span class="n">m1</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]),</span><span class="n">size</span><span class="p">)]</span>
-            <span class="n">m2</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]),</span><span class="n">size</span><span class="p">)]</span>
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]),</span><span class="n">size</span><span class="p">)]</span>
+            <span class="n">m2</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]),</span><span class="n">size</span><span class="p">)]</span>
             <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
 
         <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;delta_function&#39;</span><span class="p">:</span>
-            <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-            <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
 
         <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;gaussian&#39;</span><span class="p">:</span>
-            <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
-            <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
+            <span class="n">m1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
+            <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
 
         <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
+    <span class="c1"># sample distance from PE</span>
+<div class="viewcode-block" id="Sample.sample_distance"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_distance">[docs]</a>    <span class="k">def</span> <span class="nf">sample_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;delta_function&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Samples distance from posterior distrbution of your favorite PE run.</span>
+<span class="sd">        Just uses the mean value for distance by default. </span>
+<span class="sd">        Can specify methods &#39;gaussian&#39; or &#39;posteriors&#39; to sample using other methods</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No posterior sample file specified!&quot;</span><span class="p">)</span>
+        
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;posterior&#39;</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]),</span><span class="n">size</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">d</span>
+
+        <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;delta_function&#39;</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">)</span><span class="o">*</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">d</span>
+
+        <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;gaussian&#39;</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">d</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
+
+
     <span class="c1"># sample semi-major axis</span>
-<div class="viewcode-block" id="Sample.sample_Apre"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Apre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.sample_Apre"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Apre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        samples semi-major axis uniformly</span>
+<span class="sd">        samples semi-major axis uniformly (method=&#39;uniform&#39;, default) or uniformly in log (method=&#39;log&#39;)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">A_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">A_samp</span></div>
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+            <span class="n">A_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Amin</span><span class="p">,</span> <span class="n">Amax</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">A_samp</span>
+
+        <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;log&#39;</span><span class="p">:</span>
+            <span class="n">A_samp</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Amin</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Amax</span><span class="p">),</span> <span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">A_samp</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
+
+
+    <span class="c1"># sample eccentricity</span>
+<div class="viewcode-block" id="Sample.sample_epre"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_epre">[docs]</a>    <span class="k">def</span> <span class="nf">sample_epre</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;circularized&#39;</span><span class="p">,</span>  <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        samples initial eccentricity (for now, assume circularized)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;circularized&#39;</span><span class="p">:</span>
+            <span class="n">e_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">e_samp</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
     <span class="c1"># sample helium star mass</span>
-<div class="viewcode-block" id="Sample.sample_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.sample_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        samples He-star mass uniformly between Mns and 8 Msun (BH limit)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">Mhe_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Mhe_samp</span></div>
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+            <span class="n">Mhe_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Mhe_samp</span>
+
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
     <span class="c1"># sample kick velocities</span>
-<div class="viewcode-block" id="Sample.sample_Vkick_maxwellian"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick_maxwellian">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick_maxwellian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">265</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.sample_Vkick"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">265</span><span class="p">,</span> <span class="n">Vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Vmax</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        sample kick velocity from Maxwellian (Hobbs 2005)</span>
+<span class="sd">        sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010)</span>
 <span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">maxwell</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Vkick_samp</span></div>
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">:</span>
+            <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">maxwell</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Vkick_samp</span>
 
+        <span class="k">elif</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
+            <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Vmin</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Vkick_samp</span>
 
-<div class="viewcode-block" id="Sample.sample_Vkick_uniform"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick_uniform">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick_uniform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Vmax</span><span class="o">=</span><span class="mf">2500.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        sample kick uniformly (Wong 2010)</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Vmin</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">Vkick_samp</span></div>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Sample.initialize_R"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_R</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -345,7 +399,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.22.gb03fbce',
+            VERSION:'0+untagged.31.ga4a55f7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

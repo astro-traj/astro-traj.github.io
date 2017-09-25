@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.22.gb03fbce documentation</title>
+  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.22.gb03fbce documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.22.gb03fbce
+                0+untagged.31.ga4a55f7
               </div>
             
           
@@ -168,7 +168,9 @@
 <p>Basic instructions on running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> can be gained by looking at the <code class="docutils literal"><span class="pre">--help</span></code> menu:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>$ LIGOTraj --help
 usage: LIGOTraj [-h] [-V] -o OFFSET -r EFFECTIVE_RADIUS -s SAMPLES [-g GALAXY]
-                [-t TELESCOPE] [-T TRIALS] [-f OUTFILE]
+                [-t TELESCOPE] [-T TRIALS] [-f OUTFILE] [--Apre APRE]
+                [--Mhe MHE] [--Vkick VKICK] [--Ms MS] [--epre EPRE]
+                [--distance DISTANCE]
 
 Main function. Samples parameters, implements kicks, and sees whether the
 systems is a &#39;successful&#39; merger by merging at the proper projected distance.
@@ -198,6 +200,18 @@ optional arguments:
                         Specify the number of trials. Default=1
   -f OUTFILE, --outfile OUTFILE
                         Name of the output file. Default=output
+  --Apre APRE           Specify sampling procedure for initial semi-major
+                        axis. Default=uniform
+  --Mhe MHE             Specify sampling procedure for helium star mass.
+                        Default=uniform
+  --Vkick VKICK         Specify sampling procedure for kick velocity.
+                        Default=maxwellian
+  --Ms MS               Specify sampling procedure for NS masses.
+                        Default=posterior
+  --epre EPRE           Specify sampling procedure for initial eccentricity.
+                        Default=circularized
+  --distance DISTANCE   Specify sampling procedure for the distance.
+                        Default=delta_function
 </pre></div>
 </div>
 </div>
@@ -249,7 +263,7 @@ optional arguments:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.22.gb03fbce',
+            VERSION:'0+untagged.31.ga4a55f7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

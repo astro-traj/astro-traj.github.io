@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.22.gb03fbce documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.22.gb03fbce documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.22.gb03fbce
+                0+untagged.31.ga4a55f7
               </div>
             
           
@@ -159,7 +159,7 @@
 Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</p>
 <dl class="class">
 <dt id="astro_traj.system.System">
-<em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>gal</em>, <em>R</em>, <em>Mns</em>, <em>M2</em>, <em>Mhe</em>, <em>Apre</em>, <em>epre</em>, <em>Vkick</em>, <em>galphi=None</em>, <em>galcosth=None</em>, <em>omega=None</em>, <em>phi=None</em>, <em>costh=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>gal</em>, <em>R</em>, <em>Mns</em>, <em>M2</em>, <em>Mhe</em>, <em>Apre</em>, <em>epre</em>, <em>d</em>, <em>Vkick</em>, <em>galphi=None</em>, <em>galcosth=None</em>, <em>omega=None</em>, <em>phi=None</em>, <em>costh=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
 <dd><p>Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal</p>
 <p>Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</p>
 <p class="rubric">Methods</p>
@@ -197,7 +197,7 @@ Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-impart
 <td>Convert from spherical inputs to Cartesian coordinates</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.write_data" title="astro_traj.system.System.write_data"><code class="xref py py-obj docutils literal"><span class="pre">write_data</span></code></a>()</td>
-<td># [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]</td>
+<td># [M2, Mns, Mhe, Apre, Apost, epre, epost, d, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]</td>
 </tr>
 </tbody>
 </table>
@@ -256,7 +256,7 @@ FIXME: Will have to change for spiral potential, as circular velocity is assumed
 <code class="descname">save_evolution</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.save_evolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.save_evolution" title="Permalink to this definition">¶</a></dt>
 <dd><p>If called, will save the evolution of a given system for plotting orbital trajectory through galaxy
 Format: [t, X, Y, Z, Vx, Vy, Vz]
-The initial values are saved as the first item of the file, with time set to a value of -1</p>
+The initial values are saved as the first item of the file</p>
 </dd></dl>
 
 <dl class="method">
@@ -286,7 +286,7 @@ where k is unit vector r/R where r=(x,y,z)</p>
 <dl class="method">
 <dt id="astro_traj.system.System.write_data">
 <code class="descname">write_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.write_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.write_data" title="Permalink to this definition">¶</a></dt>
-<dd><p># [M2, Mns, Mhe, Apre, Apost, epre, epost, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]
+<dd><p># [M2, Mns, Mhe, Apre, Apost, epre, epost, d, R, galcosth, galphi, Vkick, Tmerge, Rmerge, Rmerge_proj, Vfinal, flag]
 # write things in reasonable units (e.g., Msun, kpc, km/s …)</p>
 </dd></dl>
 
@@ -328,7 +328,7 @@ where k is unit vector r/R where r=(x,y,z)</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.22.gb03fbce',
+            VERSION:'0+untagged.31.ga4a55f7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

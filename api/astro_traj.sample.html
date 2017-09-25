@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.22.gb03fbce documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.22.gb03fbce documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.22.gb03fbce
+                0+untagged.31.ga4a55f7
               </div>
             
           
@@ -169,22 +169,25 @@
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-obj docutils literal"><span class="pre">initialize_R</span></code></a>()</td>
 <td>samples radial distance from galactic center according to specified potential function</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-obj docutils literal"><span class="pre">sample_Apre</span></code></a>(Amin,&nbsp;Amax[,&nbsp;size])</td>
-<td>samples semi-major axis uniformly</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-obj docutils literal"><span class="pre">sample_Apre</span></code></a>(Amin,&nbsp;Amax[,&nbsp;method,&nbsp;size])</td>
+<td>samples semi-major axis uniformly (method=’uniform’, default) or uniformly in log (method=’log’)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">sample_Mhe</span></code></a>(Mmin[,&nbsp;Mmax,&nbsp;size])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">sample_Mhe</span></code></a>(Mmin[,&nbsp;Mmax,&nbsp;method,&nbsp;size])</td>
 <td>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-obj docutils literal"><span class="pre">sample_R</span></code></a>(PDF,&nbsp;Ndraws)</td>
 <td>samples radial distance from galactic center according to specified potential function</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick_maxwellian" title="astro_traj.sample.Sample.sample_Vkick_maxwellian"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick_maxwellian</span></code></a>([scale,&nbsp;size])</td>
-<td>sample kick velocity from Maxwellian (Hobbs 2005)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick</span></code></a>([scale,&nbsp;Vmin,&nbsp;Vmax,&nbsp;method,&nbsp;size])</td>
+<td>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010)</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick_uniform" title="astro_traj.sample.Sample.sample_Vkick_uniform"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick_uniform</span></code></a>([Vmin,&nbsp;Vmax,&nbsp;size])</td>
-<td>sample kick uniformly (Wong 2010)</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_distance" title="astro_traj.sample.Sample.sample_distance"><code class="xref py py-obj docutils literal"><span class="pre">sample_distance</span></code></a>([samples,&nbsp;method,&nbsp;size])</td>
+<td>Samples distance from posterior distrbution of your favorite PE run.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-obj docutils literal"><span class="pre">sample_masses</span></code></a>([samples,&nbsp;method,&nbsp;size])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_epre" title="astro_traj.sample.Sample.sample_epre"><code class="xref py py-obj docutils literal"><span class="pre">sample_epre</span></code></a>([method,&nbsp;size])</td>
+<td>samples initial eccentricity (for now, assume circularized)</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-obj docutils literal"><span class="pre">sample_masses</span></code></a>([samples,&nbsp;method,&nbsp;size])</td>
 <td>Samples m1 and m2 from posterior distrbution of your favorite PE run.</td>
 </tr>
 </tbody>
@@ -197,13 +200,13 @@
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Apre">
-<code class="descname">sample_Apre</code><span class="sig-paren">(</span><em>Amin</em>, <em>Amax</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Apre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Apre" title="Permalink to this definition">¶</a></dt>
-<dd><p>samples semi-major axis uniformly</p>
+<code class="descname">sample_Apre</code><span class="sig-paren">(</span><em>Amin</em>, <em>Amax</em>, <em>method='uniform'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Apre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Apre" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples semi-major axis uniformly (method=’uniform’, default) or uniformly in log (method=’log’)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Mhe">
-<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><em>Mmin</em>, <em>Mmax=8.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
+<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><em>Mmin</em>, <em>Mmax=8.0</em>, <em>method='uniform'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
 <dd><p>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</p>
 </dd></dl>
 
@@ -214,15 +217,23 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="astro_traj.sample.Sample.sample_Vkick_maxwellian">
-<code class="descname">sample_Vkick_maxwellian</code><span class="sig-paren">(</span><em>scale=265</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick_maxwellian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick_maxwellian" title="Permalink to this definition">¶</a></dt>
-<dd><p>sample kick velocity from Maxwellian (Hobbs 2005)</p>
+<dt id="astro_traj.sample.Sample.sample_Vkick">
+<code class="descname">sample_Vkick</code><span class="sig-paren">(</span><em>scale=265</em>, <em>Vmin=0</em>, <em>Vmax=2500</em>, <em>method='maxwellian'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="astro_traj.sample.Sample.sample_Vkick_uniform">
-<code class="descname">sample_Vkick_uniform</code><span class="sig-paren">(</span><em>Vmin=0.0</em>, <em>Vmax=2500.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick_uniform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick_uniform" title="Permalink to this definition">¶</a></dt>
-<dd><p>sample kick uniformly (Wong 2010)</p>
+<dt id="astro_traj.sample.Sample.sample_distance">
+<code class="descname">sample_distance</code><span class="sig-paren">(</span><em>samples=None</em>, <em>method='delta_function'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Samples distance from posterior distrbution of your favorite PE run.
+Just uses the mean value for distance by default. 
+Can specify methods ‘gaussian’ or ‘posteriors’ to sample using other methods</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="astro_traj.sample.Sample.sample_epre">
+<code class="descname">sample_epre</code><span class="sig-paren">(</span><em>method='circularized'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_epre"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_epre" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples initial eccentricity (for now, assume circularized)</p>
 </dd></dl>
 
 <dl class="method">
@@ -368,7 +379,7 @@ Can specify methods ‘gaussian’ or ‘delta_function’ to sample using the m
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.22.gb03fbce',
+            VERSION:'0+untagged.31.ga4a55f7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
