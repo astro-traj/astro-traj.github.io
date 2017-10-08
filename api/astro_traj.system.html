@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.50.g83750c2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.50.g83750c2 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.31.ga4a55f7
+                0+untagged.50.g83750c2
               </div>
             
           
@@ -159,7 +159,7 @@
 Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</p>
 <dl class="class">
 <dt id="astro_traj.system.System">
-<em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>gal</em>, <em>R</em>, <em>Mns</em>, <em>M2</em>, <em>Mhe</em>, <em>Apre</em>, <em>epre</em>, <em>d</em>, <em>Vkick</em>, <em>galphi=None</em>, <em>galcosth=None</em>, <em>omega=None</em>, <em>phi=None</em>, <em>costh=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">astro_traj.system.</code><code class="descname">System</code><span class="sig-paren">(</span><em>gal</em>, <em>R</em>, <em>Mns</em>, <em>M2</em>, <em>Mhe</em>, <em>Apre</em>, <em>epre</em>, <em>d</em>, <em>Vkick</em>, <em>sys_flag=None</em>, <em>galphi=None</em>, <em>galcosth=None</em>, <em>omega=None</em>, <em>phi=None</em>, <em>costh=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System" title="Permalink to this definition">¶</a></dt>
 <dd><p>Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal</p>
 <p>Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</p>
 <p class="rubric">Methods</p>
@@ -190,7 +190,7 @@ Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-impart
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-obj docutils literal"><span class="pre">setTmerge</span></code></a>([Tmin,&nbsp;Tmax])</td>
 <td>Calculate the inspiral time for the binary after the supernova using formulae from Peters 1964</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-obj docutils literal"><span class="pre">setVxyz_0</span></code></a>([circflag])</td>
+<tr class="row-even"><td><a class="reference internal" href="#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-obj docutils literal"><span class="pre">setVxyz_0</span></code></a>()</td>
 <td>Here, vphi and vcosth are as galphi and galcosth, and give random direction for V_sys postSN</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-obj docutils literal"><span class="pre">setXYZ_0</span></code></a>()</td>
@@ -261,20 +261,21 @@ The initial values are saved as the first item of the file</p>
 
 <dl class="method">
 <dt id="astro_traj.system.System.setTmerge">
-<code class="descname">setTmerge</code><span class="sig-paren">(</span><em>Tmin=0.0</em>, <em>Tmax=10.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.setTmerge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.setTmerge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setTmerge</code><span class="sig-paren">(</span><em>Tmin=0.0</em>, <em>Tmax=14.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.setTmerge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.setTmerge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the inspiral time for the binary after the supernova using formulae from Peters 1964</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.system.System.setVxyz_0">
-<code class="descname">setVxyz_0</code><span class="sig-paren">(</span><em>circflag=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.setVxyz_0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.setVxyz_0" title="Permalink to this definition">¶</a></dt>
+<code class="descname">setVxyz_0</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/system.html#System.setVxyz_0"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.system.System.setVxyz_0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Here, vphi and vcosth are as galphi and galcosth, and give random direction for V_sys postSN</p>
 <p>Initially, preSN circular trajectory Vp is the velocity vector of magnitude getVcirc,
 tangential to the sphere of radius R, in the R-Z plane</p>
 <p>We get the specific circular trajectory that we want by rotating this through angle omega while staying
 tangential to the sphere, giving Vp_rot (Vp_rot = Vp cos(omega) + (k x Vp) sin(omega)
 where k is unit vector r/R where r=(x,y,z)</p>
-<p>Specify circflag=1 to set V0 without adding the SN-imparted velocity</p>
+<p>Specify flag=circ_test to set V0 without adding the SN-imparted velocity
+Specify flag=vkick_test to set the initial galactic velocity to 0, so that the velocity of the system is due solely to the supernova</p>
 </dd></dl>
 
 <dl class="method">
@@ -328,7 +329,7 @@ where k is unit vector r/R where r=(x,y,z)</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.31.ga4a55f7',
+            VERSION:'0+untagged.50.g83750c2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

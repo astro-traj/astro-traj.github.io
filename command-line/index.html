@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.31.ga4a55f7 documentation</title>
+  <title>Running LIGOTraj on the command line &mdash; astro_traj 0+untagged.50.g83750c2 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.31.ga4a55f7 documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.50.g83750c2 documentation" href="../index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.31.ga4a55f7
+                0+untagged.50.g83750c2
               </div>
             
           
@@ -170,7 +170,7 @@
 usage: LIGOTraj [-h] [-V] -o OFFSET -r EFFECTIVE_RADIUS -s SAMPLES [-g GALAXY]
                 [-t TELESCOPE] [-T TRIALS] [-f OUTFILE] [--Apre APRE]
                 [--Mhe MHE] [--Vkick VKICK] [--Ms MS] [--epre EPRE]
-                [--distance DISTANCE]
+                [--distance DISTANCE] [--sys-flag SYS_FLAG]
 
 Main function. Samples parameters, implements kicks, and sees whether the
 systems is a &#39;successful&#39; merger by merging at the proper projected distance.
@@ -211,7 +211,13 @@ optional arguments:
   --epre EPRE           Specify sampling procedure for initial eccentricity.
                         Default=circularized
   --distance DISTANCE   Specify sampling procedure for the distance.
-                        Default=delta_function
+                        Default=median
+  --sys-flag SYS_FLAG   Specify a flag for testing aspects of the orbital
+                        evolution. Current options: &#39;circ_test&#39; for setting
+                        the kick velocity to 0 and checking that the galactic
+                        orbits are circular; &#39;vkick_test&#39; for setting the
+                        galactic orbital velocity to 0 and seeing the affect
+                        of just the SN kick. Default=delta_function
 </pre></div>
 </div>
 </div>
@@ -263,7 +269,7 @@ optional arguments:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.31.ga4a55f7',
+            VERSION:'0+untagged.50.g83750c2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
