@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
+  <title>Determining Charateristics of Progenitor &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
   
 
   
@@ -37,7 +37,9 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../index.html"/>
+        <link rel="next" title="Running LIGOTraj on the command line" href="../command-line/index.html"/>
+        <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -90,7 +92,37 @@
               
             
             
-              <ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Determining Charateristics of Progenitor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#technique">Technique</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sampling">Sampling</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#component-and-secondary-mass">Component and Secondary Mass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#distance">Distance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pre-supernova-semi-major-axis">Pre Supernova Semi Major Axis</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pre-supernova-eccentricity">Pre Supernova eccentricity</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#initialize-off-set-from-center">Initialize Off Set From Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mass-of-pre-supernova-helium-star">Mass of Pre Supernova Helium Star</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supernova-kick-velocity">Supernova Kick Velocity</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#supernova">Supernova</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#system-resulting-from-supernova-of-helium-star">System Resulting from Supernova of Helium Star</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checking-supernova-flags">Checking Supernova Flags</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#evolving-system">Evolving System</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#time-to-merger-peters-1964">Time to Merger Peters 1964</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#distance-of-binary-from-center">Distance of Binary From Center</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#checking-offset">Checking Offset</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">LIGOTraj</span></code> on the command line</a></li>
 </ul>
 
@@ -136,7 +168,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>astro_traj</li>
+      <li>Determining Charateristics of Progenitor</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,10 +187,144 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="astro-traj">
-<span id="examples"></span><h1>astro_traj<a class="headerlink" href="#astro-traj" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="determining-charateristics-of-progenitor">
+<span id="examples"></span><h1>Determining Charateristics of Progenitor<a class="headerlink" href="#determining-charateristics-of-progenitor" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The scenario this code attempts to address is the following. Say you observed a binary system in a galaxy that was a certain off-set from the center of that galaxy. You also have information about the masses of the system you observed. What, if anything, can you say about some of the properities of the system, such as pre-supernova semi major axis, supernova kick, etc, that create that system.</p>
+<p>In order to accomplish this, one would need to load in properities of the galaxy in which this system was created. For example this includes information such as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;Mspiral&#39;</span> <span class="c1"># mass of the spiral (Msun) # NOTE: this information is not available, for now set to 0</span>
+<span class="s1">&#39;Mbulge&#39;</span> <span class="c1"># Mstellar from 2MASS (Msun)</span>
+<span class="s1">&#39;Mhalo&#39;</span>  <span class="c1"># Mhalo from 2MASS (Msun)</span>
+<span class="s1">&#39;D1&#39;</span><span class="p">:</span>    <span class="c1"># major axis from 2MASS (arcmin)</span>
+<span class="s1">&#39;D2&#39;</span><span class="p">:</span>    <span class="c1"># minor axis from 2MASS (arcmin)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="n">galaxy_name</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="n">r_eff</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is done using <a class="reference internal" href="../api/astro_traj.constr_dict.html#astro_traj.constr_dict.galaxy" title="astro_traj.constr_dict.galaxy"><code class="xref py py-meth docutils literal"><span class="pre">galaxy()</span></code></a>. In addition to creating a dictionary of galaxy properities, we must assume a Galaxy model for this galaxy. The current model that is implemented and works is Hernquist <a class="reference internal" href="../api/astro_traj.galaxy.html#astro_traj.galaxy.Hernquist_NFW" title="astro_traj.galaxy.Hernquist_NFW"><code class="xref py py-meth docutils literal"><span class="pre">Hernquist_NFW()</span></code></a>.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span><span class="o">=</span><span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Once, the galaxy and galaxy model is selected it is now time to sample over a large set of initial conditions of the system that you observed. These initial conditions include, the mass of pre supernova helium star, the kick velocity of the  supernova, the pre supernova semi major axis, initial distance from center of galaxy. After creating these intiail conditions we evolve the system to see if a.) there is a merger within some reasonable time (&lt;14 Giga years) and b.) it merged at the appropriate off-set (with some error) from the center of the galaxy. In the following sections, we dive into the code used to accomplish this.</p>
+</div>
+<div class="section" id="technique">
+<h2>Technique<a class="headerlink" href="#technique" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sampling">
+<h3>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">¶</a></h3>
+<p>In the executable, all of the sampling is done as such:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Nsys</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">trials</span>
+<span class="n">dEfrac</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="c1"># Initialize random draws for some parameters based on number of trials</span>
+<span class="nb">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sampling binary parameters...&quot;</span>
+
+<span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Ms</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="c1"># (Msun)</span>
+
+<span class="n">d_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="c1"># (Mpc)</span>
+
+
+<span class="n">Apre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="c1"># (Rsun)</span>
+
+<span class="n">epre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_epre</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epre</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="c1"># (dimensionless)</span>
+
+<span class="n">PDFR</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_R</span><span class="p">()</span>
+
+<span class="n">R_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_R</span><span class="p">(</span><span class="n">PDFR</span><span class="p">,</span> <span class="n">Nsys</span><span class="p">)</span>
+<span class="c1"># (kpc)</span>
+
+<span class="n">PDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">ECSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">CCSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="n">Mhe_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="n">PDFMhe</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+<span class="c1"># (Msun)</span>
+<span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Vkick</span><span class="p">()</span>
+
+<span class="n">Vkick_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="n">Mhe_dist</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="component-and-secondary-mass">
+<h4>Component and Secondary Mass<a class="headerlink" href="#component-and-secondary-mass" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-meth docutils literal"><span class="pre">sample_masses()</span></code></a></p>
+<p>The available methods for sampling are ‘gaussian’, ‘mean’, ‘median’, or ‘posterior’:</p>
+<p>The posterior method is used by default. This simply means that we draw samples directly from Gravitational Wave parameter estimation pdf of the source frame masses of the post supernova binary system:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Ms</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="distance">
+<h4>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_distance" title="astro_traj.sample.Sample.sample_distance"><code class="xref py py-meth docutils literal"><span class="pre">sample_distance()</span></code></a></p>
+<p>The default method is median (i.e. the median value from the Gravitational Wave parameter estimation pdf of distance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span> <span class="c1"># (Mpc)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pre-supernova-semi-major-axis">
+<h4>Pre Supernova Semi Major Axis<a class="headerlink" href="#pre-supernova-semi-major-axis" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-meth docutils literal"><span class="pre">sample_Apre()</span></code></a></p>
+<p>The available methods for sampling are ‘gaussian’, ‘mean’, ‘median’, or ‘posterior’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pre-supernova-eccentricity">
+<h4>Pre Supernova eccentricity<a class="headerlink" href="#pre-supernova-eccentricity" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_epre" title="astro_traj.sample.Sample.sample_epre"><code class="xref py py-meth docutils literal"><span class="pre">sample_epre()</span></code></a></p>
+</div>
+<div class="section" id="initialize-off-set-from-center">
+<h4>Initialize Off Set From Center<a class="headerlink" href="#initialize-off-set-from-center" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-meth docutils literal"><span class="pre">initialize_R()</span></code></a>
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-meth docutils literal"><span class="pre">sample_R()</span></code></a></p>
+</div>
+<div class="section" id="mass-of-pre-supernova-helium-star">
+<h4>Mass of Pre Supernova Helium Star<a class="headerlink" href="#mass-of-pre-supernova-helium-star" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Mhe" title="astro_traj.sample.Sample.initialize_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Mhe()</span></code></a>
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">sample_Mhe()</span></code></a></p>
+</div>
+<div class="section" id="supernova-kick-velocity">
+<h4>Supernova Kick Velocity<a class="headerlink" href="#supernova-kick-velocity" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Vkick" title="astro_traj.sample.Sample.initialize_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Vkick()</span></code></a>
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">sample_Vkick()</span></code></a></p>
+</div>
+</div>
+<div class="section" id="supernova">
+<h3>Supernova<a class="headerlink" href="#supernova" title="Permalink to this headline">¶</a></h3>
+<p>The very first thing that you have to do is taken the initial conditions of your pre-Supernova Helium star + neutron star system, and evolve Helium star through supernova to the post supernova mass. After doing this, the first check of the system occurs. That is, does a successful component mass result from the supernova</p>
+<div class="section" id="system-resulting-from-supernova-of-helium-star">
+<h4>System Resulting from Supernova of Helium Star<a class="headerlink" href="#system-resulting-from-supernova-of-helium-star" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.SN" title="astro_traj.system.System.SN"><code class="xref py py-meth docutils literal"><span class="pre">SN()</span></code></a>
+We utilize <a class="reference external" href="http://iopscience.iop.org/article/10.1086/177974/meta">Kalogera 1996</a> From the documnetation, We use Eq 1, 3, 4, and 34: giving Vr, Apost, epost, and (Vsx,Vsy,Vsz) respectively Also see Fig 1 in that paper for coordinate system.</p>
+</div>
+<div class="section" id="checking-supernova-flags">
+<h4>Checking Supernova Flags<a class="headerlink" href="#checking-supernova-flags" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference external" href="http://iopscience.iop.org/article/10.1086/429557/meta">Willems et al 2002</a>: We use eq 21, 22, 23, 24, 25, 26 for checks of SN survival</p>
+</div>
+</div>
+<div class="section" id="evolving-system">
+<h3>Evolving System<a class="headerlink" href="#evolving-system" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="time-to-merger-peters-1964">
+<h4>Time to Merger Peters 1964<a class="headerlink" href="#time-to-merger-peters-1964" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-meth docutils literal"><span class="pre">setTmerge()</span></code></a>
+Checked against <a class="reference external" href="https://doi.org/10.1103/PhysRev.136.B1224">Peters 1964</a></p>
+</div>
+<div class="section" id="distance-of-binary-from-center">
+<h4>Distance of Binary From Center<a class="headerlink" href="#distance-of-binary-from-center" title="Permalink to this headline">¶</a></h4>
+<p>First, you randomly select from initial XYZ direction.
+<a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-meth docutils literal"><span class="pre">setXYZ_0()</span></code></a>
+Then based on Tmerge you solve an ODE and evolve XYZ until merger.
+<a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.doMotion" title="astro_traj.system.System.doMotion"><code class="xref py py-meth docutils literal"><span class="pre">doMotion()</span></code></a></p>
+</div>
+</div>
+<div class="section" id="checking-offset">
+<h3>Checking Offset<a class="headerlink" href="#checking-offset" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.check_success" title="astro_traj.system.System.check_success"><code class="xref py py-meth docutils literal"><span class="pre">check_success()</span></code></a></p>
+</div>
 </div>
 </div>
 
@@ -169,6 +335,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../command-line/index.html" class="btn btn-neutral float-right" title="Running LIGOTraj on the command line" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral" title="Welcome to astro_traj’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
