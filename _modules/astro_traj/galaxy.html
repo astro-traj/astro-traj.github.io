@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.galaxy &mdash; astro_traj 0+untagged.50.g83750c2 documentation</title>
+  <title>astro_traj.galaxy &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.50.g83750c2 documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.50.g83750c2
+                0+untagged.52.g9a71cca.dirty
               </div>
             
           
@@ -188,14 +188,14 @@
 <span class="kn">import</span> <span class="nn">pdb</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Chase Kimball &lt;charles.kimball@ligo.org&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;Michael Zevin &lt;michael.zevin@ligo.org&gt;&#39;</span><span class="p">]</span>
-<span class="n">__credits__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span> 
+<span class="n">__credits__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Galaxy_Models&#39;</span><span class="p">,</span> <span class="s1">&#39;Hernquist_NFW&#39;</span><span class="p">,</span> <span class="s1">&#39;Miyamoto_Nagai_NFW&#39;</span><span class="p">,</span> <span class="s1">&#39;Belczynski_2002&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Galaxy_Models"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Galaxy_Models">[docs]</a><span class="k">class</span> <span class="nc">Galaxy_Models</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Galaxy class. Masses in Msun, distances in kpc. Immediately converted to SI. </span>
+<span class="sd">        Galaxy class. Masses in Msun, distances in kpc. Immediately converted to SI.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Mspiral</span> <span class="o">=</span> <span class="n">Mspiral</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Mbulge</span> <span class="o">=</span> <span class="n">Mbulge</span><span class="o">*</span><span class="n">C</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">value</span>
@@ -219,7 +219,7 @@
 <span class="sd">             Uhalo goes like 1/r for r&gt;rcut</span>
 
 
-<span class="sd">        </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mspiral</span><span class="p">,</span> <span class="n">Mbulge</span><span class="p">,</span> <span class="n">Mhalo</span><span class="p">,</span> <span class="n">R_eff</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="p">):</span>
         <span class="c1"># Shared galaxy params</span>
@@ -276,7 +276,7 @@
         <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhalo</span><span class="o">*</span><span class="p">(</span><span class="n">term1</span><span class="o">+</span><span class="n">term2</span><span class="o">+</span><span class="n">term3</span><span class="p">)</span><span class="o">/</span><span class="n">rcore</span></div>
 
 
-<div class="viewcode-block" id="Belczynski_2002.bulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.bulge">[docs]</a>    <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span> 
+<div class="viewcode-block" id="Belczynski_2002.bulge"><a class="viewcode-back" href="../../api/astro_traj.galaxy.html#astro_traj.galaxy.Belczynski_2002.bulge">[docs]</a>    <span class="k">def</span> <span class="nf">bulge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        gradient of Ubulge</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -438,7 +438,7 @@
 
 <span class="sd">            i is component of interest, j is the other non-z component</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">return</span> 
+            <span class="k">return</span>
 
         <span class="k">def</span> <span class="nf">bulge_z</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -446,7 +446,7 @@
 
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">return</span>
-        
+
         <span class="k">def</span> <span class="nf">disk_xy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r_i</span><span class="p">,</span> <span class="n">r_j</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            X and Y components of gradient of Udisk</span>
@@ -502,7 +502,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.50.g83750c2',
+            VERSION:'0+untagged.52.g9a71cca.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
