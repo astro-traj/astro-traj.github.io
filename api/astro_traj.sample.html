@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
+  <title>&lt;no title&gt; &mdash; astro_traj 0+untagged.59.g3fd399c.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="astro_traj 0+untagged.59.g3fd399c.dirty documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.52.g9a71cca.dirty
+                0+untagged.59.g3fd399c.dirty
               </div>
             
           
@@ -170,25 +170,25 @@
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.initialize_Mhe" title="astro_traj.sample.Sample.initialize_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">initialize_Mhe</span></code></a>(dM0)</td>
-<td>Initializes the Beniamini_Mhe PDF: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a></td>
+<td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-obj docutils literal"><span class="pre">initialize_R</span></code></a>()</td>
-<td>Initializes a specified potential function</td>
+<td>samples radial distance from galactic center according to specified potential function</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.initialize_Vkick" title="astro_traj.sample.Sample.initialize_Vkick"><code class="xref py py-obj docutils literal"><span class="pre">initialize_Vkick</span></code></a>()</td>
-<td>Initializes the BeniaminiKick: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a> For the “small e systems” the like- lihood peaks at ∆M_s0= 0.1M and v_k0 = 5km/s These results strongly suggest an ECS-type SN as  the  origin  of  the  companion  in  these  systems.</td>
+<td></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-obj docutils literal"><span class="pre">sample_Apre</span></code></a>(Amin,&nbsp;Amax[,&nbsp;method,&nbsp;size])</td>
 <td>samples semi-major axis uniformly (method=’uniform’, default) or uniformly in log (method=’log’)</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-obj docutils literal"><span class="pre">sample_Mhe</span></code></a>(Mmin[,&nbsp;Mmax,&nbsp;method,&nbsp;size,&nbsp;PDF,&nbsp;…])</td>
-<td>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</td>
+<td>samples He-star mass uniformly between Mns and 8 Msun (BH limit): beniamini2 method selects from two</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-obj docutils literal"><span class="pre">sample_R</span></code></a>(PDF,&nbsp;Ndraws)</td>
 <td>samples radial distance from galactic center according to specified potential function</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-obj docutils literal"><span class="pre">sample_Vkick</span></code></a>([scale,&nbsp;Vmin,&nbsp;Vmax,&nbsp;method,&nbsp;…])</td>
-<td>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a></td>
+<td>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a>: beniamini2 method selects from two distributions ECS and CCSN. The splitis based off the 60/40 split observed in double nurtron stars in our galaxy laid out in Fig 2: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#figure.2">https://arxiv.org/pdf/1510.03111.pdf#figure.2</a></td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#astro_traj.sample.Sample.sample_distance" title="astro_traj.sample.Sample.sample_distance"><code class="xref py py-obj docutils literal"><span class="pre">sample_distance</span></code></a>([samples,&nbsp;method,&nbsp;size])</td>
 <td>Samples distance from posterior distrbution of your favorite PE run.</td>
@@ -204,24 +204,18 @@
 <dl class="method">
 <dt id="astro_traj.sample.Sample.initialize_Mhe">
 <code class="descname">initialize_Mhe</code><span class="sig-paren">(</span><em>dM0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.initialize_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.initialize_Mhe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the Beniamini_Mhe PDF: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a></p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.initialize_R">
 <code class="descname">initialize_R</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.initialize_R"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.initialize_R" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a specified potential function</p>
+<dd><p>samples radial distance from galactic center according to specified potential function</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.initialize_Vkick">
 <code class="descname">initialize_Vkick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.initialize_Vkick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.initialize_Vkick" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes the BeniaminiKick: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a>
-For the “small e systems” the like- lihood peaks at ∆M_s0= 0.1M and v_k0 = 5km/s
-These results strongly suggest an ECS-type SN as  the  origin  of  the  companion  in  these  systems.
-For  the “large e systems” the likelihood peaks at ∆M_0 = 1 M and v_k,0 = 158km/s
-core-collapse SN</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Apre">
@@ -231,8 +225,10 @@ core-collapse SN</p>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Mhe">
-<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><em>Mmin</em>, <em>Mmax=8.0</em>, <em>method='uniform'</em>, <em>size=None</em>, <em>PDF=None</em>, <em>ECSPDF=None</em>, <em>CCSPDF=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
-<dd><p>samples He-star mass uniformly between Mns and 8 Msun (BH limit)</p>
+<code class="descname">sample_Mhe</code><span class="sig-paren">(</span><em>Mmin</em>, <em>Mmax=8.0</em>, <em>method='uniform'</em>, <em>size=None</em>, <em>PDF=None</em>, <em>ECSPDF=None</em>, <em>CCSPDF=None</em>, <em>irand=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Mhe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Mhe" title="Permalink to this definition">¶</a></dt>
+<dd><p>samples He-star mass uniformly between Mns and 8 Msun (BH limit): beniamini2 method selects from two 
+distributions ECS and CCSN. The split is based off the 60/40 split observed in double nurtron stars 
+in our galaxy laid out in Fig 2: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#figure.2">https://arxiv.org/pdf/1510.03111.pdf#figure.2</a> method: powerlaw</p>
 </dd></dl>
 
 <dl class="method">
@@ -243,15 +239,15 @@ core-collapse SN</p>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_Vkick">
-<code class="descname">sample_Vkick</code><span class="sig-paren">(</span><em>scale=265</em>, <em>Vmin=0</em>, <em>Vmax=2500</em>, <em>method='maxwellian'</em>, <em>size=None</em>, <em>Mhe=None</em>, <em>ECSPDF=None</em>, <em>CCSPDF=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick" title="Permalink to this definition">¶</a></dt>
-<dd><p>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a></p>
+<code class="descname">sample_Vkick</code><span class="sig-paren">(</span><em>scale=265</em>, <em>Vmin=0</em>, <em>Vmax=2500</em>, <em>method='maxwellian'</em>, <em>size=None</em>, <em>Mhe=None</em>, <em>ECSPDF=None</em>, <em>CCSPDF=None</em>, <em>irand=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_Vkick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_Vkick" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a>: beniamini2 method selects from two distributions ECS and CCSN. The splitis based off the 60/40 split observed in double nurtron stars in our galaxy laid out in Fig 2: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#figure.2">https://arxiv.org/pdf/1510.03111.pdf#figure.2</a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="astro_traj.sample.Sample.sample_distance">
 <code class="descname">sample_distance</code><span class="sig-paren">(</span><em>samples=None</em>, <em>method='median'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_distance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_distance" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples distance from posterior distrbution of your favorite PE run.
-Just uses the mean value for distance by default.
+Just uses the mean value for distance by default. 
 Can specify methods ‘gaussian’, ‘mean’, or ‘posteriors’ to sample using other methods</p>
 </dd></dl>
 
@@ -265,7 +261,7 @@ Can specify methods ‘gaussian’, ‘mean’, or ‘posteriors’ to sample us
 <dt id="astro_traj.sample.Sample.sample_masses">
 <code class="descname">sample_masses</code><span class="sig-paren">(</span><em>samples=None</em>, <em>method='posterior'</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Sample.sample_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Sample.sample_masses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples m1 and m2 from posterior distrbution of your favorite PE run.
-Samples from the posterior samples by default.
+Samples from the posterior samples by default. 
 Can specify methods ‘gaussian’, ‘mean’, or ‘median’ to sample using other sampling methods</p>
 </dd></dl>
 
@@ -276,202 +272,6 @@ Can specify methods ‘gaussian’, ‘mean’, or ‘median’ to sample using 
 <em class="property">class </em><code class="descclassname">astro_traj.sample.</code><code class="descname">Hernquist_pdf</code><span class="sig-paren">(</span><em>abulge</em>, <em>rcut</em>, <em>momtype=1</em>, <em>a=None</em>, <em>b=None</em>, <em>xtol=1e-14</em>, <em>badvalue=None</em>, <em>name=None</em>, <em>longname=None</em>, <em>shapes=None</em>, <em>extradoc=None</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#Hernquist_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.Hernquist_pdf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">scipy.stats._distn_infrastructure.rv_continuous</span></code></p>
 <p>density pdf from Hernquist potential</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_state</span></code></td>
-<td>Get or set the RandomState object for generating random variates.</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(*args,&nbsp;**kwds)</td>
-<td>Freeze the distribution for the given arguments.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">cdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Cumulative distribution function of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">entropy</span></code>(*args,&nbsp;**kwds)</td>
-<td>Differential entropy of the RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">expect</span></code>([func,&nbsp;args,&nbsp;loc,&nbsp;scale,&nbsp;lb,&nbsp;ub,&nbsp;…])</td>
-<td>Calculate expected value of a function with respect to the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(data,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Return MLEs for shape (if applicable), location, and scale parameters from data.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_loc_scale</span></code>(data,&nbsp;*args)</td>
-<td>Estimate loc and scale parameters from data using 1st and 2nd moments.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">freeze</span></code>(*args,&nbsp;**kwds)</td>
-<td>Freeze the distribution for the given arguments.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">interval</span></code>(alpha,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Confidence interval with equal areas around the median.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">isf</span></code>(q,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Inverse survival function (inverse of <cite>sf</cite>) at q of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">logcdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the cumulative distribution function at x of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">logpdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the probability density function at x of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">logsf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the survival function of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">mean</span></code>(*args,&nbsp;**kwds)</td>
-<td>Mean of the distribution.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">median</span></code>(*args,&nbsp;**kwds)</td>
-<td>Median of the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">moment</span></code>(n,&nbsp;*args,&nbsp;**kwds)</td>
-<td>n-th order non-central moment of distribution.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">nnlf</span></code>(theta,&nbsp;x)</td>
-<td>Return negative loglikelihood function.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">pdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Probability density function at x of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ppf</span></code>(q,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Percent point function (inverse of <cite>cdf</cite>) at q of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rvs</span></code>(*args,&nbsp;**kwds)</td>
-<td>Random variates of given type.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">sf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Survival function (1 - <cite>cdf</cite>) at x of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">stats</span></code>(*args,&nbsp;**kwds)</td>
-<td>Some statistics of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">std</span></code>(*args,&nbsp;**kwds)</td>
-<td>Standard deviation of the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">var</span></code>(*args,&nbsp;**kwds)</td>
-<td>Variance of the distribution.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
-<dt id="astro_traj.sample.BeniaminiKick_pdf">
-<em class="property">class </em><code class="descclassname">astro_traj.sample.</code><code class="descname">BeniaminiKick_pdf</code><span class="sig-paren">(</span><em>Vk0</em>, <em>sigvk=0.48121182505960342</em>, <em>momtype=1</em>, <em>a=None</em>, <em>b=None</em>, <em>xtol=1e-14</em>, <em>badvalue=None</em>, <em>name=None</em>, <em>longname=None</em>, <em>shapes=None</em>, <em>extradoc=None</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#BeniaminiKick_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.BeniaminiKick_pdf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">scipy.stats._distn_infrastructure.rv_continuous</span></code></p>
-<p>vkick pdf from Beniamini Equation 7: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a>
-the default on sigvk comes from the paper sig_log(v_k))=sinh^−1(0.5)</p>
-<p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_state</span></code></td>
-<td>Get or set the RandomState object for generating random variates.</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">__call__</span></code>(*args,&nbsp;**kwds)</td>
-<td>Freeze the distribution for the given arguments.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">cdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Cumulative distribution function of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">entropy</span></code>(*args,&nbsp;**kwds)</td>
-<td>Differential entropy of the RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">expect</span></code>([func,&nbsp;args,&nbsp;loc,&nbsp;scale,&nbsp;lb,&nbsp;ub,&nbsp;…])</td>
-<td>Calculate expected value of a function with respect to the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fit</span></code>(data,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Return MLEs for shape (if applicable), location, and scale parameters from data.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fit_loc_scale</span></code>(data,&nbsp;*args)</td>
-<td>Estimate loc and scale parameters from data using 1st and 2nd moments.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">freeze</span></code>(*args,&nbsp;**kwds)</td>
-<td>Freeze the distribution for the given arguments.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">interval</span></code>(alpha,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Confidence interval with equal areas around the median.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">isf</span></code>(q,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Inverse survival function (inverse of <cite>sf</cite>) at q of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">logcdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the cumulative distribution function at x of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">logpdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the probability density function at x of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">logsf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Log of the survival function of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">mean</span></code>(*args,&nbsp;**kwds)</td>
-<td>Mean of the distribution.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">median</span></code>(*args,&nbsp;**kwds)</td>
-<td>Median of the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">moment</span></code>(n,&nbsp;*args,&nbsp;**kwds)</td>
-<td>n-th order non-central moment of distribution.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">nnlf</span></code>(theta,&nbsp;x)</td>
-<td>Return negative loglikelihood function.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">pdf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Probability density function at x of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">ppf</span></code>(q,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Percent point function (inverse of <cite>cdf</cite>) at q of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rvs</span></code>(*args,&nbsp;**kwds)</td>
-<td>Random variates of given type.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">sf</span></code>(x,&nbsp;*args,&nbsp;**kwds)</td>
-<td>Survival function (1 - <cite>cdf</cite>) at x of the given RV.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">stats</span></code>(*args,&nbsp;**kwds)</td>
-<td>Some statistics of the given RV.</td>
-</tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">std</span></code>(*args,&nbsp;**kwds)</td>
-<td>Standard deviation of the distribution.</td>
-</tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">var</span></code>(*args,&nbsp;**kwds)</td>
-<td>Variance of the distribution.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="class">
-<dt id="astro_traj.sample.BeniaminiMhe_pdf">
-<em class="property">class </em><code class="descclassname">astro_traj.sample.</code><code class="descname">BeniaminiMhe_pdf</code><span class="sig-paren">(</span><em>dM0</em>, <em>sigdM=0.48121182505960342</em>, <em>momtype=1</em>, <em>a=None</em>, <em>b=None</em>, <em>xtol=1e-14</em>, <em>badvalue=None</em>, <em>name=None</em>, <em>longname=None</em>, <em>shapes=None</em>, <em>extradoc=None</em>, <em>seed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/astro_traj/sample.html#BeniaminiMhe_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#astro_traj.sample.BeniaminiMhe_pdf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">scipy.stats._distn_infrastructure.rv_continuous</span></code></p>
-<p>vkick pdf from Beniamini  Equation 7: <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</a>
-the default on sigdM comes from the paper sig_log(deltaM))=sinh^−1(0.5)</p>
 <p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -600,7 +400,7 @@ the default on sigdM comes from the paper sig_log(deltaM))=sinh^−1(0.5)</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.52.g9a71cca.dirty',
+            VERSION:'0+untagged.59.g3fd399c.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

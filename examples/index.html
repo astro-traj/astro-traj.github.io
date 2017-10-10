@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Determining Charateristics of Progenitor &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
+  <title>Determining Charateristics of Progenitor &mdash; astro_traj 0+untagged.59.g3fd399c.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.59.g3fd399c.dirty documentation" href="../index.html"/>
         <link rel="next" title="Running LIGOTraj on the command line" href="../command-line/index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0+untagged.52.g9a71cca.dirty
+                0+untagged.59.g3fd399c.dirty
               </div>
             
           
@@ -256,6 +256,45 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Ms</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_posterior</span><span class="p">,</span> <span class="n">Mns_dist_posterior</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_median</span><span class="p">,</span> <span class="n">Mns_dist_median</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_mean</span><span class="p">,</span> <span class="n">Mns_dist_mean</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_gaussian</span><span class="p">,</span> <span class="n">Mns_dist_gaussian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">),</span> <span class="p">(</span><span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">,</span> <span class="n">ax7</span><span class="p">,</span> <span class="n">ax8</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax5</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax6</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax7</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax8</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-1.py">Source code</a>, <a class="reference external" href="../examples/index-1.png">png</a>, <a class="reference external" href="../examples/index-1.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-1.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-1.png" src="../_images/index-1.png" />
+</div>
 </div>
 <div class="section" id="distance">
 <h4>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h4>
@@ -264,33 +303,250 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span> <span class="c1"># (Mpc)</span>
 </pre></div>
 </div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_posterior</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_median</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_mean</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_gaussian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-2.py">Source code</a>, <a class="reference external" href="../examples/index-2.png">png</a>, <a class="reference external" href="../examples/index-2.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-2.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-2.png" src="../_images/index-2.png" />
+</div>
 </div>
 <div class="section" id="pre-supernova-semi-major-axis">
 <h4>Pre Supernova Semi Major Axis<a class="headerlink" href="#pre-supernova-semi-major-axis" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-meth docutils literal"><span class="pre">sample_Apre()</span></code></a></p>
-<p>The available methods for sampling are ‘gaussian’, ‘mean’, ‘median’, or ‘posterior’:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="go">&gt;&gt;&gt;</span>
+<p>The available methods for sampling are ‘uniform’ and ‘log’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist_log</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Apre_dist_log</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Apre_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-3.py">Source code</a>, <a class="reference external" href="../examples/index-3.png">png</a>, <a class="reference external" href="../examples/index-3.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-3.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-3.png" src="../_images/index-3.png" />
 </div>
 </div>
 <div class="section" id="pre-supernova-eccentricity">
 <h4>Pre Supernova eccentricity<a class="headerlink" href="#pre-supernova-eccentricity" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_epre" title="astro_traj.sample.Sample.sample_epre"><code class="xref py py-meth docutils literal"><span class="pre">sample_epre()</span></code></a></p>
+<p>The available method for sampling is ‘circularized’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_epre</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;circularized&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epre_dist_circularized</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_epre</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;circularized&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">epre_dist_circularized</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-4.py">Source code</a>, <a class="reference external" href="../examples/index-4.png">png</a>, <a class="reference external" href="../examples/index-4.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-4.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-4.png" src="../_images/index-4.png" />
+</div>
 </div>
 <div class="section" id="initialize-off-set-from-center">
 <h4>Initialize Off Set From Center<a class="headerlink" href="#initialize-off-set-from-center" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-meth docutils literal"><span class="pre">initialize_R()</span></code></a>
-<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-meth docutils literal"><span class="pre">sample_R()</span></code></a></p>
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-meth docutils literal"><span class="pre">sample_R()</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PDFR</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_R</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">R_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_R</span><span class="p">(</span><span class="n">PDFR</span><span class="p">,</span> <span class="n">Nsys</span><span class="p">)</span> <span class="c1"># (kpc)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PDFR</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_R</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">R_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_R</span><span class="p">(</span><span class="n">PDFR</span><span class="p">,</span> <span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">R_dist</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-5.py">Source code</a>, <a class="reference external" href="../examples/index-5.png">png</a>, <a class="reference external" href="../examples/index-5.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-5.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-5.png" src="../_images/index-5.png" />
+</div>
 </div>
 <div class="section" id="mass-of-pre-supernova-helium-star">
 <h4>Mass of Pre Supernova Helium Star<a class="headerlink" href="#mass-of-pre-supernova-helium-star" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Mhe" title="astro_traj.sample.Sample.initialize_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Mhe()</span></code></a>
-<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">sample_Mhe()</span></code></a></p>
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">sample_Mhe()</span></code></a>:</p>
+<p>Available methods include ‘power’, ‘uniform’, ‘beniamini2’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CCSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="n">PDFMhe</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CCSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_power</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_beniamini2</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_power</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_beniamini2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-6.py">Source code</a>, <a class="reference external" href="../examples/index-6.png">png</a>, <a class="reference external" href="../examples/index-6.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-6.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-6.png" src="../_images/index-6.png" />
+</div>
 </div>
 <div class="section" id="supernova-kick-velocity">
 <h4>Supernova Kick Velocity<a class="headerlink" href="#supernova-kick-velocity" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Vkick" title="astro_traj.sample.Sample.initialize_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Vkick()</span></code></a>
 <a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">sample_Vkick()</span></code></a></p>
+<p>Available methods include ‘maxwellian’, ‘uniform’, ‘beniamini2’:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Vkick</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="n">Mhe_dist</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Vkick</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_maxwellian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_beniamini2</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_maxwellian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_beniamini2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../examples/index-7.py">Source code</a>, <a class="reference external" href="../examples/index-7.png">png</a>, <a class="reference external" href="../examples/index-7.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-7.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-7.png" src="../_images/index-7.png" />
+</div>
 </div>
 </div>
 <div class="section" id="supernova">
@@ -372,7 +628,7 @@ Then based on Tmerge you solve an ODE and evolve XYZ until merger.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.52.g9a71cca.dirty',
+            VERSION:'0+untagged.59.g3fd399c.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

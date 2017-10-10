@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.system &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
+  <title>astro_traj.system &mdash; astro_traj 0+untagged.59.g3fd399c.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.59.g3fd399c.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.52.g9a71cca.dirty
+                0+untagged.59.g3fd399c.dirty
               </div>
             
           
@@ -180,7 +180,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal</span>
-<span class="sd">Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</span>
+<span class="sd">Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V    </span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -201,10 +201,10 @@
 <span class="sd">    Places system described by Mhe, M2, Apre, epre and position r(R,galphi,galcosth) in galaxy model gal</span>
 
 <span class="sd">    Applies SNkick Vkick and mass loss Mhe-Mns to obtain Apost, epost, and SN-imparted systemic velocity V</span>
-
+<span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gal</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mhe</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">epre</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">sys_flag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">galphi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">galcosth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">omega</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">phi</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">costh</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        #Masses in Msun, Apre in Rsun, Vkick in km/s, R in kpc</span>
 <span class="sd">        #galphi,galcosth,omega, phi, costh (position, initial velocity, and kick angles) sampled randomly, unless specified (&gt;-1)</span>
 <span class="sd">        #galphi, galcosth correspond to azimuthal and polar angles -- respectively --  in the galactic frame</span>
@@ -213,9 +213,9 @@
 <span class="sd">        #   phi: angle between Z axis and projection of kick onto X-Z plane</span>
 <span class="sd">        #omega: angle between the galactic velocity corresponding to a circular orbit in the r-z plane and</span>
 <span class="sd">        #the actual galactic velocity preSN corresponding to a circular orbit</span>
-
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+    
         <span class="c1"># Convert inputs to SI</span>
         <span class="n">Mhe</span> <span class="o">=</span> <span class="n">Mhe</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
         <span class="n">M2</span> <span class="o">=</span> <span class="n">M2</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
@@ -226,7 +226,7 @@
         <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">Mpc</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">=</span> <span class="n">sys_flag</span>
-
+        
         <span class="k">if</span> <span class="n">galphi</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span> <span class="o">=</span> <span class="n">galphi</span>
         <span class="k">else</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
 
@@ -253,12 +253,12 @@
 
 <div class="viewcode-block" id="System.SN"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.SN">[docs]</a>    <span class="k">def</span> <span class="nf">SN</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
+<span class="sd">        </span>
 <span class="sd">        Mhe lies on origin moving in direction of positive y axis, M2 on negative X axis, Z completes right-handed coordinate system</span>
-
+<span class="sd">        </span>
 <span class="sd">        theta: angle between preSN He core velocity relative to M2 (i.e. the positive y axis) and the kick velocity</span>
 <span class="sd">        phi: angle between Z axis and projection of kick onto X-Z plane</span>
-
+<span class="sd">        </span>
 <span class="sd">        Vr is velocity of preSN He core relative to M2, directed along the positive y axis</span>
 
 <span class="sd">        Vkick is kick velocity with components Vkx, Vky, Vkz in the above coordinate system</span>
@@ -270,10 +270,10 @@
 <span class="sd">            We use Eq 1, 3, 4, and 34: giving Vr, Apost, epost, and (Vsx,Vsy,Vsz) respectively</span>
 <span class="sd">            Also see Fig 1 in that paper for coordinate system</span>
 
-
+<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">0</span>      <span class="c1"># set standard flag</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">0</span>      <span class="c1"># set standard flag        </span>
 
         <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span>
         <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">costh</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">costh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span>
@@ -288,7 +288,7 @@
         <span class="n">Vkx</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">sinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
         <span class="n">Vky</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">costh</span>
         <span class="n">Vkz</span> <span class="o">=</span> <span class="n">Vkick</span><span class="o">*</span><span class="n">sinth</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple2&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential2&#39;</span><span class="p">:</span>
             <span class="n">Vkx</span><span class="p">,</span><span class="n">Vky</span><span class="p">,</span><span class="n">Vkz</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="n">Vkick</span><span class="p">,</span><span class="mi">0</span>
         <span class="c1">#Eq 1, Kalogera 1996</span>
         <span class="n">Vr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">G</span><span class="o">*</span><span class="p">(</span><span class="n">Mhe</span><span class="o">+</span><span class="n">M2</span><span class="p">)</span><span class="o">/</span><span class="n">Apre</span><span class="p">)</span>
@@ -305,7 +305,7 @@
         <span class="n">V_sys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">VSx</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">VSy</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">VSz</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSy</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">VSz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V_sys</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vr</span> <span class="o">=</span> <span class="n">Apost</span><span class="p">,</span> <span class="n">epost</span><span class="p">,</span> <span class="n">VSx</span><span class="p">,</span> <span class="n">VSy</span><span class="p">,</span> <span class="n">VSz</span><span class="p">,</span> <span class="n">V_sys</span><span class="p">,</span> <span class="n">Vr</span>
-
+        
         <span class="k">def</span> <span class="nf">SNCheck</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Paper References:</span>
@@ -315,9 +315,9 @@
 
 <span class="sd">            Kalogera and Lorimer 2000: http://iopscience.iop.org/article/10.1086/308417/meta</span>
 
-
+<span class="sd">            </span>
 <span class="sd">            V_He;preSN is the same variable as V_r from Kalogera 1996</span>
-
+<span class="sd">            </span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">Mhe</span><span class="p">,</span> <span class="n">M2</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">Apost</span><span class="p">,</span> <span class="n">epost</span><span class="p">,</span> <span class="n">Vr</span><span class="p">,</span> <span class="n">Vkick</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">epost</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span>
             <span class="c1">#Equation numbers and quotes in comments correspond to Willems et al. 2002 paper on J1655.</span>
@@ -325,13 +325,13 @@
             <span class="n">Mtot_post</span> <span class="o">=</span> <span class="n">Mns</span> <span class="o">+</span> <span class="n">M2</span>
 
             <span class="c1"># SNflag1: eq 21 (with typo fixed). Continuity demands Post SN orbit must pass through preSN positions.</span>
-            <span class="c1">#from Flannery &amp; Van Heuvel 1975</span>
+            <span class="c1">#from Flannery &amp; Van Heuvel 1975                                                             </span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">SNflag1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">epost</span> <span class="o">&lt;=</span> <span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="o">+</span><span class="n">epost</span><span class="p">)</span>
 
 
-            <span class="c1"># SNflag2: Equations 22 &amp; 23. &quot;Lower and upper limits on amount of orbital contraction or expansion that can take place</span>
-            <span class="c1">#for a given amount of mass loss and a given magnitude of the kick velocity (see, e.g., Kalogera &amp; Lorimer 2000)&quot;</span>
+            <span class="c1"># SNflag2: Equations 22 &amp; 23. &quot;Lower and upper limits on amount of orbital contraction or expansion that can take place                                </span>
+            <span class="c1">#for a given amount of mass loss and a given magnitude of the kick velocity (see, e.g., Kalogera &amp; Lorimer 2000)&quot;                            </span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">SNflag2</span> <span class="o">=</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">-</span><span class="p">((</span><span class="n">Mtot_pre</span><span class="o">/</span><span class="n">Mtot_post</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">Apre</span><span class="o">/</span><span class="n">Apost</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">-</span><span class="p">((</span><span class="n">Mtot_pre</span><span class="o">/</span><span class="n">Mtot_post</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">Vkick</span><span class="o">/</span><span class="n">Vr</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
@@ -371,12 +371,12 @@
 
 
 <div class="viewcode-block" id="System.getVcirc"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.getVcirc">[docs]</a>    <span class="k">def</span> <span class="nf">getVcirc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">):</span> <span class="c1">#velocity of circular orbit in galactic potential at R</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Calculate circular velocity at X,Y,Z given potential. From mv2/r = -grad_r(U)</span>
 <span class="sd">        FIXME: Will have to change for spiral potential, as circular velocity is assumed to be within the disk</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">Vdot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vdot</span>
-
+        
         <span class="n">COORD</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">Z</span><span class="p">]</span>
         <span class="n">r</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
@@ -388,7 +388,7 @@
         <span class="k">return</span> <span class="n">vcirc</span></div>
 
 <div class="viewcode-block" id="System.setXYZ_0"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setXYZ_0">[docs]</a>    <span class="k">def</span> <span class="nf">setXYZ_0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Convert from spherical inputs to Cartesian coordinates</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">R</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span>
@@ -402,7 +402,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">Z0</span> <span class="o">=</span> <span class="n">R</span><span class="o">*</span><span class="n">galcosth</span></div>
 
 <div class="viewcode-block" id="System.setVxyz_0"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setVxyz_0">[docs]</a>    <span class="k">def</span> <span class="nf">setVxyz_0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Here, vphi and vcosth are as galphi and galcosth, and give random direction for V_sys postSN</span>
 
 <span class="sd">        Initially, preSN circular trajectory Vp is the velocity vector of magnitude getVcirc,</span>
@@ -418,7 +418,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;circ_test&#39;</span><span class="p">,</span><span class="s1">&#39;vkick_test&#39;</span><span class="p">,</span><span class="s1">&#39;radial_iso&#39;</span><span class="p">,</span><span class="s1">&#39;radial_x&#39;</span><span class="p">,</span><span class="s1">&#39;radial_simple&#39;</span><span class="p">,</span><span class="s1">&#39;tangential&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;circ_test&#39;</span><span class="p">,</span><span class="s1">&#39;vkick_test&#39;</span><span class="p">,</span><span class="s1">&#39;radial_iso&#39;</span><span class="p">,</span><span class="s1">&#39;radial_x&#39;</span><span class="p">,</span><span class="s1">&#39;radial_simple&#39;</span><span class="p">,</span><span class="s1">&#39;tangential&#39;</span><span class="p">,</span><span class="s1">&#39;radial_simple2&#39;</span><span class="p">,</span><span class="s1">&#39;tangential2&#39;</span><span class="p">]:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unspecified flag &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span><span class="p">)</span>
 
         <span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Y0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Z0</span>
@@ -437,9 +437,9 @@
         <span class="n">vcosth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># Choose random direction for system velocity</span>
         <span class="n">vsinth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">vcosth</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>    <span class="c1"># equivalent to choosing random orientation preSN</span>
         <span class="n">Vtot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getVcirc</span><span class="p">(</span><span class="n">X0</span><span class="p">,</span><span class="n">Y0</span><span class="p">,</span><span class="n">Z0</span><span class="p">)</span>
+        
 
-
-
+        
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span><span class="o">==</span><span class="s1">&#39;vkick_test&#39;</span><span class="p">:</span> <span class="n">Vtot</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#For checking that initial conditions correspond to circular galactic orbits</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span><span class="o">==</span><span class="s1">&#39;radial_iso&#39;</span><span class="p">:</span>
@@ -458,7 +458,7 @@
         <span class="c1">#Rotate by omega while keeping perpendicular to R</span>
         <span class="n">Vp_rot</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vp</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span><span class="p">))</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">Vp</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">omega</span><span class="p">))</span>
         <span class="n">Vp_rot_tot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">Vp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Vp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">Vp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span><span class="o">==</span> <span class="s1">&#39;tangential2&#39;</span><span class="p">:</span>
             <span class="n">vsys</span> <span class="o">=</span> <span class="p">[</span><span class="n">V_sys</span><span class="o">*</span><span class="n">Vp_rot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">Vp_rot_tot</span><span class="p">,</span><span class="n">V_sys</span><span class="o">*</span><span class="n">Vp_rot</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">Vp_rot_tot</span><span class="p">,</span><span class="n">V_sys</span><span class="o">*</span><span class="n">Vp_rot</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">Vp_rot_tot</span><span class="p">]</span>
         <span class="n">Vx0</span><span class="p">,</span><span class="n">Vy0</span><span class="p">,</span><span class="n">Vz0</span> <span class="o">=</span> <span class="n">Vp_rot</span> <span class="o">+</span> <span class="n">vsys</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span><span class="s1">&#39;radial_x&#39;</span><span class="p">:</span>
@@ -467,9 +467,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">X0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Y0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Z0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">R</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span>
             <span class="n">Vx0</span><span class="p">,</span><span class="n">Vy0</span><span class="p">,</span><span class="n">Vz0</span> <span class="o">=</span> <span class="n">V_sys</span><span class="p">,</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">galphi</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">galcosth</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span>
-
-
-
+            
+            
+            
         <span class="bp">self</span><span class="o">.</span><span class="n">Vxcirc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vycirc0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Vzcirc0</span> <span class="o">=</span> <span class="n">Vp_rot</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Vtot</span> <span class="o">=</span> <span class="n">Vtot</span>
 
@@ -481,8 +481,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">vsinth</span><span class="o">=</span><span class="n">vsinth</span></div>
 
 <div class="viewcode-block" id="System.setTmerge"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.setTmerge">[docs]</a>    <span class="k">def</span> <span class="nf">setTmerge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Tmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Tmax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span> <span class="c1">#NOTE we should check that this matches up with Maggiori equations</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Calculate the inspiral time for the binary after the supernova using formulae from Peters 1964</span>
+        <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">        Calculate the inspiral time for the binary after the supernova using formulae from `Peters 1964 &lt;https://journals.aps.org/pr/abstract/10.1103/PhysRev.136.B1224&gt;`_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">m1</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Mns</span><span class="p">;</span> <span class="n">m2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">M2</span>
         <span class="n">G</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">G</span><span class="o">.</span><span class="n">value</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">value</span>
@@ -510,7 +510,7 @@
 
 
 <div class="viewcode-block" id="System.doMotion"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.doMotion">[docs]</a>    <span class="k">def</span> <span class="nf">doMotion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">&#39;dopri5&#39;</span><span class="p">,</span> <span class="n">NSTEPS</span><span class="o">=</span><span class="mf">1e13</span><span class="p">,</span> <span class="n">MAX_STEP</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">RTOL</span><span class="o">=</span><span class="mf">1e-11</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Second order equation ma=-grad(U) converted to 2 sets of first order equations, with</span>
 <span class="sd">        e.g. x1 = x</span>
 <span class="sd">             x2 = vx</span>
@@ -528,7 +528,7 @@
         <span class="n">solver</span><span class="o">=</span><span class="n">ode</span><span class="p">(</span><span class="n">Vdot</span><span class="p">)</span><span class="o">.</span><span class="n">set_integrator</span><span class="p">(</span><span class="n">backend</span><span class="p">,</span><span class="n">nsteps</span><span class="o">=</span><span class="n">NSTEPS</span><span class="p">,</span><span class="n">max_step</span><span class="o">=</span><span class="n">MAX_STEP</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">solout</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot;</span>
+            <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">            function for saving integration results to sol[]</span>
 <span class="sd">            &quot;&quot;&quot;</span>
             <span class="n">temp</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
@@ -552,7 +552,7 @@
 
 
 <div class="viewcode-block" id="System.check_success"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.check_success">[docs]</a>    <span class="k">def</span> <span class="nf">check_success</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">uncer</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        # uncertainty in offset is 0.5 kpc by default</span>
 <span class="sd">        # assume that the observer is looking down the z-axis (so the offset will be the projection of the binary on the x-y plane)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -572,7 +572,7 @@
 
 
 <div class="viewcode-block" id="System.energy_check"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.energy_check">[docs]</a>    <span class="k">def</span> <span class="nf">energy_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">E_thresh</span> <span class="o">=</span> <span class="mf">1e-3</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Compare total energy of first and last steps to ensure conservation</span>
 <span class="sd">        Ek, Ep are kinetic and potential energy</span>
 
@@ -605,7 +605,7 @@
 
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">Ei</span><span class="o">-</span><span class="n">Ef</span><span class="p">)</span><span class="o">/</span><span class="n">Ei</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">E_thresh</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">flag</span><span class="o">=</span><span class="mi">4</span> <span class="c1"># Energy not conserved!!!</span></div>
-
+        
 
 <div class="viewcode-block" id="System.write_data"><a class="viewcode-back" href="../../api/astro_traj.system.html#astro_traj.system.System.write_data">[docs]</a>    <span class="k">def</span> <span class="nf">write_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -626,7 +626,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Vfinal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;radial_simple2&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_flag</span> <span class="o">==</span> <span class="s1">&#39;tangential2&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vphi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vcosth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">Rmerge_proj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -653,7 +653,7 @@
         <span class="c1"># save initial conditions</span>
         <span class="n">initial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Mhe</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Apost</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Rmerge</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Vxcirc0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Vycirc0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Vzcirc0</span><span class="p">])</span>
         <span class="n">dfi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Vkick&#39;</span><span class="p">,</span><span class="s1">&#39;Mhe&#39;</span><span class="p">,</span><span class="s1">&#39;Apre&#39;</span><span class="p">,</span><span class="s1">&#39;Apost&#39;</span><span class="p">,</span><span class="s1">&#39;Rmerge&#39;</span><span class="p">,</span><span class="s1">&#39;vx&#39;</span><span class="p">,</span><span class="s1">&#39;vy&#39;</span><span class="p">,</span><span class="s1">&#39;vz&#39;</span><span class="p">])</span>
-        <span class="n">dfi</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;evolution/&#39;</span><span class="o">+</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_ini.dat&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">dfi</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;evolution/&#39;</span><span class="o">+</span><span class="n">filename</span><span class="o">+</span><span class="s1">&#39;_ini.dat&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>        
 
         <span class="c1"># save evolution</span>
         <span class="n">evolution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Y</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Z</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vx</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vy</span><span class="p">],[</span><span class="bp">self</span><span class="o">.</span><span class="n">Vz</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
@@ -697,7 +697,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.52.g9a71cca.dirty',
+            VERSION:'0+untagged.59.g3fd399c.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

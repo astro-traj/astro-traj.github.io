@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>astro_traj.sample &mdash; astro_traj 0+untagged.52.g9a71cca.dirty documentation</title>
+  <title>astro_traj.sample &mdash; astro_traj 0+untagged.59.g3fd399c.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.52.g9a71cca.dirty documentation" href="../../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.59.g3fd399c.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.52.g9a71cca.dirty
+                0+untagged.59.g3fd399c.dirty
               </div>
             
           
@@ -190,7 +190,7 @@
 <span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="n">Table</span>
 <span class="n">__author__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Chase Kimball &lt;charles.kimball@ligo.org&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;Michael Zevin &lt;michael.zevin@ligo.org&gt;&#39;</span><span class="p">]</span>
 <span class="n">__credits__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">,</span> <span class="s1">&#39;Hernquist_pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;BeniaminiKick_pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;BeniaminiMhe_pdf&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Sample&#39;</span><span class="p">,</span> <span class="s1">&#39;Hernquist_pdf&#39;</span><span class="p">]</span>
 
 <div class="viewcode-block" id="Hernquist_pdf"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Hernquist_pdf">[docs]</a><span class="k">class</span> <span class="nc">Hernquist_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -219,16 +219,14 @@
         <span class="n">Cnorm</span> <span class="o">=</span> <span class="n">normFac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">)</span>            <span class="c1"># NOTE: rcut needs to be in terms of abulge for normalization</span>
         <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">Cnorm</span><span class="o">*</span><span class="n">r</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="BeniaminiKick_pdf"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.BeniaminiKick_pdf">[docs]</a><span class="k">class</span> <span class="nc">BeniaminiKick_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">BeniaminiKick_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    vkick pdf from Beniamini Equation 7: https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</span>
-<span class="sd">    the default on sigvk comes from the paper sig_log(v_k))=sinh^−1(0.5)</span>
+<span class="sd">    vkick pdf from Beniamini</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Vk0</span><span class="p">,</span> <span class="n">sigvk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span> <span class="n">momtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Vk0</span><span class="p">,</span><span class="n">sigvk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span><span class="n">momtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span>
                  <span class="n">badvalue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">longname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">shapes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extradoc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
+        
         <span class="n">rv_continuous</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">momtype</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">xtol</span><span class="p">,</span>
                  <span class="n">badvalue</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">longname</span><span class="p">,</span>
                  <span class="n">shapes</span><span class="p">,</span> <span class="n">extradoc</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
@@ -238,18 +236,16 @@
     <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">Vk</span><span class="p">):</span>
             <span class="n">term1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sigvk</span><span class="o">*</span><span class="n">Vk</span><span class="p">)</span>
             <span class="n">term2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Vk</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Vk0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigvk</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-            <span class="k">return</span> <span class="n">term1</span><span class="o">*</span><span class="n">term2</span></div>
-
-
-<div class="viewcode-block" id="BeniaminiMhe_pdf"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.BeniaminiMhe_pdf">[docs]</a><span class="k">class</span> <span class="nc">BeniaminiMhe_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">term1</span><span class="o">*</span><span class="n">term2</span>
+        
+<span class="k">class</span> <span class="nc">BeniaminiMhe_pdf</span><span class="p">(</span><span class="n">rv_continuous</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    vkick pdf from Beniamini  Equation 7: https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</span>
-<span class="sd">    the default on sigdM comes from the paper sig_log(deltaM))=sinh^−1(0.5)</span>
+<span class="sd">    vkick pdf from Beniamini</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dM0</span><span class="p">,</span> <span class="n">sigdM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span> <span class="n">momtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dM0</span><span class="p">,</span><span class="n">sigdM</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">),</span><span class="n">momtype</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xtol</span><span class="o">=</span><span class="mf">1e-14</span><span class="p">,</span>
                  <span class="n">badvalue</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">longname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">shapes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extradoc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
+        
         <span class="n">rv_continuous</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">momtype</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">xtol</span><span class="p">,</span>
                  <span class="n">badvalue</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">longname</span><span class="p">,</span>
                  <span class="n">shapes</span><span class="p">,</span> <span class="n">extradoc</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
@@ -259,9 +255,7 @@
     <span class="k">def</span> <span class="nf">_pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dM</span><span class="p">):</span>
             <span class="n">term1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sigdM</span><span class="o">*</span><span class="n">dM</span><span class="p">)</span>
             <span class="n">term2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">dM</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">dM0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigdM</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span>
-            <span class="k">return</span> <span class="n">term1</span><span class="o">*</span><span class="n">term2</span></div>
-
-
+            <span class="k">return</span> <span class="n">term1</span><span class="o">*</span><span class="n">term2</span> 
 <div class="viewcode-block" id="Sample"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample">[docs]</a><span class="k">class</span> <span class="nc">Sample</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gal</span><span class="p">):</span>   <span class="c1"># default rcut=0 does not truncate the distributions (i.e., they extend to infinity)</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -275,13 +269,13 @@
 <div class="viewcode-block" id="Sample.sample_masses"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_masses">[docs]</a>    <span class="k">def</span> <span class="nf">sample_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Samples m1 and m2 from posterior distrbution of your favorite PE run.</span>
-<span class="sd">        Samples from the posterior samples by default.</span>
+<span class="sd">        Samples from the posterior samples by default. </span>
 <span class="sd">        Can specify methods &#39;gaussian&#39;, &#39;mean&#39;, or &#39;median&#39; to sample using other sampling methods</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No posterior sample file specified!&quot;</span><span class="p">)</span>
-
+        
         <span class="n">samples</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;posterior&#39;</span><span class="p">:</span>
@@ -304,7 +298,7 @@
             <span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">m1</span><span class="p">,</span> <span class="n">m2</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
@@ -312,13 +306,13 @@
 <div class="viewcode-block" id="Sample.sample_distance"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_distance">[docs]</a>    <span class="k">def</span> <span class="nf">sample_distance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">samples</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Samples distance from posterior distrbution of your favorite PE run.</span>
-<span class="sd">        Just uses the mean value for distance by default.</span>
+<span class="sd">        Just uses the mean value for distance by default. </span>
 <span class="sd">        Can specify methods &#39;gaussian&#39;, &#39;mean&#39;, or &#39;posteriors&#39; to sample using other methods</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">samples</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No posterior sample file specified!&quot;</span><span class="p">)</span>
-
+        
         <span class="n">samples</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;posterior&#39;</span><span class="p">:</span>
@@ -337,7 +331,7 @@
             <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]),</span> <span class="n">samples</span><span class="p">[</span><span class="s1">&#39;distance&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">d</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
@@ -354,7 +348,7 @@
             <span class="n">A_samp</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Amin</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Amax</span><span class="p">),</span> <span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">A_samp</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
@@ -367,51 +361,61 @@
             <span class="n">e_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">e_samp</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
     <span class="c1"># sample helium star mass</span>
-<div class="viewcode-block" id="Sample.sample_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ECSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">CCSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.sample_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ECSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">CCSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">irand</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        samples He-star mass uniformly between Mns and 8 Msun (BH limit)</span>
+<span class="sd">        samples He-star mass uniformly between Mns and 8 Msun (BH limit): beniamini2 method selects from two </span>
+<span class="sd">        distributions ECS and CCSN. The split is based off the 60/40 split observed in double nurtron stars </span>
+<span class="sd">        in our galaxy laid out in Fig 2: https://arxiv.org/pdf/1510.03111.pdf#figure.2 method: powerlaw</span>
 <span class="sd">        &#39;&#39;&#39;</span>
+        
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;beniamini&#39;</span><span class="p">:</span>
             <span class="n">dMhe_samp</span> <span class="o">=</span> <span class="n">PDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">dMhe_samp</span><span class="o">+</span><span class="n">Mmin</span>
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">:</span>
             <span class="n">dMhe_samp</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">0.6</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">irand</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.6</span><span class="p">:</span>
                     <span class="n">dMhe_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ECSPDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">())</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">dMhe_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CCSPDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">())</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dMhe_samp</span><span class="p">)</span><span class="o">+</span><span class="n">Mmin</span>
-
+        
+                
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;power&#39;</span><span class="p">:</span>
+            <span class="n">Mhe_samp</span><span class="o">=</span><span class="p">[]</span>
+            
             <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">m</span><span class="o">**-</span><span class="mf">2.35</span>
-            <span class="n">xx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Mmin</span><span class="p">,</span><span class="n">Mmax</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
-            <span class="n">A1</span><span class="o">=</span><span class="n">trapz</span><span class="p">(</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span><span class="n">x</span><span class="o">=</span><span class="n">xx</span><span class="p">)</span>
-            <span class="n">Anorm</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">A1</span>
-            <span class="k">def</span> <span class="nf">invpdf</span><span class="p">(</span><span class="n">ii</span><span class="p">):</span>
-                <span class="k">return</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">((</span><span class="n">Mmin</span><span class="o">**-</span><span class="mf">1.3</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ii</span><span class="o">*</span><span class="mf">1.3</span><span class="o">/</span><span class="n">Anorm</span><span class="p">)))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">1.3</span><span class="p">)</span>
-            <span class="n">II</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">invpdf</span><span class="p">(</span><span class="n">II</span><span class="p">)</span>
 
+            <span class="k">def</span> <span class="nf">invpdf</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span><span class="n">mmin</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="p">((</span><span class="n">mmin</span><span class="o">**-</span><span class="mf">1.3</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">ii</span><span class="o">*</span><span class="mf">1.3</span><span class="o">/</span><span class="n">Anorm</span><span class="p">)))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">1.3</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Mmin</span><span class="p">)):</span>
+                <span class="n">xx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">Mmin</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">Mmax</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+                <span class="n">A1</span><span class="o">=</span><span class="n">trapz</span><span class="p">(</span><span class="n">pdf</span><span class="p">(</span><span class="n">xx</span><span class="p">),</span><span class="n">x</span><span class="o">=</span><span class="n">xx</span><span class="p">)</span>
+                <span class="n">Anorm</span><span class="o">=</span><span class="mf">1.</span><span class="o">/</span><span class="n">A1</span>
+
+                <span class="n">II</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">Mhe_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">invpdf</span><span class="p">(</span><span class="n">II</span><span class="p">,</span><span class="n">Mmin</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Mhe_samp</span><span class="p">)</span>
+            
 
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;uniform&#39;</span><span class="p">:</span>
             <span class="n">Mhe_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Mmin</span><span class="p">,</span> <span class="n">Mmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">Mhe_samp</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
 
 
     <span class="c1"># sample kick velocities</span>
-<div class="viewcode-block" id="Sample.sample_Vkick"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">265</span><span class="p">,</span> <span class="n">Vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Vmax</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sample.sample_Vkick"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick">[docs]</a>    <span class="k">def</span> <span class="nf">sample_Vkick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">265</span><span class="p">,</span> <span class="n">Vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Vmax</span><span class="o">=</span><span class="mi">2500</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ECSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">CCSPDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">irand</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</span>
+<span class="sd">        sample kick velocity from Maxwellian (Hobbs 2005, default) or uniformly (Wong 2010) or Beniamini (2016): https://arxiv.org/pdf/1510.03111.pdf#equation.4.7: beniamini2 method selects from two distributions ECS and CCSN. The splitis based off the 60/40 split observed in double nurtron stars in our galaxy laid out in Fig 2: https://arxiv.org/pdf/1510.03111.pdf#figure.2</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;beniamini&#39;</span><span class="p">:</span>
             <span class="n">Vkick_samp</span><span class="o">=</span><span class="p">[]</span>
@@ -421,8 +425,16 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">Vkick_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CCSPDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">())</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Vkick_samp</span><span class="p">)</span>
-
-
+        <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">:</span>
+            <span class="n">Vkick_samp</span><span class="o">=</span><span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">irand</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">irand</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;=</span><span class="mf">0.6</span><span class="p">:</span>
+                    <span class="n">Vkick_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ECSPDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">())</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">Vkick_samp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">CCSPDF</span><span class="o">.</span><span class="n">rvs</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Vkick_samp</span><span class="p">)</span>
+                    
+            
         <span class="k">if</span> <span class="n">method</span><span class="o">==</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">:</span>
             <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">maxwell</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">Vkick_samp</span>
@@ -431,37 +443,21 @@
             <span class="n">Vkick_samp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">Vmin</span><span class="p">,</span> <span class="n">Vmax</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">Vkick_samp</span>
 
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span> 
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Undefined sampling method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">method</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Sample.initialize_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dM0</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Initializes the Beniamini_Mhe PDF: https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">return</span> <span class="n">BeniaminiMhe_pdf</span><span class="p">(</span><span class="n">dM0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
-
-
+<div class="viewcode-block" id="Sample.initialize_Mhe"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Mhe">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_Mhe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dM0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BeniaminiMhe_pdf</span><span class="p">(</span><span class="n">dM0</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 <div class="viewcode-block" id="Sample.initialize_Vkick"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Vkick">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_Vkick</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Initializes the BeniaminiKick: https://arxiv.org/pdf/1510.03111.pdf#equation.4.7</span>
-<span class="sd">        For the “small e systems” the like- lihood peaks at ∆M_s0= 0.1M and v_k0 = 5km/s</span>
-<span class="sd">        These results strongly suggest an ECS-type SN as  the  origin  of  the  companion  in  these  systems.</span>
-<span class="sd">        For  the “large e systems” the likelihood peaks at ∆M_0 = 1 M and v_k,0 = 158km/s</span>
-<span class="sd">        core-collapse SN</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">ECS</span> <span class="o">=</span> <span class="n">BeniaminiKick_pdf</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">CCS</span> <span class="o">=</span> <span class="n">BeniaminiKick_pdf</span><span class="p">(</span><span class="mf">158.0</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ECS</span> <span class="o">=</span> <span class="n">BeniaminiKick_pdf</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">CCS</span> <span class="o">=</span> <span class="n">BeniaminiKick_pdf</span><span class="p">(</span><span class="mf">158.0</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span></div>
-
-
 <div class="viewcode-block" id="Sample.initialize_R"><a class="viewcode-back" href="../../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_R</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Initializes a specified potential function</span>
+<span class="sd">        samples radial distance from galactic center according to specified potential function</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rcut</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">abulge</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">abulge</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Hernquist_pdf</span><span class="p">(</span><span class="n">abulge</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abulge</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rcut</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_pdf&#39;</span><span class="p">)</span></div>
 
@@ -507,7 +503,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.52.g9a71cca.dirty',
+            VERSION:'0+untagged.59.g3fd399c.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
