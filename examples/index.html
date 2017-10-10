@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Determining Charateristics of Progenitor &mdash; astro_traj 0+untagged.64.gb757523.dirty documentation</title>
+  <title>Determining Charateristics of Progenitor &mdash; astro_traj 0+untagged.67.gab034d3 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="astro_traj 0+untagged.64.gb757523.dirty documentation" href="../index.html"/>
+    <link rel="top" title="astro_traj 0+untagged.67.gab034d3 documentation" href="../index.html"/>
         <link rel="next" title="Running LIGOTraj on the command line" href="../command-line/index.html"/>
         <link rel="prev" title="Welcome to astro_traj’s documentation!" href="../index.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0+untagged.64.gb757523.dirty
+                0+untagged.67.gab034d3
               </div>
             
           
@@ -95,31 +95,32 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Determining Charateristics of Progenitor</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#technique">Technique</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sampling">Sampling</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#component-and-secondary-mass">Component and Secondary Mass</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#distance">Distance</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pre-supernova-semi-major-axis">Pre Supernova Semi Major Axis</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pre-supernova-eccentricity">Pre Supernova eccentricity</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#initialize-off-set-from-galactic-center">Initialize Off Set From Galactic Center</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mass-of-pre-supernova-helium-star">Mass of Pre Supernova Helium Star</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#supernova-kick-velocity">Supernova Kick Velocity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sampling-initial-conditions">Sampling Initial Conditions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#component-and-secondary-mass">Component and Secondary Mass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distance">Distance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-supernova-semi-major-axis">Pre Supernova Semi Major Axis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-supernova-eccentricity">Pre Supernova eccentricity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-off-set-from-galactic-center">Initialize Off Set From Galactic Center</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mass-of-pre-supernova-helium-star">Mass of Pre Supernova Helium Star</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supernova-kick-velocity">Supernova Kick Velocity</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-and-evolving-the-system">Creating and Evolving the System</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#supernova">Supernova</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#system-resulting-from-supernova-of-helium-star">System Resulting from Supernova of Helium Star</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#checking-supernova-flags">Checking Supernova Flags</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#evolving-system">Evolving System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#evolving-system-through-galaxy">Evolving System Through Galaxy</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#time-to-merger-peters-1964">Time to Merger Peters 1964</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#distance-of-binary-from-center">Distance of Binary From Center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#check-that-conservation-of-energy-is-obeyed">Check that conservation of energy is obeyed</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#checking-offset">Checking Offset</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#exploring-seemingly-optimal-sn-kick-velocities">Exploring Seemingly Optimal SN Kick Velocities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backward-modeling">Backward Modeling</a></li>
 </ul>
 </li>
 </ul>
@@ -192,7 +193,7 @@
 <span id="examples"></span><h1>Determining Charateristics of Progenitor<a class="headerlink" href="#determining-charateristics-of-progenitor" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The scenario this code attempts to address is the following. Say you observed a binary system in a galaxy that was a certain off-set from the center of that galaxy. You also have information about the masses of the system you observed. What, if anything, can you say about some of the properities of the system, such as pre-supernova semi major axis, supernova kick, etc, that create that system.</p>
+<p>The scenario this code attempts to address is the following. Say you observed a binary system in a galaxy that was a certain off-set from the center of that galaxy. You also have information about the masses of the system you observed. What, if anything, can you say about some of the properities of the system at its initial creation in the galaxy. Specifically, at the creation of the larger component mass of the system via a Supernova. The properities of the system at this stage that one needs to sample over inclue such as pre-supernova semi major axis, supernova kick, Mass of pre-supernova helium star, etc.</p>
 <p>In order to accomplish this, one would need to load in properities of the galaxy in which this system was created. For example this includes information such as:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;Mspiral&#39;</span> <span class="c1"># mass of the spiral (Msun) # NOTE: this information is not available, for now set to 0</span>
 <span class="s1">&#39;Mbulge&#39;</span> <span class="c1"># Mstellar from 2MASS (Msun)</span>
@@ -207,12 +208,10 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span><span class="o">=</span><span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="n">h</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Once, the galaxy and galaxy model is selected it is now time to sample over a large set of initial conditions of the system that you observed. These initial conditions include, the mass of pre supernova helium star, the kick velocity of the  supernova, the pre supernova semi major axis, initial distance from center of galaxy. After creating these intiail conditions we evolve the system to see if a.) there is a merger within some reasonable time (&lt;14 Giga years) and b.) it merged at the appropriate off-set (with some error) from the center of the galaxy. In the following sections, we dive into the code used to accomplish this.</p>
+<p>Once, the galaxy and galaxy model is selected it is now time to sample over a large set of initial conditions of the system that you observed. These initial conditions include, the mass of pre supernova helium star, the kick velocity of the  supernova, the pre supernova semi major axis, initial distance from center of galaxy. After creating these intiail conditions we evolve the system to see if a.) there is a merger within some reasonable time (&lt;14 Giga years) and b.) it merged at the appropriate off-set (with some error) from the center of the galaxy. The only value sampled over in the following section that is not relevant to the initial conditions of the system that you observed is the distance uncertianity of the hose galaxy (which impacts the uncertainity in the observed off set). This value is not necessary as fixed inflated errors bars can be used in order to be “safe”. In the following sections, we dive into the code used to accomplish this.</p>
 </div>
-<div class="section" id="technique">
-<h2>Technique<a class="headerlink" href="#technique" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="sampling">
-<h3>Sampling<a class="headerlink" href="#sampling" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="sampling-initial-conditions">
+<h2>Sampling Initial Conditions<a class="headerlink" href="#sampling-initial-conditions" title="Permalink to this headline">¶</a></h2>
 <p>In the executable, all of the sampling is done as such:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Nsys</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">trials</span>
 <span class="n">dEfrac</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -224,7 +223,7 @@
 <span class="c1"># (Msun)</span>
 
 <span class="n">d_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="c1"># (Mpc)</span>
+<span class="c1"># (Mpc) (Not necessarily used, as inflated error bars in the observed galactic offset can be used to account for the distance (or uncertianity in distance) of the galaxy</span>
 
 
 <span class="n">Apre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Apre</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
@@ -250,55 +249,11 @@
 </pre></div>
 </div>
 <div class="section" id="component-and-secondary-mass">
-<h4>Component and Secondary Mass<a class="headerlink" href="#component-and-secondary-mass" title="Permalink to this headline">¶</a></h4>
+<h3>Component and Secondary Mass<a class="headerlink" href="#component-and-secondary-mass" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_masses" title="astro_traj.sample.Sample.sample_masses"><code class="xref py py-meth docutils literal"><span class="pre">sample_masses()</span></code></a></p>
 <p>The available methods for sampling are ‘gaussian’, ‘mean’, ‘median’, or ‘posterior’:</p>
-<p>The posterior method is used by default. This simply means that we draw samples directly from Gravitational Wave parameter estimation pdf of the source frame masses of the post supernova binary system:</p>
+<p>The posterior method is used by default. This simply means that we draw samples directly from Gravitational Wave parameter estimation pdf of the source frame masses of the observed binary system:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Ms</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_posterior</span><span class="p">,</span> <span class="n">Mns_dist_posterior</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_median</span><span class="p">,</span> <span class="n">Mns_dist_median</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_mean</span><span class="p">,</span> <span class="n">Mns_dist_mean</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist_gaussian</span><span class="p">,</span> <span class="n">Mns_dist_gaussian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">),</span> <span class="p">(</span><span class="n">ax5</span><span class="p">,</span> <span class="n">ax6</span><span class="p">,</span> <span class="n">ax7</span><span class="p">,</span> <span class="n">ax8</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mcomp_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax5</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax6</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax7</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax8</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mns_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Comp Mass: Posterior&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Comp Mass: Median&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Comp Mass: Mean&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Comp Mass: Gaussian&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax5</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;NS Mass: Posterior&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax6</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;NS Mass: Median&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax7</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;NS Mass: Mean&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax8</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;NS Mass: Gaussian, fontdict=font&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-1.py">Source code</a>, <a class="reference external" href="../examples/index-1.png">png</a>, <a class="reference external" href="../examples/index-1.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-1.pdf">pdf</a>)</p>
@@ -307,46 +262,10 @@
 </div>
 </div>
 <div class="section" id="distance">
-<h4>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h4>
+<h3>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_distance" title="astro_traj.sample.Sample.sample_distance"><code class="xref py py-meth docutils literal"><span class="pre">sample_distance()</span></code></a></p>
-<p>The default method is median (i.e. the median value from the Gravitational Wave parameter estimation pdf of distance:</p>
+<p>The default method is median (i.e. the median value from the Gravitational Wave parameter estimation pdf of distance. Again, this value is critical in calculating the uncertainity in the observed offset and can be circumvented by smartly chosen inflated error bars in the observed of set:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">distance</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span> <span class="c1"># (Mpc)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_posterior</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_median</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_mean</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">d_dist_gaussian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_distance</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_posterior</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_median</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_mean</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d_dist_gaussian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Distance: Posterior&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Distance: Median&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Distance: Mean&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax4</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Distance: Gaussian&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-2.py">Source code</a>, <a class="reference external" href="../examples/index-2.png">png</a>, <a class="reference external" href="../examples/index-2.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-2.pdf">pdf</a>)</p>
@@ -355,40 +274,10 @@
 </div>
 </div>
 <div class="section" id="pre-supernova-semi-major-axis">
-<h4>Pre Supernova Semi Major Axis<a class="headerlink" href="#pre-supernova-semi-major-axis" title="Permalink to this headline">¶</a></h4>
+<h3>Pre Supernova Semi Major Axis<a class="headerlink" href="#pre-supernova-semi-major-axis" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Apre" title="astro_traj.sample.Sample.sample_Apre"><code class="xref py py-meth docutils literal"><span class="pre">sample_Apre()</span></code></a></p>
-<p>The available methods for sampling are ‘uniform’ and ‘log’:</p>
+<p>The available methods for sampling are ‘uniform’ and ‘log’. This value is the pre-supernova semi major axis.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist_log</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Apre_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Apre</span><span class="p">(</span><span class="n">Amin</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">Amax</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Apre_dist_log</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Apre_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Apre: Log&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Apre: Uniform&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-3.py">Source code</a>, <a class="reference external" href="../examples/index-3.png">png</a>, <a class="reference external" href="../examples/index-3.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-3.pdf">pdf</a>)</p>
@@ -397,37 +286,11 @@
 </div>
 </div>
 <div class="section" id="pre-supernova-eccentricity">
-<h4>Pre Supernova eccentricity<a class="headerlink" href="#pre-supernova-eccentricity" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_epre" title="astro_traj.sample.Sample.sample_epre"><code class="xref py py-meth docutils literal"><span class="pre">sample_epre()</span></code></a></p>
+<h3>Pre Supernova eccentricity<a class="headerlink" href="#pre-supernova-eccentricity" title="Permalink to this headline">¶</a></h3>
+<p>Because we assume circular orbits, we assume that the eccentricity of the system pre second supernova is neglible (set to 0 here), but do account for effects of eccentricity post second supernova.
+<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_epre" title="astro_traj.sample.Sample.sample_epre"><code class="xref py py-meth docutils literal"><span class="pre">sample_epre()</span></code></a></p>
 <p>The available method for sampling is ‘circularized’:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epre_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_epre</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;circularized&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">epre_dist_circularized</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_epre</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;circularized&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">epre_dist_circularized</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Eccentricity Pre-Supernova: Circularized&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-4.py">Source code</a>, <a class="reference external" href="../examples/index-4.png">png</a>, <a class="reference external" href="../examples/index-4.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-4.pdf">pdf</a>)</p>
@@ -436,39 +299,10 @@
 </div>
 </div>
 <div class="section" id="initialize-off-set-from-galactic-center">
-<h4>Initialize Off Set From Galactic Center<a class="headerlink" href="#initialize-off-set-from-galactic-center" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-meth docutils literal"><span class="pre">initialize_R()</span></code></a>
-<a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-meth docutils literal"><span class="pre">sample_R()</span></code></a>:</p>
+<h3>Initialize Off Set From Galactic Center<a class="headerlink" href="#initialize-off-set-from-galactic-center" title="Permalink to this headline">¶</a></h3>
+<p>We create a custom distribution to sample the intiial galactic offset of the pre second supernova system. The r_eff is used to control sampling at galactic offsets that are unrealistically far away from the center of the galaxy (i.e. we expect less binaries to form super far away from the galactic center and moreover some initial offsets may in fact be outside the plausible “diameter” of the galaxy. To initialize this PDF, we use <a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_R" title="astro_traj.sample.Sample.initialize_R"><code class="xref py py-meth docutils literal"><span class="pre">initialize_R()</span></code></a>, to sample some number of outcomes from this PDF we use <a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_R" title="astro_traj.sample.Sample.sample_R"><code class="xref py py-meth docutils literal"><span class="pre">sample_R()</span></code></a>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PDFR</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_R</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">R_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_R</span><span class="p">(</span><span class="n">PDFR</span><span class="p">,</span> <span class="n">Nsys</span><span class="p">)</span> <span class="c1"># (kpc)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">PDFR</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_R</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">R_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_R</span><span class="p">(</span><span class="n">PDFR</span><span class="p">,</span> <span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">R_dist</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Initial Off Set from Galactic Center&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-5.py">Source code</a>, <a class="reference external" href="../examples/index-5.png">png</a>, <a class="reference external" href="../examples/index-5.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-5.pdf">pdf</a>)</p>
@@ -477,7 +311,7 @@
 </div>
 </div>
 <div class="section" id="mass-of-pre-supernova-helium-star">
-<h4>Mass of Pre Supernova Helium Star<a class="headerlink" href="#mass-of-pre-supernova-helium-star" title="Permalink to this headline">¶</a></h4>
+<h3>Mass of Pre Supernova Helium Star<a class="headerlink" href="#mass-of-pre-supernova-helium-star" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Mhe" title="astro_traj.sample.Sample.initialize_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Mhe()</span></code></a>
 <a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Mhe" title="astro_traj.sample.Sample.sample_Mhe"><code class="xref py py-meth docutils literal"><span class="pre">sample_Mhe()</span></code></a>:</p>
 <p>Available methods include ‘power’, ‘uniform’, ‘beniamini2’.</p>
@@ -485,44 +319,7 @@
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">CCSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="n">PDFMhe</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mcomp_dist</span><span class="p">,</span> <span class="n">Mns_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_masses</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">CCSPDFMhe</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Mhe</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_power</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist_beniamini2</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_power</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Mhe_dist_beniamini2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mass Helium Star: Uniform&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mass Helium Star: Power&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mass Helium Star: Beniamini2&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Mhe_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Mhe</span><span class="p">(</span><span class="n">Mmin</span><span class="o">=</span><span class="n">Mns_dist</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">PDF</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECSPDFMhe</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCSPDFMhe</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span> <span class="c1"># (Msun)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-6.py">Source code</a>, <a class="reference external" href="../examples/index-6.png">png</a>, <a class="reference external" href="../examples/index-6.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-6.pdf">pdf</a>)</p>
@@ -531,48 +328,13 @@
 </div>
 </div>
 <div class="section" id="supernova-kick-velocity">
-<h4>Supernova Kick Velocity<a class="headerlink" href="#supernova-kick-velocity" title="Permalink to this headline">¶</a></h4>
+<h3>Supernova Kick Velocity<a class="headerlink" href="#supernova-kick-velocity" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.initialize_Vkick" title="astro_traj.sample.Sample.initialize_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">initialize_Vkick()</span></code></a>
 <a class="reference internal" href="../api/astro_traj.sample.html#astro_traj.sample.Sample.sample_Vkick" title="astro_traj.sample.Sample.sample_Vkick"><code class="xref py py-meth docutils literal"><span class="pre">sample_Vkick()</span></code></a></p>
 <p>Available methods include ‘maxwellian’, ‘uniform’, ‘beniamini2’.</p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#equation.4.7">Beniamini2</a> draws from two distributions, low eccentricity (ECS) and high eccentricity (CCSN), for the pre-supernova Helium Star and Kick Velocity distributions. It does so in a  60 40 split which is motivated by the number of such systems we observe in the Milky Way (6 and 4) which is shown in <a class="reference external" href="https://arxiv.org/pdf/1510.03111.pdf#figure.2">Figure 2</a>. The initialized values for the distribution are motivated form the paper where the deltaM_0 and Vkick_0 for ECS that corresponded to the maximum likelihood weere 0.1 and 5.0, respectively, and the deltaM_0 and Vkick_0 for ECS that corresponded to the maximum likelihood for CCSN were 1.0 and 158.0 respectively.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Vkick</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="n">Mhe_dist</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.galaxy</span> <span class="k">import</span> <span class="n">Hernquist_NFW</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj</span> <span class="k">import</span> <span class="n">constr_dict</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">astro_traj.sample</span> <span class="k">import</span> <span class="n">Sample</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">use</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">font</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">samples</span> <span class="o">=</span> <span class="s1">&#39;posterior_samples.dat&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Galaxy</span> <span class="o">=</span> <span class="n">constr_dict</span><span class="o">.</span><span class="n">galaxy</span><span class="p">(</span><span class="s1">&#39;NGC&#39;</span><span class="p">,</span> <span class="n">samples</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.73</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gal</span> <span class="o">=</span> <span class="n">Hernquist_NFW</span><span class="p">(</span><span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mspiral&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mbulge&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;Mhalo&#39;</span><span class="p">],</span> <span class="n">Galaxy</span><span class="p">[</span><span class="s1">&#39;R_eff&#39;</span><span class="p">],</span> <span class="mf">0.73</span><span class="p">,</span> <span class="n">rcut</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">samp</span> <span class="o">=</span> <span class="n">Sample</span><span class="p">(</span><span class="n">gal</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Nsys</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nsys</span><span class="p">)))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dumrand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ECS</span><span class="p">,</span><span class="n">CCS</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">initialize_Vkick</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_uniform</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_maxwellian</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;maxwellian&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist_beniamini2</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;beniamini2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_uniform</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_maxwellian</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">Vkick_dist_beniamini2</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Supernova Kick Velocity: Uniform&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Supernova Kick Velocity: Maxwellian&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Supernova Kick Velocity: Beniamini2&#39;</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="n">font</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Vkick_dist</span> <span class="o">=</span> <span class="n">samp</span><span class="o">.</span><span class="n">sample_Vkick</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">Vkick</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nsys</span><span class="p">,</span> <span class="n">ECSPDF</span><span class="o">=</span><span class="n">ECS</span><span class="p">,</span> <span class="n">CCSPDF</span><span class="o">=</span><span class="n">CCS</span><span class="p">,</span> <span class="n">Mhe</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">irand</span><span class="o">=</span><span class="n">dumrand</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../examples/index-7.py">Source code</a>, <a class="reference external" href="../examples/index-7.png">png</a>, <a class="reference external" href="../examples/index-7.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-7.pdf">pdf</a>)</p>
@@ -581,25 +343,41 @@
 </div>
 </div>
 </div>
+<div class="section" id="creating-and-evolving-the-system">
+<h2>Creating and Evolving the System<a class="headerlink" href="#creating-and-evolving-the-system" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have successfully sampled a number of initial conditions for our pre-Supernova binary, we can create the <a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System" title="astro_traj.system.System"><code class="xref py py-class docutils literal"><span class="pre">System</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># initialize System class with pertinent parameters</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">=</span><span class="n">System</span><span class="p">(</span><span class="n">gal</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">Mns</span><span class="p">,</span> <span class="n">Mcomp</span><span class="p">,</span> <span class="n">Mhe</span><span class="p">,</span> <span class="n">Apre</span><span class="p">,</span> <span class="n">epre</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">Vkick</span><span class="p">,</span> <span class="n">sys_flag</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">sys_flag</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the following sub-sections we discuss the forward modelling that occurs after the creation of this system.</p>
 <div class="section" id="supernova">
 <h3>Supernova<a class="headerlink" href="#supernova" title="Permalink to this headline">¶</a></h3>
-<p>The very first thing that you have to do is taken the initial conditions of your pre-Supernova Helium star + neutron star system, and evolve Helium star through supernova to the post supernova mass. After doing this, the first check of the system occurs. That is, does a successful component mass result from the supernova</p>
+<p>The very first thing that you have to do is take the initial conditions of your pre-Supernova Helium star + neutron star system, and evolve Helium star through supernova to the post supernova object + neutron star system. Naturally, not all initial conditions of pre-supernova helium star semi-major axis, etc. will successfully result in the creation of a binary system. Therefore, the first check of the forward modeling occurs, that is, does a successful binary result from the supernova.</p>
 <div class="section" id="system-resulting-from-supernova-of-helium-star">
 <h4>System Resulting from Supernova of Helium Star<a class="headerlink" href="#system-resulting-from-supernova-of-helium-star" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.SN" title="astro_traj.system.System.SN"><code class="xref py py-meth docutils literal"><span class="pre">SN()</span></code></a>
-We utilize <a class="reference external" href="http://iopscience.iop.org/article/10.1086/177974/meta">Kalogera 1996</a> From the documnetation, We use Eq 1, 3, 4, and 34: giving Vr, Apost, epost, and (Vsx,Vsy,Vsz) respectively Also see Fig 1 in that paper for coordinate system.</p>
+<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.SN" title="astro_traj.system.System.SN"><code class="xref py py-meth docutils literal"><span class="pre">SN()</span></code></a></p>
+<p>We utilize <a class="reference external" href="http://iopscience.iop.org/article/10.1086/177974/meta">Kalogera 1996</a> in order to determine the properities of the post supernova binary (such as eccentricity of the system post supernova, additional mass etc.) From the documnetation, We use Eq 1, 3, 4, and 34: giving Vr, Apost, epost, and (Vsx,Vsy,Vsz), respectively. Also see Fig 1 in that paper for coordinate system. After calculating this post super system values we check for whether this system would be expected to result in the successful creation of a binary. We check 4 separate equations detailed in <a class="reference external" href="http://iopscience.iop.org/article/10.1086/429557/meta">Willems et al 2002</a>. Specifically, we use eq 21, 22, 23, 24, 25, 26 for checks of SN survival:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">SN</span><span class="p">()</span>
+</pre></div>
 </div>
-<div class="section" id="checking-supernova-flags">
-<h4>Checking Supernova Flags<a class="headerlink" href="#checking-supernova-flags" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference external" href="http://iopscience.iop.org/article/10.1086/429557/meta">Willems et al 2002</a>: We use eq 21, 22, 23, 24, 25, 26 for checks of SN survival</p>
+<p>(<a class="reference external" href="../examples/index-8.py">Source code</a>, <a class="reference external" href="../examples/index-8.png">png</a>, <a class="reference external" href="../examples/index-8.hires.png">hires.png</a>, <a class="reference external" href="../examples/index-8.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/index-8.png" src="../_images/index-8.png" />
 </div>
 </div>
-<div class="section" id="evolving-system">
-<h3>Evolving System<a class="headerlink" href="#evolving-system" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="evolving-system-through-galaxy">
+<h3>Evolving System Through Galaxy<a class="headerlink" href="#evolving-system-through-galaxy" title="Permalink to this headline">¶</a></h3>
+<p>In order to forward model successfully created binaries through the galaxy, one must calculate first how long it will take for the merger of the system in order to set the upper bound on the ODE used to evolve the Velocity (and X,Y,Z coordinates) of the system through the galaxy.</p>
 <div class="section" id="time-to-merger-peters-1964">
 <h4>Time to Merger Peters 1964<a class="headerlink" href="#time-to-merger-peters-1964" title="Permalink to this headline">¶</a></h4>
 <p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.setTmerge" title="astro_traj.system.System.setTmerge"><code class="xref py py-meth docutils literal"><span class="pre">setTmerge()</span></code></a>
-Checked against <a class="reference external" href="https://doi.org/10.1103/PhysRev.136.B1224">Peters 1964</a></p>
+Checked against <a class="reference external" href="https://doi.org/10.1103/PhysRev.136.B1224">Peters 1964</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># set merger time for trajectory integration, specify Tmin and Tmax in Gyr</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">setTmerge</span><span class="p">(</span><span class="n">Tmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Tmax</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="distance-of-binary-from-center">
 <h4>Distance of Binary From Center<a class="headerlink" href="#distance-of-binary-from-center" title="Permalink to this headline">¶</a></h4>
@@ -607,7 +385,27 @@ Checked against <a class="reference external" href="https://doi.org/10.1103/Phys
 <a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.setXYZ_0" title="astro_traj.system.System.setXYZ_0"><code class="xref py py-meth docutils literal"><span class="pre">setXYZ_0()</span></code></a>
 Next, you randomly select an initial velocity direction <a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.setVxyz_0" title="astro_traj.system.System.setVxyz_0"><code class="xref py py-meth docutils literal"><span class="pre">setVxyz_0()</span></code></a>:
 Then based on Tmerge you solve an ODE and evolve XYZ until merger.
-<a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.doMotion" title="astro_traj.system.System.doMotion"><code class="xref py py-meth docutils literal"><span class="pre">doMotion()</span></code></a></p>
+<a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.doMotion" title="astro_traj.system.System.doMotion"><code class="xref py py-meth docutils literal"><span class="pre">doMotion()</span></code></a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># choose random location on sphere of radius R</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">setXYZ_0</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># choose random direction for circular velocity, and add SN-imparted velocity to get V0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">setVxyz_0</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># integrate trajectory until Tmerge</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">doMotion</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-that-conservation-of-energy-is-obeyed">
+<h4>Check that conservation of energy is obeyed<a class="headerlink" href="#check-that-conservation-of-energy-is-obeyed" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="../api/astro_traj.system.html#astro_traj.system.System.energy_check" title="astro_traj.system.System.energy_check"><code class="xref py py-meth docutils literal"><span class="pre">energy_check()</span></code></a>
+Calculate the initial Energy of the system and the final energy and make sure it is conserved to within some small error (0.001):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># check for energy conservation, and hold onto highest offset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span><span class="o">.</span><span class="n">energy_check</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">T</span><span class="o">.</span><span class="n">dEfrac</span> <span class="o">&gt;</span> <span class="n">dEfrac</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">dEfrac</span> <span class="o">=</span> <span class="n">T</span><span class="o">.</span><span class="n">dEfrac</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="checking-offset">
@@ -675,6 +473,11 @@ Then based on Tmerge you solve an ODE and evolve XYZ until merger.
 </pre></div>
 </div>
 </div>
+<div class="section" id="backward-modeling">
+<h2>Backward Modeling<a class="headerlink" href="#backward-modeling" title="Permalink to this headline">¶</a></h2>
+<p>Backward modeling would be to say let us strt with a system of known quanity (i.e. observed offset and some T merge) and see if we can work backwards and retrieve our initial conditions.
+The assumptions made in the type of systems and the modeling of the velocity of the binary (F=ma), are simple enough that checks in the forward modeling such as conservation of energy are enough to ensure the sanity of the code.</p>
+</div>
 </div>
 
 
@@ -721,7 +524,7 @@ Then based on Tmerge you solve an ODE and evolve XYZ until merger.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.64.gb757523.dirty',
+            VERSION:'0+untagged.67.gab034d3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
