@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import use
 use('agg')
 import matplotlib.pyplot as plt
+font = {'size': 22}
 
 samples = 'posterior_samples.dat'
 Galaxy = constr_dict.galaxy('NGC', samples, 100, 5, 0.73)
@@ -28,4 +29,12 @@ ax5.hist(Mns_dist_posterior, bins=bins)
 ax6.hist(Mns_dist_median, bins=bins)
 ax7.hist(Mns_dist_mean, bins=bins)
 ax8.hist(Mns_dist_gaussian, bins=bins)
+ax1.set_xlabel('Comp Mass: Posterior', fontdict=font)
+ax2.set_xlabel('Comp Mass: Median', fontdict=font)
+ax3.set_xlabel('Comp Mass: Mean', fontdict=font)
+ax4.set_xlabel('Comp Mass: Gaussian', fontdict=font)
+ax5.set_xlabel('NS Mass: Posterior', fontdict=font)
+ax6.set_xlabel('NS Mass: Median', fontdict=font)
+ax7.set_xlabel('NS Mass: Mean', fontdict=font)
+ax8.set_xlabel('NS Mass: Gaussian, fontdict=font')
 plot.show()

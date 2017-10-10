@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import use
 use('agg')
 import matplotlib.pyplot as plt
+font = {'size': 22}
 
 samples = 'posterior_samples.dat'
 Galaxy = constr_dict.galaxy('NGC', samples, 100, 5, 0.73)
@@ -17,4 +18,5 @@ epre_dist_circularized = samp.sample_epre(method='circularized', size=Nsys)
 
 plot, ax1 = plt.subplots(1, sharex=True)
 ax1.hist(epre_dist_circularized, bins=bins)
+ax1.set_xlabel('Eccentricity Pre-Supernova: Circularized', fontdict=font)
 plot.show()

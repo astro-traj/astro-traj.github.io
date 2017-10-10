@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import use
 use('agg')
 import matplotlib.pyplot as plt
+font = {'size': 22}
 
 samples = 'posterior_samples.dat'
 Galaxy = constr_dict.galaxy('NGC', samples, 100, 5, 0.73)
@@ -19,4 +20,6 @@ Apre_dist_uniform = samp.sample_Apre(Amin=0.1, Amax=10.0, method='uniform', size
 plot, (ax1, ax2) = plt.subplots(2, sharex=True, figsize=(18.5, 10.5))
 ax1.hist(Apre_dist_log, bins=bins)
 ax2.hist(Apre_dist_uniform, bins=bins)
+ax1.set_xlabel('Apre: Log', fontdict=font)
+ax2.set_xlabel('Apre: Uniform', fontdict=font)
 plot.show()

@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import use
 use('agg')
 import matplotlib.pyplot as plt
+font = {'size': 22}
 
 samples = 'posterior_samples.dat'
 Galaxy = constr_dict.galaxy('NGC', samples, 100, 5, 0.73)
@@ -18,4 +19,5 @@ R_dist = samp.sample_R(PDFR, Nsys)
 
 plot, ax1 = plt.subplots(1, sharex=True)
 ax1.hist(R_dist, bins=bins)
+ax1.set_xlabel('Initial Off Set from Galactic Center', fontdict=font)
 plot.show()
