@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 font = {'size': 22}
 
 samples = 'posterior_samples.dat'
-Galaxy = constr_dict.galaxy('NGC', samples, 100, 5, 0.73)
-gal = Hernquist_NFW(Galaxy['Mspiral'], Galaxy['Mbulge'], Galaxy['Mhalo'], Galaxy['R_eff'], 0.73, rcut=100)
+Galaxy = constr_dict.galaxy('NGC', samples, 2.8, 5, 0.679)
+gal = Hernquist_NFW(Galaxy['Mspiral'], Galaxy['Mbulge'], Galaxy['Mhalo'], Galaxy['R_eff'], 0.679, rcut=100)
 samp = Sample(gal)
 Nsys = 1000
 bins = int(np.round(np.sqrt(Nsys)))
